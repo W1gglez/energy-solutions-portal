@@ -78,3 +78,81 @@ CREATE TABLE IF NOT EXISTS "equipment" (
 	"carbon_footprint" decimal not null,
 	"notes" varchar
 );
+
+INSERT INTO equipment_type (type) VALUES
+('Oven'),
+('Ice machine'),
+('Cooler'),
+('Freezer'),
+('Food Warmer'),
+('Fan'),
+('Walk In Freezer'),
+('Water Heater'),
+('Lights'),
+('Dishwasher'),
+('Sink'),
+('Toilet'),
+('Doors'),
+('Windows'),
+('Ice Cream machine'),
+('Air Conditioner'),
+('Furnace'),
+('Heat Pump'),
+('Ventilation System'),
+('Thermostat'),
+('Computer'),
+('Printer'),
+('Copier'),
+('Monitor'),
+('Server'),
+('Microwaves'),
+('Blender'),
+('Coffee Maker'),
+('Refrigerator'),
+('Vending Machine'),
+('Point of Sale system'),
+('Cash Register'),
+('Fire Alarm'),
+('Security System'),
+('Solar Panels'),
+('Battery storage'),
+('Sprinklers'),
+('Water Pumps'),
+('Fountains'),
+('Electric Hand Dryers');
+
+
+INSERT INTO equipment_location (location) VALUES
+('Front Entrance'),
+('Rear Entrance'),
+('Bathroom'),
+('Kitchen'),
+('Dining Area'),
+('Office Area'),
+('Break Area'),
+('Roof'),
+('Lobby'),
+('Hallways'),
+('Storage Room'),
+('Mechanical Room'),
+('Server Room'),
+('Pantry'),
+('Bar area'),
+('Dishwashing area'),
+('Outdoor seating');
+
+INSERT INTO energy_category (category) VALUES
+('Electric'),
+('Natural Gas'),
+('Liquid Propane'),
+('Gas Propane'),
+('Water');
+
+INSERT INTO energy_units (unit) VALUES
+('Amps&Volts'),
+('Watts'),
+('Kilowatts'),
+('BTU'),
+('CCF'),
+('Cubic Ft'),
+('Gallons');
