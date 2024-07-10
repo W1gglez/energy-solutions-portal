@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS "energy_units" (
 
 CREATE TABLE IF NOT EXISTS "equipment" (
 	"id" serial primary key,
-	"facility_id" int references "facility" not null,
+	"report_id" int references "reports" not null,
 	"type_id" int references "equipment_type" not null,
 	"brand" varchar,
 	"model_number" varchar,
@@ -71,6 +71,7 @@ CREATE TABLE IF NOT EXISTS "equipment" (
 	"location_id" int references "equipment_location" not null,
 	"category_id" int references "energy_category" not null,
 	"unit_id" int references "energy_units" not null,
+	"unit_value" decimal not null,
 	"hours_used/day" int not null,
 	"energy_usage" decimal not null,
 	"cost_per_day" decimal not null,
@@ -156,3 +157,17 @@ INSERT INTO energy_units (unit) VALUES
 ('CCF'),
 ('Cubic Ft'),
 ('Gallons');
+
+ALTER TABLE "equipment"
+RENAME COLUMN "facility_id" to "report_id"; 
+
+ALTER TABLE "equipment"
+DROP CONSTRAINT equipment_facility_id_fkey;
+
+ALTER TABLE "equipment"
+ADD CONSTRAINT equipment_report_id_fkey FOREIGN KEY (report_id) REFERENCES reports(id);
+
+-- ALTER TABLE equipment ADD  "unit_value" decimal not null;
+
+ALTER TABLE "reports" 
+ADD COLUMN "date_submitted" DATE;
