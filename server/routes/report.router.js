@@ -15,11 +15,12 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
     });
 });
 
-// GET all reports for a single facility
-router.get('/facility', rejectUnauthenticated, (req, res) => {
-  const queryText = `SELECT * FROM "reports" WHERE "facility_id"=$1;`;
+// GET all reports for a single user
+router.get('/', rejectUnauthenticated, (req, res) => {
+  const userId = req.user.id;
+  const queryText = `SELECT reports.* FROM "reports" JOIN "facility" ON "reports"."facility_id" = "facility"."id" WHERE "user_id"=$1;`;
   pool
-    .query(queryText)
+    .query(queryText, [userId])
     .then((result) => res.send(result.rows))
     .catch((error) => {
       console.log('error getting all restaurant reports', error);
@@ -28,8 +29,9 @@ router.get('/facility', rejectUnauthenticated, (req, res) => {
 });
 
 // GET all reports for a single user/restaurant
-router.get('/', rejectUnauthenticated, (req, res) => {
-  const userId = req.user.id;
+router.get('/details/:id', rejectUnauthenticated, (req, res) => {
+  // const userId = req.user.id;
+  const reportId = req.params.id;
   const queryText = `WITH equipment_agg AS (
   SELECT
     e."report_id",
@@ -88,9 +90,9 @@ JOIN "user" ON "user"."id" = "facility"."user_id"
 LEFT JOIN equipment_agg ON "reports"."id" = equipment_agg."report_id"
 LEFT JOIN recommendations_agg ON "reports"."id" = recommendations_agg."report_id"
 WHERE
-  "user_id" = $1;`;
+  "reports"."id" = $1;`;
   pool
-    .query(queryText, [userId])
+    .query(queryText, [reportId])
     .then((result) => res.send(result.rows))
     .catch((error) => {
       console.log('error getting all restaurant reports', error);
@@ -201,8 +203,6 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
       res.sendStatus(500);
     });
 });
-
-// PUT to update reports??
 
 // DELETE report??
 
