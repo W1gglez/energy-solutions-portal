@@ -33,11 +33,11 @@ CREATE TABLE IF NOT EXISTS "energy_cost" (
 CREATE TABLE IF NOT EXISTS "reports" (
 	"id" serial primary key,
 	"facility_id" int references "facility" not null,
+	"date_submitted" DATE not null,
 	"recommendations" text,
 	"current_monthly_cost" decimal not null,
 	"current_carbon_footprint" decimal not null,
-	"proposed_monthly_cost" decimal not null, --May not need, discuss with russel
-	"proposed_carbon_footprint" decimal not null --May not need, discuss with russel
+	"approved" boolean default false
 );
 
 CREATE TABLE IF NOT EXISTS "equipment_type" (
@@ -63,6 +63,7 @@ CREATE TABLE IF NOT EXISTS "energy_units" (
 CREATE TABLE IF NOT EXISTS "equipment" (
 	"id" serial primary key,
 	"report_id" int references "reports" not null,
+	"description" varchar,
 	"type_id" int references "equipment_type" not null,
 	"brand" varchar,
 	"model_number" varchar,
@@ -70,15 +71,24 @@ CREATE TABLE IF NOT EXISTS "equipment" (
 	"quantity" int not null,
 	"location_id" int references "equipment_location" not null,
 	"category_id" int references "energy_category" not null,
-	"unit_id" int references "energy_units" not null,
-	"unit_value" decimal not null,
+	"amps" decimal,
+	"volts" int,
+	"kW" decimal,
+	"btu" int,
 	"hours_used/day" int not null,
-	"energy_usage" decimal not null,
+	"energy_usage" decimal not null, -- in kWh
 	"cost_per_day" decimal not null,
 	"cost_per_month" decimal not null,
-	"carbon_footprint" decimal not null,
+	"carbon_footprint" decimal not null, --in ton/year
 	"notes" varchar
 );
+
+CREATE TABLE IF NOT EXISTS "recommendations"(
+"id" serial primary key,
+"report_id" int references "reports" not null,
+"recommendations" varchar not null
+);
+
 
 INSERT INTO equipment_type (type) VALUES
 ('Oven'),
@@ -91,36 +101,20 @@ INSERT INTO equipment_type (type) VALUES
 ('Water Heater'),
 ('Lights'),
 ('Dishwasher'),
-('Sink'),
-('Toilet'),
-('Doors'),
-('Windows'),
 ('Ice Cream machine'),
 ('Air Conditioner'),
 ('Furnace'),
 ('Heat Pump'),
 ('Ventilation System'),
 ('Thermostat'),
-('Computer'),
-('Printer'),
-('Copier'),
-('Monitor'),
-('Server'),
-('Microwaves'),
-('Blender'),
-('Coffee Maker'),
 ('Refrigerator'),
 ('Vending Machine'),
 ('Point of Sale system'),
-('Cash Register'),
 ('Fire Alarm'),
 ('Security System'),
 ('Solar Panels'),
-('Battery storage'),
-('Sprinklers'),
 ('Water Pumps'),
-('Fountains'),
-('Electric Hand Dryers');
+('Fountains');
 
 
 INSERT INTO equipment_location (location) VALUES
@@ -150,24 +144,9 @@ INSERT INTO energy_category (category) VALUES
 ('Water');
 
 INSERT INTO energy_units (unit) VALUES
-('Amps&Volts'),
-('Watts'),
+('Amps/Volts'),
 ('Kilowatts'),
-('BTU'),
-('CCF'),
-('Cubic Ft'),
-('Gallons');
+('BTUs');
 
-ALTER TABLE "equipment"
-RENAME COLUMN "facility_id" to "report_id"; 
 
-ALTER TABLE "equipment"
-DROP CONSTRAINT equipment_facility_id_fkey;
 
-ALTER TABLE "equipment"
-ADD CONSTRAINT equipment_report_id_fkey FOREIGN KEY (report_id) REFERENCES reports(id);
-
--- ALTER TABLE equipment ADD  "unit_value" decimal not null;
-
-ALTER TABLE "reports" 
-ADD COLUMN "date_submitted" DATE;

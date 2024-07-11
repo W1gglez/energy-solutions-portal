@@ -5,7 +5,7 @@ const {
     rejectUnauthenticated,
   } = require('../modules/authentication-middleware');
 
-//GET route to get all facilities
+//GET route to get all facilities (Admin Page)
 router.get ('/all', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * FROM "facility";`;
     pool.query(queryText)
