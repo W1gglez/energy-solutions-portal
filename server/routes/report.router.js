@@ -75,6 +75,19 @@ recommendations_agg AS (
   FROM
     "recommendations" r
   GROUP BY r."report_id"
+),
+energy_cost_agg AS (
+  SELECT
+    cost."report_id",
+    json_build_object(
+      'electric', cost.electric,
+      'natural_gas', cost.natural_gas,
+      'liquid_propane', cost.liquid_propane,
+      'gas_propane', cost.gas_propane,
+      'heating_oil', cost.heating_oil
+    ) AS energy_cost
+  FROM
+    "energy_cost" cost
 )
 
 SELECT
@@ -82,13 +95,15 @@ SELECT
   "facility"."name",
   "facility"."user_id",
   equipment_agg.equipment,
-  recommendations_agg.recommendations
+  recommendations_agg.recommendations,
+  energy_cost_agg.energy_cost
 FROM
   "reports"
 JOIN "facility" ON "reports"."facility_id" = "facility"."id"
 JOIN "user" ON "user"."id" = "facility"."user_id"
 LEFT JOIN equipment_agg ON "reports"."id" = equipment_agg."report_id"
 LEFT JOIN recommendations_agg ON "reports"."id" = recommendations_agg."report_id"
+LEFT JOIN energy_cost_agg ON "reports"."id" = energy_cost_agg."report_id"
 WHERE
   "reports"."id" = $1;`;
   pool
