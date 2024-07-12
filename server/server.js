@@ -12,6 +12,7 @@ const userRouter = require('./routes/user.router');
 const facilityRouter = require('./routes/facility.router');
 const reportRouter = require('./routes/report.router');
 const equipLocationRouter = require('./routes/equip-location.router');
+const energyUnitRouter = require('./routes/energy-units.router');
 
 // Express Middleware
 app.use(express.json());
@@ -30,6 +31,7 @@ app.use('/api/user', userRouter);
 app.use('/api/facility', facilityRouter);
 app.use('/api/report', reportRouter);
 app.use('/api/equip-location', equipLocationRouter);
+app.use('/api/energy-units', energyUnitRouter);
 
 // Listen Server & Port
 app.listen(PORT, () => {
