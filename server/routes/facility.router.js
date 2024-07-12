@@ -52,6 +52,35 @@ router.post ('/', rejectUnauthenticated, (req, res) => {
 
 });
 
-// PUT router to update facility info
+
+// PUT route to update facility information
+
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+    const facilityId = req.params.id;
+    const facility = req.body;
+    const queryText = `UPDATE "facility" SET "name" = $1, "address" = $2, "state" = $3, "zip" = $4, "years_in_business" = $5, "building_age" = $6, "hours_of_operation" = $7, "weekly_customers" = $8, "sit_down" = $9 WHERE "id" = $10;`;
+    pool.query(queryText, [facility.name, facility.address, facility.state, facility.zip, facility.years_in_business, facility.building_age, facility.hours_of_operation, facility.weekly_customers, facility.sit_down, facilityId])
+        .then(() => {
+            res.sendStatus(200);
+        })
+        .catch((error) => {
+            console.log('Error in PUT facility', error);
+            res.sendStatus(500);
+        });
+});
+
+// DELETE route to delete a facility
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+    const facilityId = req.params.id;
+    const queryText = `DELETE FROM "facility" WHERE "id" = $1;`;
+    pool.query(queryText, [facilityId])
+        .then(() => {
+            res.sendStatus(200);
+        })
+        .catch((error) => {
+            console.log('Error in DELETE facility', error);
+            res.sendStatus(500);
+        });
+});
 
 module.exports = router;
