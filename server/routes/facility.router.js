@@ -52,4 +52,6 @@ router.post ('/', rejectUnauthenticated, (req, res) => {
 
 });
 
+// PUT router to update facility info
+
 module.exports = router;
