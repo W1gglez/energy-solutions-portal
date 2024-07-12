@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS "user" (
 
 CREATE TABLE IF NOT EXISTS "facility" (
 	"id" serial primary key,
-	"user_id" int references "user" not null,
+	"user_id" int references "user" ON DELETE CASCADE,
 	"name" varchar not null,
 	"address" varchar not null,
 	"state" varchar not null,
@@ -20,24 +20,16 @@ CREATE TABLE IF NOT EXISTS "facility" (
 	"sit_down" boolean default true
 );
 	
-CREATE TABLE IF NOT EXISTS "energy_cost" (
-	"id" serial primary key,
-	"facility_id" int references "facility" not null,
-	"electric" decimal not null,
-	"natural_gas" decimal not null,
-	"liquid_propane" decimal not null,
-	"gas_propane" decimal not null,
-	"heating_oil" decimal not null
-);
+
 
 CREATE TABLE IF NOT EXISTS "reports" (
 	"id" serial primary key,
-	"facility_id" int references "facility" not null,
+	"facility_id" int references "facility" ON DELETE CASCADE,
 	"date_submitted" DATE not null,
-	"recommendations" text,
 	"current_monthly_cost" decimal not null,
 	"current_carbon_footprint" decimal not null,
-	"approved" boolean default false
+	"approved" boolean default false,
+	"notes" varchar
 );
 
 CREATE TABLE IF NOT EXISTS "equipment_type" (
@@ -60,9 +52,19 @@ CREATE TABLE IF NOT EXISTS "energy_units" (
 	"unit" varchar not null
 );
 
+CREATE TABLE IF NOT EXISTS "energy_cost" (
+	"id" serial primary key,
+	"report_id" int references "reports" ON DELETE CASCADE,
+	"electric" decimal not null,
+	"natural_gas" decimal not null,
+	"liquid_propane" decimal not null,
+	"gas_propane" decimal not null,
+	"heating_oil" decimal not null
+);
+
 CREATE TABLE IF NOT EXISTS "equipment" (
 	"id" serial primary key,
-	"report_id" int references "reports" not null,
+	"report_id" int references "reports" ON DELETE CASCADE,
 	"description" varchar,
 	"type_id" int references "equipment_type" not null,
 	"brand" varchar,
@@ -85,7 +87,7 @@ CREATE TABLE IF NOT EXISTS "equipment" (
 
 CREATE TABLE IF NOT EXISTS "recommendations"(
 "id" serial primary key,
-"report_id" int references "reports" not null,
+"report_id" int references "reports" ON DELETE CASCADE,
 "recommendations" varchar not null
 );
 
