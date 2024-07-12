@@ -11,6 +11,9 @@ const passport = require('./strategies/user.strategy');
 const userRouter = require('./routes/user.router');
 const facilityRouter = require('./routes/facility.router');
 const reportRouter = require('./routes/report.router');
+const equipLocationRouter = require('./routes/equip-location.router');
+const energyUnitRouter = require('./routes/energy-units.router');
+const energyCatRouter = require('./routes/energy-category.router');
 
 // Express Middleware
 app.use(express.json());
@@ -28,6 +31,9 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/api/facility', facilityRouter);
 app.use('/api/report', reportRouter);
+app.use('/api/equip-location', equipLocationRouter);
+app.use('/api/energy-units', energyUnitRouter);
+app.use('/api/energy-categorys', energyCatRouter);
 
 // Listen Server & Port
 app.listen(PORT, () => {

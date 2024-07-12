@@ -75,6 +75,19 @@ recommendations_agg AS (
   FROM
     "recommendations" r
   GROUP BY r."report_id"
+),
+energy_cost_agg AS (
+  SELECT
+    cost."report_id",
+    json_build_object(
+      'electric', cost.electric,
+      'natural_gas', cost.natural_gas,
+      'liquid_propane', cost.liquid_propane,
+      'gas_propane', cost.gas_propane,
+      'heating_oil', cost.heating_oil
+    ) AS energy_cost
+  FROM
+    "energy_cost" cost
 )
 
 SELECT
@@ -82,13 +95,15 @@ SELECT
   "facility"."name",
   "facility"."user_id",
   equipment_agg.equipment,
-  recommendations_agg.recommendations
+  recommendations_agg.recommendations,
+  energy_cost_agg.energy_cost
 FROM
   "reports"
 JOIN "facility" ON "reports"."facility_id" = "facility"."id"
 JOIN "user" ON "user"."id" = "facility"."user_id"
 LEFT JOIN equipment_agg ON "reports"."id" = equipment_agg."report_id"
 LEFT JOIN recommendations_agg ON "reports"."id" = recommendations_agg."report_id"
+LEFT JOIN energy_cost_agg ON "reports"."id" = energy_cost_agg."report_id"
 WHERE
   "reports"."id" = $1;`;
   pool
@@ -114,7 +129,31 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
     .then((result) => {
       // res.sendStatus(201);
       const reportId = result.rows[0].id;
-      const { equipment, recommendations } = req.body;
+      const { equipment, recommendations, energyCosts } = req.body;
+      const { electric, naturalGas, liquidPropane, gasPropane, heatingOil } =
+        energyCosts;
+      const query = `Insert INTO energy_cost (
+      "report_id",
+      "electric",
+      "natural_gas",
+      "liquid_propane",
+      "gas_propane",
+      "heating_oil") VALUES ($1, $2, $3, $4, $5, $6)`;
+      pool
+        .query(query, [
+          reportId,
+          electric,
+          naturalGas,
+          liquidPropane || null,
+          gasPropane || null,
+          heatingOil || null,
+        ])
+        .then()
+        .catch((err) => {
+          console.error('Error POSTing energy costs', err);
+          res.sendStatus(500);
+        });
+
       recommendations.forEach((item) => {
         const query = `INSERT INTO "recommendations" ("report_id", "recommendations") VALUES ($1, $2);`;
         pool
@@ -125,6 +164,7 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
             res.sendStatus(500);
           });
       });
+
       equipment.map((item) => {
         const {
           description,
@@ -205,5 +245,16 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
 });
 
 // DELETE report??
+router.delete('/:id', rejectUnauthenticated, async (req, res) => {
+  try {
+    const query = `DELETE FROM reports WHERE id=$1`;
+    await pool.query(query, [req.params.id]);
+    res.sendStatus(200);
+  } catch (err) {
+    console.error(`Error processing DELETE  report /${req.params.id}:`, err);
+    res.sendStatus(500);
+  }
+});
+
 
 module.exports = router;
