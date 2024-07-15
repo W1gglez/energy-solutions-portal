@@ -8,6 +8,7 @@ function HomePage() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_REPORTS' });
+    dispatch({ type: 'FETCH_FACILITIES' });
   }, []);
   return (
     <div>

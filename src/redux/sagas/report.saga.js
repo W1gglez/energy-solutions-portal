@@ -34,9 +34,10 @@ function* deleteReport(action) {
   }
 }
 
+// export
 function* reportSaga() {
   yield takeLatest('FETCH_REPORTS', fetchReports);
-  yield takeLatest('ADD REPORT', addReport);
+  yield takeLatest('ADD_REPORT', addReport);
   yield takeLatest('DELETE_REPORT', deleteReport);
 }
 
