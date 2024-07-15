@@ -75,6 +75,7 @@ CREATE TABLE IF NOT EXISTS "equipment" (
 	"category_id" int references "energy_category" not null,
 	"amps" decimal,
 	"volts" int,
+	"watts" int, 
 	"kW" decimal,
 	"btu" int,
 	"hours_used/day" int not null,
@@ -103,20 +104,23 @@ INSERT INTO equipment_type (type) VALUES
 ('Water Heater'),
 ('Lights'),
 ('Dishwasher'),
+('Boiler system'),
+('Rooftop Unit'),
 ('Ice Cream machine'),
 ('Air Conditioner'),
 ('Furnace'),
 ('Heat Pump'),
 ('Ventilation System'),
 ('Thermostat'),
+('TVs'),
+('Server'),
+('Coffee Maker'),
 ('Refrigerator'),
 ('Vending Machine'),
-('Point of Sale system'),
-('Fire Alarm'),
-('Security System'),
 ('Solar Panels'),
 ('Water Pumps'),
-('Fountains');
+('Electric Hand Dryers');
+
 
 
 INSERT INTO equipment_location (location) VALUES
@@ -147,6 +151,7 @@ INSERT INTO energy_category (category) VALUES
 
 INSERT INTO energy_units (unit) VALUES
 ('Amps/Volts'),
+('Watts'),
 ('Kilowatts'),
 ('BTUs');
 

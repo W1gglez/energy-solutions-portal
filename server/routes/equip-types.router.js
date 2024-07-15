@@ -1,10 +1,12 @@
 const express = require('express');
 const pool = require('../modules/pool');
-const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+const {
+  rejectUnauthenticated,
+} = require('../modules/authentication-middleware');
 const router = express.Router();
 
 router.get('/', rejectUnauthenticated, (req, res) => {
-  const queryText = `SELECT * FROM "equipment_location";`;
+  const queryText = `SELECT * FROM "equipment_type";`;
   pool
     .query(queryText)
     .then((result) => {
@@ -17,11 +19,11 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 router.post('/', rejectUnauthenticated, (req, res) => {
-  const queryText = `INSERT INTO "equipment_location" ("location") VALUES ($1);`;
+  const queryText = `INSERT INTO "equipment_type" ("type") VALUES ($1);`;
   pool
-    .query(queryText, [req.body.location])
-    .then((result) => {
-      res.send(result.rows[0]);
+    .query(queryText, [req.body.type])
+    .then(() => {
+      res.sendStatus(201);
     })
     .catch((error) => {
       console.log('error POSTing new equipment location', error);
@@ -31,8 +33,8 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 
 router.put('/:id', rejectUnauthenticated, (req, res) => {
   const queryText = `
-    UPDATE "equipment_location" 
-    SET "location" = $1
+    UPDATE "equipment_type" 
+    SET "type" = $1
     WHERE "id" = $2`;
   const values = [req.body.location, req.params.id];
   pool
@@ -47,14 +49,14 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
 });
 
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
-  const locationId = req.params.id;
+  const typeId = req.params.id;
   const queryText = `
-    DELETE from "equipment_location" 
-    WHERE "equipment_location"."id"=$1;`;
+    DELETE from "equipment_type" 
+    WHERE "id"=$1;`;
   pool
-    .query(queryText, [locationId])
+    .query(queryText, [typeId])
     .then(() => {
-      res.sendStatus(201);
+      res.sendStatus(200);
     })
     .catch((error) => {
       console.log('error deleting equipment location', error);
