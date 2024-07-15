@@ -45,12 +45,23 @@ function* deleteFacility(action) {
   }
 }
 
+//saga to update a facility
+function* updateFacility(action) {
+  try {
+    yield axios.put(`/api/facility/${action.payload.id}`, action.payload);
+    yield put({ type: 'FETCH_FACILITIES' });
+  } catch (error) {
+    console.log('error updating facility', error);
+  }
+}
+
 // export
 function* facilitySaga() {
   yield takeLatest('FETCH_FACILITIES', fetchFacilities);
   yield takeLatest('FETCH_USER_FACILITIES', fetchUserFacilities);
   yield takeLatest('ADD_FACILITY', addFacility);
   yield takeLatest('DELETE_FACILITY', deleteFacility);
+  yield takeLatest('UPDATE_FACILITY', updateFacility);
 }
 
 export default facilitySaga;
