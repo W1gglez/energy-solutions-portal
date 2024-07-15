@@ -4,9 +4,20 @@ import { takeLatest, put } from 'redux-saga/effects';
 // saga to get all facilities
 function* fetchFacilities() {
   try {
+    const facilityResponse = yield axios.get('/api/facility/all');
+    yield put({ type: 'SET_FACILITIES', payload: facilityResponse.data });
+    console.log('check fetchFacilities', facilityResponse.data);
+  } catch (error) {
+    console.log('error fetching facilities', error);
+  }
+}
+
+// saga to get all facilities for user
+function* fetchUserFacilities() {
+  try {
     const facilityResponse = yield axios.get('/api/facility');
     yield put({ type: 'SET_FACILITIES', payload: facilityResponse.data });
-    console.log('check facilityResponse.data', facilityResponse.data);
+    console.log('check fetchUserFacilities', facilityResponse.data);
   } catch (error) {
     console.log('error fetching facilities', error);
   }
@@ -37,6 +48,7 @@ function* deleteFacility(action) {
 // export
 function* facilitySaga() {
   yield takeLatest('FETCH_FACILITIES', fetchFacilities);
+  yield takeLatest('FETCH_USER_FACILITIES', fetchUserFacilities);
   yield takeLatest('ADD_FACILITY', addFacility);
   yield takeLatest('DELETE_FACILITY', deleteFacility);
 }

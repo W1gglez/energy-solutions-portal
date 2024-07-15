@@ -7,8 +7,8 @@ function HomePage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_REPORTS' });
-    dispatch({ type: 'FETCH_FACILITIES' });
+    dispatch({ type: 'FETCH_USER_REPORTS' });
+    dispatch({ type: 'FETCH_USER_FACILITIES' });
   }, []);
   return (
     <div>
