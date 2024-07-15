@@ -6,6 +6,7 @@ import responses from './assessment.reducer';
 import categories from './categories.reducer';
 import locations from './locations.reducer';
 import equipmentTypes from './equip_type.reducer';
+import energyUnits from './energy_units.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   categories,
   locations,
   equipmentTypes,
+  energyUnits,
 });
 
 export default rootReducer;

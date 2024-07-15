@@ -6,6 +6,7 @@ import reportSaga from './report.saga';
 import categoriesSaga from './categories.saga';
 import locationsSaga from './locations.saga';
 import typesSaga from './equipment_type.saga';
+import energyUnitsSaga from './energy_units.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -23,5 +24,6 @@ export default function* rootSaga() {
     categoriesSaga(),
     locationsSaga(),
     typesSaga(),
+    energyUnitsSaga(),
   ]);
 }

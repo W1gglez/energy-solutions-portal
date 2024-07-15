@@ -31,6 +31,7 @@ function App() {
     dispatch({ type: 'FETCH_CATEGORIES' });
     dispatch({ type: 'FETCH_LOCATIONS' });
     dispatch({ type: 'FETCH_TYPES' });
+    dispatch({ type: 'FETCH_UNITS' });
   }, [dispatch]);
 
   return (
