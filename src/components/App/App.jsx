@@ -17,6 +17,8 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import HomePage from '../HomePage/HomePage';
 
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import FacilityPage from '../FacilityPage/FacilityPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -89,6 +91,9 @@ function App() {
               <RegisterPage />
             )}
           </Route>
+          <ProtectedRoute exact path='/facilities'>
+            <FacilityPage />
+          </ProtectedRoute>
 
           <Route exact path='/home'>
             {user.id ? (
