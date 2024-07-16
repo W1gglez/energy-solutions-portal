@@ -8,7 +8,14 @@ export default function Q1() {
   const history = useHistory();
   const dispatch = useDispatch();
   const responses = useSelector((store) => store.responses);
-  const [selectedValue, setSelectedValue] = useState(responses.Q1 || false);
+  const [selectedValue, setSelectedValue] = useState(
+    responses.Rush_of_air || false
+  );
+
+  const handleExit = () => {
+    history.push('/');
+    dispatch({ type: 'CLEAR_RESPONSES' });
+  };
 
   const handleChange = (e) => {
     setSelectedValue(e.target.value);
@@ -26,7 +33,7 @@ export default function Q1() {
   return (
     <Container sx={{ height: '75vh', alignContent: 'center' }}>
       <Button
-        onClick={() => history.push('/')}
+        onClick={() => handleExit}
         sx={{ position: 'absolute', top: '10%', left: '8%' }}
       >
         Exit Assessment
@@ -66,6 +73,9 @@ export default function Q1() {
             <Radio
               label='No'
               value={false}
+              sx={{
+                fontSize: '24px',
+              }}
             />
           </RadioGroup>
         </Grid>

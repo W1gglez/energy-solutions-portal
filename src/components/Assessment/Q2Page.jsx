@@ -12,12 +12,8 @@ export default function Q2() {
   const [entryHeater, setEntryHeater] = useState(
     responses.entry_heater || false
   );
-  const [isRunning, setIsRunning] = useState(responses.isRunning);
-  const heaterDetails = {};
-
-  const handleChange = (e) => {
-    setEntryHeater(e.target.value);
-  };
+  const [isRunning, setIsRunning] = useState(responses.isRunning || false);
+  const [open, setOpen] = useState(false);
 
   const recordResponse = () => {
     console.log(selectedValue);
@@ -28,7 +24,7 @@ export default function Q2() {
         isRunning,
       }),
     });
-    // history.push('/assessment/q2');
+    // history.push('/assessment/q3');
   };
 
   return (
@@ -59,9 +55,11 @@ export default function Q2() {
             sx={{
               gap: 24,
               justifyContent: 'center',
-              ':checked': { backgroundColor: 'red' },
             }}
-            onChange={handleChange}
+            onChange={(e) => {
+              setEntryHeater(e.target.value);
+              setOpen(e.target.value);
+            }}
           >
             <Radio
               sx={{
@@ -72,6 +70,9 @@ export default function Q2() {
             />
 
             <Radio
+              sx={{
+                fontSize: '24px',
+              }}
               label='No'
               value={false}
             />
@@ -79,9 +80,45 @@ export default function Q2() {
         </Grid>
         {entryHeater === 'true' && (
           <>
-            <EquipmentForm />
-            <Grid>
-              <Typography>Is it running?</Typography>
+            <EquipmentForm
+              open={open}
+              setOpen={setOpen}
+            />
+            <Grid xs={12}>
+              <Typography
+                sx={{ textAlign: 'center' }}
+                level='h4'
+              >
+                Is the heater running?
+              </Typography>
+            </Grid>
+            <Grid xs={12}>
+              <RadioGroup
+                defaultValue={false}
+                value={isRunning}
+                orientation='horizontal'
+                sx={{
+                  gap: 24,
+                  justifyContent: 'center',
+                }}
+                onChange={(e) => setIsRunning(e.target.value)}
+              >
+                <Radio
+                  sx={{
+                    fontSize: '24px',
+                  }}
+                  label='Yes'
+                  value={true}
+                />
+
+                <Radio
+                  sx={{
+                    fontSize: '24px',
+                  }}
+                  label='No'
+                  value={false}
+                />
+              </RadioGroup>
             </Grid>
           </>
         )}

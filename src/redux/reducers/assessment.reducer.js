@@ -4,7 +4,7 @@ const responseReducer = (state = {}, action) => {
     case 'SET_RESPONSES':
       return action.payload;
     case 'CLEAR_RESPONSES':
-      return [];
+      return {};
     default:
       return state;
   }
