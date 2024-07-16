@@ -8,6 +8,14 @@ import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
 // import IconButton from '@mui/joy/IconButton';
 import Button from '@mui/joy/Button';
+import DialogTitle from '@mui/joy/DialogTitle';
+import DialogContent from '@mui/joy/DialogContent';
+import DialogActions from '@mui/joy/DialogActions';
+import Modal from '@mui/joy/Modal';
+import ModalDialog from '@mui/joy/ModalDialog';
+import DeleteForever from '@mui/icons-material/DeleteForever';
+import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
+import Divider from '@mui/joy/Divider';
 
 function HomePage() {
   const reports = useSelector((store) => store.reports);
@@ -26,9 +34,12 @@ function HomePage() {
     dispatch({ type: 'FETCH_COST' });
   }, []);
 
+  const [open, setOpen] = React.useState(false);
+
   const deleteFacility = (facilityId) => {
     console.log('delete facility was clicked, check id', facilityId);
     dispatch({ type: 'DELETE_FACILITY', payload: facilityId });
+    setOpen(false);
   };
 
   return (
@@ -71,7 +82,7 @@ function HomePage() {
               {reports.map((report) => (
                 <tr key={report.id}>
                   <td>{DateTime.fromISO(report.date_submitted).toFormat('MMMM dd, yyyy')}</td>
-                  <td>{report.facility_id}</td>
+                  <td>{report.name}</td>
                   {report.approved ? <td>View Report</td> : <td>In Review</td>}
                 </tr>
               ))}
@@ -87,7 +98,7 @@ function HomePage() {
                 <th style={{ width: '25%' }}>Facility</th>
                 <th>Address</th>
                 <th>State</th>
-                <th>Delete Facility</th> {/* Add an alert confirming delete */}
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -97,7 +108,34 @@ function HomePage() {
                   <td>{facility.address}</td>
                   <td>{facility.state}</td>
                   <td>
-                    <Button onClick={() => deleteFacility(facility.id)}>Delete</Button>
+                    <Button
+                      variant='outlined'
+                      color='danger'
+                      endDecorator={<DeleteForever />}
+                      onClick={() => setOpen(true)}
+                    >
+                      Delete
+                    </Button>
+                    <Modal open={open} onClose={() => setOpen(false)}>
+                      <ModalDialog variant='outlined' role='alertdialog'>
+                        <DialogTitle>
+                          <WarningRoundedIcon />
+                          Confirmation
+                        </DialogTitle>
+                        <Divider />
+                        <DialogContent>
+                          Are you sure you want to delete this facility? This will delete all corresponding reports.
+                        </DialogContent>
+                        <DialogActions>
+                          <Button variant='solid' color='danger' onClick={() => deleteFacility(facility.id)}>
+                            Delete Facility
+                          </Button>
+                          <Button variant='plain' color='neutral' onClick={() => setOpen(false)}>
+                            Cancel
+                          </Button>
+                        </DialogActions>
+                      </ModalDialog>
+                    </Modal>
                   </td>
                 </tr>
               ))}
