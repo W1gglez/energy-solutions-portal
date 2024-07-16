@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Modal from '@mui/joy/Modal';
 
 function EnergyCostForm() {
 	const [energyCost, setEnergyCost] = useState({
@@ -51,7 +52,7 @@ function EnergyCostForm() {
 
 	return (
 		<>
-			<h2>Monthly Energy Costs</h2>
+			<h3>Add Energy Costs</h3>
 			<Form onSubmit={handleSubmit}>
 				<Form.Group className='mb-3'>
 					<Form.Control
