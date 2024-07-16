@@ -16,7 +16,7 @@ function* fetchEnergyCosts() {
 //saga to get all energy costs for for a report
 function* fetchReportEnergyCosts(action) {
     try {
-        const energyCostResponse = yield axios.get(`/api/energy-cost/${action.payload}`);
+        const energyCostResponse = yield axios.get(`/api/energy-cost/${action.payload.report_id}`);
         yield put({ type: 'SET_ENERGY_COSTS', payload: energyCostResponse.data });
         console.log('check fetchReportEnergyCosts', energyCostResponse.data);
     } catch (error) {

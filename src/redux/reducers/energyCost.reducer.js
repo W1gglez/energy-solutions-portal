@@ -1,4 +1,4 @@
-const energyCostReducer = (state = [], action) => {
+const energyCostReducer = (state = [{}], action) => {
     switch (action.type) {
       case 'SET_ENERGY_COSTS':
         return action.payload;
