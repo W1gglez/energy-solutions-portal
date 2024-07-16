@@ -21,7 +21,7 @@ router.get ('/all', rejectUnauthenticated, (req, res) => {
 //GET route to get all energy costs per facility
 router.get ('/:id', rejectUnauthenticated, (req, res) => {
 const facilityId = req.params.id;
-const queryText = `SELECT * FROM "energy_cost" WHERE "facility_id" = $1;`;
+const queryText = `SELECT * FROM "energy_cost" WHERE "report_id" = $1;`;
 pool.query(queryText, [facilityId])
     .then((result) => {
         res.send(result.rows);
@@ -34,7 +34,7 @@ pool.query(queryText, [facilityId])
 
 router.post ('/', rejectUnauthenticated, (req, res) => {
     const facility = req.body;
-    const queryText = `INSERT INTO "energy_cost" ("facility_id", "electric", "natural_gas", "liquid_propane", "gas_propane", "heating_oil")
+    const queryText = `INSERT INTO "energy_cost" ("report_id", "electric", "natural_gas", "liquid_propane", "gas_propane", "heating_oil")
     VALUES ($1, $2, $3, $4, $5, $6);`;
     pool.query(queryText, [facility.facility_id, facility.electric, facility.natural_gas, facility.liquid_propane, facility.gas_propane, facility.heating_oil])
         .then(() => {

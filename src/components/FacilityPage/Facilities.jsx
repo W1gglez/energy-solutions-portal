@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import axios from 'axios';
+import ('./Facilities.css');
 
 function Facilities() {
     const [editRowId, setEditRowId] = useState(null);
@@ -46,6 +46,7 @@ function Facilities() {
     return (
         <>
             <h2>Facility Information</h2>
+            <div className="table-responsive">
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -76,7 +77,7 @@ function Facilities() {
                     <td><input type='text' name='weekly_customers' value={editFormData.weekly_customers} onChange={handleChange} /></td>
                     <td><input type='text' name='sit_down' value={editFormData.sit_down} onChange={handleChange} /></td> 
                     <td>
-                        <Button onClick={() => handleSaveClick()}>Submit Changes</Button> 
+                        <Button onClick={() => handleSaveClick()}>Confirm</Button> 
                         <Button onClick={handleCancelClick}>Cancel</Button> 
                     </td>
                 </>
@@ -92,8 +93,8 @@ function Facilities() {
                     <td>{facility.weekly_customers}</td>
                     <td>{facility.sit_down ? 'Yes' : 'No'}</td>
                     <td>
-                        <Button onClick={() => handleEditClick(facility)}>Edit</Button>
-                        <Button onClick={() => handleDeleteClick(facility)}>Delete</Button>
+                        <Button variant='secondary' onClick={() => handleEditClick(facility)}>Edit</Button>
+                        <Button variant='danger' onClick={() => handleDeleteClick(facility)}>Delete</Button>
                     </td>
                 </>
             )}
@@ -101,6 +102,7 @@ function Facilities() {
     ))}
 </tbody>
             </Table>
+            </div>
         </>
     );
 }
