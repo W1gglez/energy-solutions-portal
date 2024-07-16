@@ -28,6 +28,23 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     });
 });
 
+// GET carbon footprint for all of users facilities
+router.get('/carbon-footprint', rejectUnauthenticated, (req, res) => {
+  const userId = req.user.id;
+  const queryText = `SELECT SUM(current_monthly_cost)
+FROM "reports"
+JOIN "facility" 
+ON "reports"."facility_id" = "facility"."id" 
+WHERE "user_id"=$1;`;
+  pool
+    .query(queryText, [userId])
+    .then((result) => res.send(result.rows))
+    .catch((error) => {
+      console.log('error getting total carbon footprint', error);
+      res.sendStatus(500);
+    });
+});
+
 // GET all reports for a single user/restaurant
 router.get('/details/:id', rejectUnauthenticated, (req, res) => {
   // const userId = req.user.id;
@@ -130,8 +147,7 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
       // res.sendStatus(201);
       const reportId = result.rows[0].id;
       const { equipment, recommendations, energyCosts } = req.body;
-      const { electric, naturalGas, liquidPropane, gasPropane, heatingOil } =
-        energyCosts;
+      const { electric, naturalGas, liquidPropane, gasPropane, heatingOil } = energyCosts;
       const query = `Insert INTO energy_cost (
       "report_id",
       "electric",
@@ -140,14 +156,7 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
       "gas_propane",
       "heating_oil") VALUES ($1, $2, $3, $4, $5, $6)`;
       pool
-        .query(query, [
-          reportId,
-          electric,
-          naturalGas,
-          liquidPropane || null,
-          gasPropane || null,
-          heatingOil || null,
-        ])
+        .query(query, [reportId, electric, naturalGas, liquidPropane || null, gasPropane || null, heatingOil || null])
         .then()
         .catch((err) => {
           console.error('Error POSTing energy costs', err);
@@ -255,6 +264,5 @@ router.delete('/:id', rejectUnauthenticated, async (req, res) => {
     res.sendStatus(500);
   }
 });
-
 
 module.exports = router;

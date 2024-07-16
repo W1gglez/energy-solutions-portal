@@ -23,6 +23,17 @@ function* fetchUserReports() {
   }
 }
 
+// saga to get carbon footprint for users facilities
+function* fetchCarbonFootprint() {
+  try {
+    const carbonResponse = yield axios.get('/api/report/carbon-footprint');
+    yield put({ type: 'SET_CARBON', payload: carbonResponse.data });
+    console.log('check fetchCarbonFootprint', carbonResponse.data);
+  } catch (error) {
+    console.log('error fetching carbon footprint', error);
+  }
+}
+
 // saga to add a new report
 function* addReport(action) {
   try {
@@ -49,6 +60,7 @@ function* deleteReport(action) {
 function* reportSaga() {
   yield takeLatest('FETCH_REPORTS', fetchReports);
   yield takeLatest('FETCH_USER_REPORTS', fetchUserReports);
+  yield takeLatest('FETCH_CARBON', fetchCarbonFootprint);
   yield takeLatest('ADD_REPORT', addReport);
   yield takeLatest('DELETE_REPORT', deleteReport);
 }

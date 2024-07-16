@@ -6,6 +6,9 @@
     "node": ">=18.x"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/joy": "^5.0.0-beta.48",
     "axios": "^1.6.8",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.3",
@@ -13,6 +16,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
+    "luxon": "^3.4.4",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "pg": "^8.5.1",
