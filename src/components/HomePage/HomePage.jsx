@@ -11,11 +11,12 @@ import Button from '@mui/joy/Button';
 
 function HomePage() {
   const reports = useSelector((store) => store.reports);
+  console.log('reports', reports);
   const facilities = useSelector((store) => store.facilities);
-  // console.log('check facilities', facilities);
+  console.log('facilities', facilities);
   const carbonTotal = useSelector((store) => store.carbon);
   const energyCost = useSelector((store) => store.cost);
-  console.log('check cost', energyCost);
+  console.log('cost', energyCost);
 
   const dispatch = useDispatch();
 
@@ -47,11 +48,11 @@ function HomePage() {
             <CardContent>
               <Typography level='title-md'>Total carbon footprint: </Typography>
               {carbonTotal.map((carbon) => (
-                <p>{carbon.sum}</p>
+                <p>{carbon.sum} tons/year</p>
               ))}
               <Typography>Total energy cost: </Typography>
               {energyCost.map((cost) => (
-                <p>${cost.sum}</p>
+                <p>${cost.sum}/year</p>
               ))}
             </CardContent>
           </Card>
@@ -71,7 +72,7 @@ function HomePage() {
               {reports.map((report) => (
                 <tr key={report.id}>
                   <td>{DateTime.fromISO(report.date_submitted).toFormat('MMMM dd, yyyy')}</td>
-                  <td>{report.facility_id}</td>
+                  <td>{report.name}</td>
                   {report.approved ? <td>View Report</td> : <td>In Review</td>}
                 </tr>
               ))}
