@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { Modal, Box, Typography, TextField, Button, Input, Select, FormControl, FormLabel, Option } from '@mui/joy';
 
 function FacilityForm() {
 	const [facilityInfo, setFacilityInfo] = useState({
@@ -15,8 +14,9 @@ function FacilityForm() {
 		facilityNumberOfGuests: '',
 		facilitySitDownRestaurant: '',
 	});
-	const [isExpanded, setIsExpanded] = useState(false);
+	const [open, setOpen] = useState(false);
 	const dispatch = useDispatch();
+	const [option, setOption] = useState('');
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -25,6 +25,14 @@ function FacilityForm() {
 			[name]: value,
 		}));
 	};
+
+	// const handleOptions = (e) => {
+	// 	const { name, value } = e.target;
+	// 	setFacilityInfo((prevState) => ({
+	// 		...prevState,
+	// 		[name]: value,
+	// 	}));
+	// };
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -53,120 +61,158 @@ function FacilityForm() {
 				facilityNumberOfGuests: '',
 				facilitySitDownRestaurant: '',
 			});
+			setOpen(false);
 		} catch (error) {
 			console.error('Error updating Facility', error);
 			alert('Error updating Facility');
 		}
 	};
 
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
 	return (
 		<>
-			<div>
-				<Button onClick={() => setIsExpanded(!isExpanded)}>
-					{isExpanded ? 'Collapse Input' : 'Enter New Facility'}
-				</Button>
-				{isExpanded && (
-					<div>
-						<Form onSubmit={handleSubmit}>
-							<Form.Group className='mb-3'>
-								<Form.Control
-									type='text'
-									placeholder='Facility Name'
-									name='facilityName'
-									value={facilityInfo.facilityName}
-									onChange={handleChange}
-									required
-								/>
-							</Form.Group>
-							<Form.Group className='mb-3'>
-								<Form.Control
-									type='text'
-									placeholder='Facility Address'
-									name='facilityAddress'
-									value={facilityInfo.facilityAddress}
-									onChange={handleChange}
-									required
-								/>
-							</Form.Group>
-							<Form.Group className='mb-3'>
-								<Form.Control
-									type='text'
-									placeholder='Facility State'
-									name='facilityState'
-									value={facilityInfo.facilityState}
-									onChange={handleChange}
-									required
-								/>
-							</Form.Group>
-							<Form.Group className='mb-3'>
-								<Form.Control
-									type='text'
-									placeholder='Facility Zip'
-									name='facilityZip'
-									value={facilityInfo.facilityZip}
-									onChange={handleChange}
-									required
-								/>
-							</Form.Group>
-							<Form.Group className='mb-3'>
-								<Form.Control
-									type='text'
-									placeholder='Facility Years In Business'
-									name='facilityYearsInBusiness'
-									value={facilityInfo.facilityYearsInBusiness}
-									onChange={handleChange}
-									required
-								/>
-							</Form.Group>
-							<Form.Group className='mb-3'>
-								<Form.Control
-									type='number'
-									placeholder='Facility Building Age in Years'
-									name='facilityBuildingAge'
-									value={facilityInfo.facilityBuildingAge}
-									onChange={handleChange}
-									required
-								/>
-							</Form.Group>
-							<Form.Group className='mb-3'>
-								<Form.Control
-									type='number'
-									placeholder='Facility Weekly Hours Of Operation'
-									name='facilityHoursOfOperation'
-									value={facilityInfo.facilityHoursOfOperation}
-									onChange={handleChange}
-									required
-								/>
-							</Form.Group>
-							<Form.Group className='mb-3'>
-								<Form.Control
-									type='number'
-									placeholder='Facility Number Of Guests Per Week'
-									name='facilityNumberOfGuests'
-									value={facilityInfo.facilityNumberOfGuests}
-									onChange={handleChange}
-									required
-								/>
-							</Form.Group>
-							<Form.Group className='mb-3'>
-								<Form.Select
-									name='facilitySitDownRestaurant'
-									value={facilityInfo.facilitySitDownRestaurant}
-									onChange={handleChange}
-									required
-								>
-									<option value=''>Sit Down Restaurant?</option>
-									<option value='true'>Yes</option>
-									<option value='false'>No</option>
-								</Form.Select>
-							</Form.Group>
-							<Button variant='primary' type='submit'>
-								Submit
-							</Button>
-						</Form>
-					</div>
-				)}
-			</div>
+			<Button variant='outlined' onClick={handleOpen}>
+				Enter New Facility
+			</Button>
+			<Modal open={open} onClose={handleClose} aria-labelledby='modal-title' aria-describedby='modal-description'>
+				<Box
+					sx={{
+						position: 'absolute',
+						top: '50%',
+						left: '50%',
+						transform: 'translate(-50%, -50%)',
+						width: 400,
+						bgcolor: 'lightgreen',
+						border: '2px solid #000',
+						boxShadow: 24,
+						p: 4,
+					}}
+				>
+					<Typography id='modal-title' level='h4'>
+						Add Facility Information
+					</Typography>
+					<Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+						<Input
+							margin='normal'
+							required
+							fullWidth
+							id='facilityName'
+							placeholder='Facility Name'
+							label='facilityName'
+							name='facilityName'
+							type='text'
+							value={facilityInfo.facilityName}
+							onChange={handleChange}
+							autoFocus
+						/>
+						<Input
+							margin='normal'
+							required
+							fullWidth
+							id='facilityAddress'
+							placeholder='Facility Address'
+							label='facilityAddress'
+							name='facilityAddress'
+							type='text'
+							value={facilityInfo.facilityAddress}
+							onChange={handleChange}
+							autoFocus
+						/>
+						<Input
+							margin='normal'
+							required
+							fullWidth
+							id='facilityState'
+							placeholder='State'
+							label='facilityState'
+							name='facilityState'
+							type='text'
+							value={facilityInfo.facilityState}
+							onChange={handleChange}
+							autoFocus
+						/>
+						<Input
+							margin='normal'
+							required
+							fullWidth
+							id='facilityZip'
+							placeholder='Zip'
+							label='facilityZip'
+							name='facilityZip'
+							type='text'
+							value={facilityInfo.facilityZip}
+							onChange={handleChange}
+							autoFocus
+						/>
+						<Input
+							margin='normal'
+							required
+							fullWidth
+							id='facilityYearsInBusiness'
+							placeholder='Years in Business'
+							label='facilityYearsInBusiness'
+							name='facilityYearsInBusiness'
+							type='number'
+							value={facilityInfo.facilityYearsInBusiness}
+							onChange={handleChange}
+							autoFocus
+						/>
+						<Input
+							margin='normal'
+							required
+							fullWidth
+							id='facilityBuildingAge'
+							placeholder='Building Age'
+							label='facilityBuildingAge'
+							name='facilityBuildingAge'
+							type='number'
+							value={facilityInfo.facilityBuildingAge}
+							onChange={handleChange}
+							autoFocus
+						/>
+						<Input
+							margin='normal'
+							required
+							fullWidth
+							id='facilityHoursOfOperation'
+							placeholder='Hours of Operation per week'
+							label='facilityHoursOfOperation'
+							name='facilityHoursOfOperation'
+							type='number'
+							value={facilityInfo.facilityHoursOfOperation}
+							onChange={handleChange}
+							autoFocus
+						/>
+						<Input
+							margin='normal'
+							required
+							fullWidth
+							id='facilityNumberOfGuests'
+							placeholder='Number of Guests per week'
+							label='facilityNumberOfGuests'
+							name='facilityNumberOfGuests'
+							type='number'
+							value={facilityInfo.facilityNumberOfGuests}
+							onChange={handleChange}
+							autoFocus
+						/>
+						{/* <FormControl>
+						<FormLabel>Select Option</FormLabel>
+						<Select
+							value={option}
+							onChange={handleOptions}
+							placeholder="Select Option"
+						>
+							<Option value="Yes">Yes</Option>
+							<Option value="No">No</Option>
+						</Select>
+					</FormControl> */}
+
+						<Button type='submit'>Submit</Button>
+					</Box>
+				</Box>
+			</Modal>
 		</>
 	);
 }
