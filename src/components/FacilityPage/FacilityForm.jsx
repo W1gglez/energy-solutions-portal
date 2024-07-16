@@ -42,9 +42,20 @@ function FacilityForm() {
         try {
             dispatch({ type: 'ADD_FACILITY', payload: submissionData });
             alert('Facility Information Submitted');
+			setFacilityInfo({
+				facilityName: '',
+				facilityAddress: '',
+				facilityState: '',
+				facilityZip: '',
+				facilityYearsInBusiness: '',
+				facilityBuildingAge: '',
+				facilityHoursOfOperation: '',
+				facilityNumberOfGuests: '',
+				facilitySitDownRestaurant: '',
+			});
         } catch (error) {
-            console.error('Error updating trip:', error);
-            alert('Error updating trip');
+            console.error('Error updating Facility', error);
+            alert('Error updating Facility');
         }
     };
 

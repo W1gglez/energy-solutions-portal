@@ -31,6 +31,11 @@ function Facilities() {
         setEditRowId(null);
     };
 
+    const handleDeleteClick = (facility) => {
+        dispatch({ type: 'DELETE_FACILITY', payload: facility.id });
+    };
+
+
     const handleChange = (e) => {
         setEditFormData({
             ...editFormData,
@@ -88,6 +93,7 @@ function Facilities() {
                     <td>{facility.sit_down ? 'Yes' : 'No'}</td>
                     <td>
                         <Button onClick={() => handleEditClick(facility)}>Edit</Button>
+                        <Button onClick={() => handleDeleteClick(facility)}>Delete</Button>
                     </td>
                 </>
             )}
