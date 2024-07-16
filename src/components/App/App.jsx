@@ -17,6 +17,9 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import HomePage from '../HomePage/HomePage';
 
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import FacilityPage from '../FacilityPage/FacilityPage';
+import EnergyCost from '../EnergyCostsPage/EnergyCost';
 
 function App() {
   const dispatch = useDispatch();
@@ -89,7 +92,13 @@ function App() {
               <RegisterPage />
             )}
           </Route>
-
+          <ProtectedRoute exact path='/facilities'>
+            <FacilityPage />
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/energy-cost'>
+            <EnergyCost />
+          </ProtectedRoute>
+          
           <Route exact path='/home'>
             {user.id ? (
               // If the user is already logged in,
