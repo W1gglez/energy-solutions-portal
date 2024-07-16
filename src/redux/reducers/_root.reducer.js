@@ -4,6 +4,7 @@ import user from './user.reducer';
 import reports from './report.reducer';
 import facilities from './facility.reducer';
 import carbon from './carbon.reducer';
+import cost from './cost.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   reports,
   facilities,
   carbon,
+  cost,
 });
 
 export default rootReducer;
