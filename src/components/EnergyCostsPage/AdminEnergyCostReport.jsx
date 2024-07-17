@@ -9,7 +9,7 @@ function EnergyCostReport() {
     const report_id = 1;
 
 	useEffect(() => {
-		dispatch({ type: 'FETCH_REPORT_ENERGY_COSTS', payload: { report_id } });
+		dispatch({ type: 'FETCH_ENERGY_COSTS'});
 	}, []);
 
 	const energyCosts = useSelector((store) => store.energy);
