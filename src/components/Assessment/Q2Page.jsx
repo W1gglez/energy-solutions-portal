@@ -1,15 +1,13 @@
-import {
-  Button,
-  Radio,
-  RadioGroup,
-  Grid,
-  Typography,
-  Card,
-  CardContent,
-  DialogTitle,
-  Box,
-} from '@mui/joy';
 import Container from '@mui/joy/Container';
+import Button from '@mui/joy/Button';
+import Radio from '@mui/joy/Radio';
+import RadioGroup from '@mui/joy/RadioGroup';
+import Grid from '@mui/joy/Grid';
+import Typography from '@mui/joy/Typography';
+import Card from '@mui/joy/Card';
+import CardContent from '@mui/joy/CardContent';
+import DialogTitle from '@mui/joy/DialogTitle';
+import Box from '@mui/joy/Box';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
@@ -24,9 +22,10 @@ export default function Q2() {
   const categories = useSelector((store) => store.categories);
   const types = useSelector((store) => store.equipmentTypes);
   const locations = useSelector((store) => store.locations);
+  const entryHeater = equipmentInv.find((e) => e.typeId === 17);
 
-  const [entryHeater, setEntryHeater] = useState(
-    responses.entry_heater?.entryHeater || false
+  const [isEntryHeater, setIsEntryHeater] = useState(
+    responses.entry_heater?.isEntryHeater || false
   );
   const [isRunning, setIsRunning] = useState(
     responses.entry_heater?.isRunning || false
@@ -37,7 +36,7 @@ export default function Q2() {
     dispatch({
       type: 'SET_RESPONSE',
       payload: (responses['entry_heater'] = {
-        entryHeater,
+        isEntryHeater,
         isRunning,
       }),
     });
@@ -58,29 +57,39 @@ export default function Q2() {
       >
         Exit Assessment
       </Button>
+      <Typography
+        level='h1'
+        sx={{ position: 'absolute', top: '10%', left: '43vw' }}
+      >
+        Entry Way
+      </Typography>
       <Grid
         container
         spacing={8}
+        sx={{ justifyContent: 'center', alignItems: 'center' }}
       >
-        <Grid xs={12}>
+        <Grid xs={3}>
           <Typography
             sx={{ textAlign: 'center' }}
             level='h4'
           >
-            Still in the front entry area: Is there an electric heater?
+            Is there an electric heater?
           </Typography>
         </Grid>
-        <Grid xs={12}>
+        <Grid
+          xs={3}
+          sx={{ pl: 0 }}
+        >
           <RadioGroup
             defaultValue={false}
-            value={entryHeater}
+            value={isEntryHeater}
             orientation='horizontal'
             sx={{
-              gap: 24,
+              gap: 18,
               justifyContent: 'center',
             }}
             onChange={(e) => {
-              setEntryHeater(e.target.value);
+              setIsEntryHeater(e.target.value);
               setOpen(e.target.value);
             }}
           >
@@ -101,13 +110,16 @@ export default function Q2() {
             />
           </RadioGroup>
         </Grid>
-        {entryHeater === 'true' && (
+        {isEntryHeater === 'true' && (
           <>
             <EquipmentForm
               open={open}
               setOpen={setOpen}
+              location={1}
+              type={17}
+              category={1}
             />
-            {equipmentInv[0] && (
+            {entryHeater && (
               <Grid
                 container
                 sx={{ justifyContent: 'center' }}
@@ -123,14 +135,14 @@ export default function Q2() {
                       sx={{ display: 'flex', justifyContent: 'space-between' }}
                     >
                       <DialogTitle>
-                        {equipmentInv[0].description ??
-                          types[equipmentInv[0].typeId - 1].type}
+                        {entryHeater.description ??
+                          types[entryHeater.typeId - 1].type}
                       </DialogTitle>
-                      <DialogTitle>Qty: {equipmentInv[0].qty}</DialogTitle>
+                      <DialogTitle>Qty: {entryHeater.qty}</DialogTitle>
                     </Box>
 
                     <Typography>
-                      {locations[equipmentInv[0].locationId - 1].location}
+                      {locations[entryHeater.locationId - 1].location}
                     </Typography>
                     <Box
                       sx={{
@@ -139,13 +151,9 @@ export default function Q2() {
                         flexWrap: 'wrap',
                       }}
                     >
-                      <Typography>Brand: {equipmentInv[0].brand}</Typography>
-                      <Typography>
-                        Model: {equipmentInv[0].modelNumber}
-                      </Typography>
-                      <Typography>
-                        SN: {equipmentInv[0].serialNumber}
-                      </Typography>
+                      <Typography>Brand: {entryHeater.brand}</Typography>
+                      <Typography>Model: {entryHeater.modelNumber}</Typography>
+                      <Typography>SN: {entryHeater.serialNumber}</Typography>
                     </Box>
                     <Box
                       sx={{
@@ -155,36 +163,33 @@ export default function Q2() {
                       }}
                     >
                       <Typography>
-                        Type:{' '}
-                        {categories[equipmentInv[0].categoryId - 1].category}
+                        Type: {categories[entryHeater.categoryId - 1].category}
                       </Typography>
-                      {equipmentInv[0].amps && (
-                        <Typography>Amps: {equipmentInv[0].amps}</Typography>
+                      {entryHeater.amps && (
+                        <Typography>Amps: {entryHeater.amps}</Typography>
                       )}
-                      {equipmentInv[0].watts && (
-                        <Typography>Watts: {equipmentInv[0].watts}</Typography>
+                      {entryHeater.watts && (
+                        <Typography>Watts: {entryHeater.watts}</Typography>
                       )}
-                      {equipmentInv[0].volts && (
-                        <Typography>Volts: ${equipmentInv[0].volts}</Typography>
+                      {entryHeater.volts && (
+                        <Typography>Volts: ${entryHeater.volts}</Typography>
                       )}
-                      {equipmentInv[0].kW && (
-                        <Typography>
-                          Killowatts: {equipmentInv[0].kW}
-                        </Typography>
+                      {entryHeater.kW && (
+                        <Typography>Killowatts: {entryHeater.kW}</Typography>
                       )}
-                      {equipmentInv[0].btu && (
-                        <Typography>BTUs: {equipmentInv[0].btu}</Typography>
+                      {entryHeater.btu && (
+                        <Typography>BTUs: {entryHeater.btu}</Typography>
                       )}
 
                       <Typography>
-                        Hours running per day: {equipmentInv[0].hoursPerDay}
+                        Hours running per day: {entryHeater.hoursPerDay}
                       </Typography>
                     </Box>
                   </CardContent>
                 </Card>
               </Grid>
             )}
-            <Grid xs={12}>
+            <Grid xs={3}>
               <Typography
                 sx={{ textAlign: 'center' }}
                 level='h4'
@@ -192,13 +197,16 @@ export default function Q2() {
                 Is the heater running?
               </Typography>
             </Grid>
-            <Grid xs={12}>
+            <Grid
+              xs={3}
+              sx={{ pl: 0 }}
+            >
               <RadioGroup
                 defaultValue={false}
                 value={isRunning}
                 orientation='horizontal'
                 sx={{
-                  gap: 24,
+                  gap: 18,
                   justifyContent: 'center',
                 }}
                 onChange={(e) => setIsRunning(e.target.value)}

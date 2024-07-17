@@ -4,7 +4,6 @@ import {
   RadioGroup,
   Grid,
   Typography,
-  FormControl,
   FormLabel,
   Input,
 } from '@mui/joy';
@@ -17,7 +16,7 @@ export default function Q3() {
   const history = useHistory();
   const dispatch = useDispatch();
   const responses = useSelector((store) => store.responses);
-  const [lengthOfTime, setLengthOfTime] = useState(responses.hot_water || 0);
+  const [lengthOfTime, setLengthOfTime] = useState(responses.hot_water || '');
   const [selectedValue, setSelectedValue] = useState(
     responses.restroom_leaks || false
   );
@@ -37,9 +36,9 @@ export default function Q3() {
       type: 'SET_RESPONSE',
       payload:
         ((responses['hot_water'] = lengthOfTime),
-        (responses['restrooms_leaks'] = selectedValue)),
+        (responses['restroom_leaks'] = selectedValue)),
     });
-    // history.push('/assessment/q4');
+    history.push('/assessment/q4');
   };
 
   return (
@@ -50,44 +49,62 @@ export default function Q3() {
       >
         Exit Assessment
       </Button>
+      <Typography
+        level='h1'
+        sx={{ position: 'absolute', top: '10%', left: '43vw' }}
+      >
+        Restrooms
+      </Typography>
       <Grid
         container
         spacing={12}
-        sx={{ alignItems: 'center' }}
+        sx={{ justifyContent: 'center', alignItems: 'center' }}
       >
-        <Grid xs={9}>
-          <Typography level='h4'>
-            Restrooms: Open the hot water faucet - How long does it take for the
-            water to get hot?
+        <Grid xs={8}>
+          <Typography
+            level='h4'
+            sx={{ textAlign: 'center' }}
+          >
+            Open the hot water faucet - How long does it take for the water to
+            get hot?
           </Typography>
         </Grid>
         <Grid
-          xs={3}
+          xs={1.5}
           sx={{ pl: 0 }}
         >
-          <FormLabel>Time (in seconds):</FormLabel>
+          <FormLabel>Time:</FormLabel>
           <Input
+            value={lengthOfTime}
             type='number'
+            slotProps={{ input: { min: 0 } }}
             onChange={handleChange}
+            endDecorator={'s'}
+            required
           />
         </Grid>
         <Grid
           container
           xs={12}
-          sx={{ alignItems: 'center' }}
+          sx={{ justifyContent: 'center', alignItems: 'center' }}
         >
-          <Grid xs={6}>
-            <Typography level='h4'>
+          <Grid xs={5.5}>
+            <Typography
+              level='h4'
+              sx={{ textAlign: 'center' }}
+            >
               Any leaks found around toilets, urinals, or faucets?
             </Typography>
           </Grid>
-          <Grid xs={4}>
+          <Grid
+            xs={3}
+            sx={{ pl: 0 }}
+          >
             <RadioGroup
-              defaultValue={false}
               value={selectedValue}
               orientation='horizontal'
               sx={{
-                gap: 24,
+                gap: 18,
                 justifyContent: 'center',
               }}
               onChange={(e) => {

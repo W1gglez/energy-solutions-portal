@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 export default function EquipmentForm(props) {
-  const { type, location } = props;
+  const { type, location, category } = props;
 
   const dispatch = useDispatch();
 
@@ -25,13 +25,13 @@ export default function EquipmentForm(props) {
 
   const [equipment, setEquipment] = useState({
     description: null,
-    typeId: 0,
+    typeId: type || 0,
     brand: null,
     modelNumber: null,
     serialNumber: null,
     qty: 1,
-    locationId: 0,
-    categoryId: 0,
+    locationId: location || 0,
+    categoryId: category || 0,
     amps: null,
     volts: null,
     watts: null,
@@ -49,9 +49,9 @@ export default function EquipmentForm(props) {
     props.setOpen(false);
   };
 
-  useEffect(() => {
-    console.table(equipment);
-  }, [equipment]);
+  //   useEffect(() => {
+  //     console.table(equipment);
+  //   }, [equipment]);
 
   return (
     <Modal open={Boolean(props.open)}>
@@ -89,6 +89,7 @@ export default function EquipmentForm(props) {
               <FormControl>
                 <FormLabel>Location*</FormLabel>
                 <Select
+                  defaultValue={location || null}
                   placeholder='Select the equipment location...'
                   sx={{ height: 41 }}
                   onChange={(e, newVal) => {
@@ -116,6 +117,7 @@ export default function EquipmentForm(props) {
                 <Input
                   value={equipment.qty}
                   type='number'
+                  slotProps={{ input: { min: 0 } }}
                   onChange={(e) =>
                     setEquipment({
                       ...equipment,
@@ -135,6 +137,7 @@ export default function EquipmentForm(props) {
               <FormControl>
                 <FormLabel>Type*</FormLabel>
                 <Select
+                  defaultValue={type || null}
                   placeholder='Select the equipment type...'
                   sx={{ height: 41 }}
                   onChange={(e, newVal) => {
@@ -201,6 +204,7 @@ export default function EquipmentForm(props) {
               <FormControl>
                 <FormLabel>Category*</FormLabel>
                 <Select
+                  defaultValue={category || null}
                   placeholder='Select the equipment category...'
                   sx={{ height: 41 }}
                   onChange={(e, newVal) => {
@@ -231,6 +235,7 @@ export default function EquipmentForm(props) {
                 >
                   <Input
                     type='number'
+                    slotProps={{ input: { min: 0 } }}
                     placeholder='Amps'
                     onChange={(e) =>
                       setEquipment({
@@ -242,6 +247,7 @@ export default function EquipmentForm(props) {
                   />
                   <Input
                     type='number'
+                    slotProps={{ input: { min: 0 } }}
                     placeholder='Volts'
                     sx={{ ml: 1 }}
                     onChange={(e) =>
@@ -257,6 +263,7 @@ export default function EquipmentForm(props) {
               {selectedOption === 2 && (
                 <Input
                   type='number'
+                  slotProps={{ input: { min: 0 } }}
                   placeholder='Watts'
                   sx={{ mt: '26px' }}
                   onChange={(e) =>
@@ -272,7 +279,7 @@ export default function EquipmentForm(props) {
                 <Input
                   type='number'
                   placeholder='Killowatts'
-                  slotProps={{ input: { step: '.01' } }}
+                  slotProps={{ input: { step: '.001', min: 0 } }}
                   sx={{ mt: '26px' }}
                   onChange={(e) =>
                     setEquipment({
@@ -287,6 +294,7 @@ export default function EquipmentForm(props) {
               {selectedOption === 4 && (
                 <Input
                   type='number'
+                  slotProps={{ input: { min: 0 } }}
                   placeholder='BTUs'
                   sx={{ mt: '26px' }}
                   onChange={(e) =>
@@ -330,6 +338,7 @@ export default function EquipmentForm(props) {
                 <FormLabel>Daily Use*</FormLabel>
                 <Input
                   type='number'
+                  slotProps={{ input: { min: 0 } }}
                   placeholder='Hours used per day'
                   onChange={(e) =>
                     setEquipment({

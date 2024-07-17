@@ -1,5 +1,10 @@
-import { Button, Radio, RadioGroup, Grid, Typography } from '@mui/joy';
+import Button from '@mui/joy/Button';
+import Radio from '@mui/joy/Radio';
+import RadioGroup from '@mui/joy/RadioGroup';
+import Grid from '@mui/joy/Grid';
+import Typography from '@mui/joy/Typography';
 import Container from '@mui/joy/Container';
+
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
@@ -38,6 +43,12 @@ export default function Q1() {
       >
         Exit Assessment
       </Button>
+      <Typography
+        level='h1'
+        sx={{ position: 'absolute', top: '10%', left: '43vw' }}
+      >
+        Entry Way
+      </Typography>
       <Grid
         container
         spacing={12}
@@ -47,8 +58,8 @@ export default function Q1() {
             sx={{ textAlign: 'center' }}
             level='h4'
           >
-            As the customer opens the entrance door: Are the doors hard to open
-            and is there an in-rush of air coming into the restaurant?
+            Are the doors hard to open and is there an in-rush of air coming
+            into the restaurant when opened?
           </Typography>
         </Grid>
         <Grid xs={12}>
