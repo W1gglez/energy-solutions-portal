@@ -3,9 +3,11 @@ import errors from './errors.reducer';
 import user from './user.reducer';
 import reports from './report.reducer';
 import facilities from './facility.reducer';
-import energyCost from './energyCost.reducer';
+import energy from './energyCost.reducer';
 import carbon from './carbon.reducer';
+import adminFacilities from './admin.facility.reducer';
 import cost from './cost.reducer';
+
 
 
 // rootReducer is the primary reducer for our entire project
@@ -19,8 +21,9 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   reports,
   facilities,
-  energyCost,
+  energy,
   carbon,
+  adminFacilities,
   cost,
 });
 

@@ -11,7 +11,7 @@ function Facilities() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch({ type: 'FETCH_USER_FACILITIES' });
+        dispatch({ type: 'FETCH_FACILITIES' });
     }, [dispatch]);
 
     const handleEditClick = (facility) => {
