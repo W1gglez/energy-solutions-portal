@@ -42,7 +42,7 @@ export default function ReportItem({ report }) {
               <Button
                 variant='solid'
                 size='md'
-                color='primary'
+                color='danger'
                 aria-label='Review and Approved Facility Report'
                 sx={{ ml: 'auto', alignSelf: 'center', fontWeight: 600 }}
               >

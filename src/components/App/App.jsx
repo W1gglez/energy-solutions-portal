@@ -14,10 +14,11 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import HomePage from '../HomePage/HomePage';
+import HomePage from '../UserHomePage/HomePage';
 
 import './App.css';
 import ReportList from '../ReportPages/ReportList/ReportList';
+import AdminHomePage from '../AdminHomePage/AdminHomePage';
 
 function App() {
   const dispatch = useDispatch();
@@ -65,8 +66,12 @@ function App() {
             <InfoPage />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/reports'>
+          <ProtectedRoute exact path='/admin-reports'>
             <ReportList />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/admin-home-page'>
+            <AdminHomePage />
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/home-page'>

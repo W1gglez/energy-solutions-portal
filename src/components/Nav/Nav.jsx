@@ -20,14 +20,71 @@ function Nav() {
   const [open, setOpen] = React.useState(false);
 
   const navHome = () => {
-    console.log('nav button clicked');
-    history.push('/home-page');
+    history.push('/admin-home-page');
+    setOpen(false);
+  };
+
+  const navFacilities = () => {
+    console.log('navFacilities clicked');
+    // history push to facilities page when merge
+    // setOpen(false);
+  };
+
+  const navReports = () => {
+    history.push('/admin-reports');
     setOpen(false);
   };
 
   return (
     <>
-      {user.id && (
+      {user.id && user.admin ? (
+        <div className='nav'>
+          <IconButton variant='outlined' color='neutral' onClick={() => setOpen(true)}>
+            <MenuIcon />
+          </IconButton>
+          <Drawer open={open} onClose={() => setOpen(false)}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 0.5,
+                ml: 'auto',
+                mt: 1,
+                mr: 2,
+              }}
+            >
+              <Typography
+                component='label'
+                htmlFor='close-icon'
+                fontSize='sm'
+                fontWeight='lg'
+                sx={{ cursor: 'pointer' }}
+              ></Typography>
+              <ModalClose id='close-icon' sx={{ position: 'initial' }} />
+            </Box>
+            <List
+              size='lg'
+              component='nav'
+              sx={{
+                flex: 'none',
+                fontSize: 'xl',
+                '& > div': { justifyContent: 'center' },
+              }}
+            >
+              <ListItemButton onClick={navHome} sx={{ fontWeight: 'lg' }}>
+                Home
+              </ListItemButton>
+              <ListItemButton onClick={navFacilities}>View All Facilities</ListItemButton>
+              <ListItemButton onClick={navReports}>View All Reports</ListItemButton>
+              <Divider />
+              <ListItemButton onClick={() => dispatch({ type: 'LOGOUT' })}>Log Out</ListItemButton>
+            </List>
+          </Drawer>
+          <Link to='/home'>
+            <h2 className='nav-title'>Energy Solutions Portal</h2>
+          </Link>
+        </div>
+      ) : (
         <div className='nav'>
           <IconButton variant='outlined' color='neutral' onClick={() => setOpen(true)}>
             <MenuIcon />
