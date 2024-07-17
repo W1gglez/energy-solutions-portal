@@ -17,7 +17,7 @@ import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import Divider from '@mui/joy/Divider';
 
 function AdminHomePage() {
-  const reports = useSelector((store) => store.reports);
+  const reports = useSelector((store) => store.reports.reportReducer);
   const reportsReady = reports.filter((report) => !report.approved);
   const facilities = useSelector((store) => store.facilities);
   // console.log('check facilities', facilities);

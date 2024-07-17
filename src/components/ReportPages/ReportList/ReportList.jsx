@@ -6,7 +6,7 @@ import './ReportList.css';
 
 export default function ReportList() {
   const dispatch = useDispatch();
-  const reports = useSelector((store) => store.reports);
+  const reports = useSelector((store) => store.reports.reportReducer);
   console.log('check reports', reports);
 
   useEffect(() => {

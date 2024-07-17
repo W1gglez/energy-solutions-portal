@@ -17,7 +17,7 @@ import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import Divider from '@mui/joy/Divider';
 
 function HomePage() {
-  const reports = useSelector((store) => store.reports);
+  const reports = useSelector((store) => store.reports.reportReducer);
   const facilities = useSelector((store) => store.facilities);
   // console.log('check facilities', facilities);
   const carbonTotal = useSelector((store) => store.carbon);
