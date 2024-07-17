@@ -5,7 +5,7 @@ import { takeLatest, put } from 'redux-saga/effects';
 function* fetchFacilities() {
 	try {
 		const facilityResponse = yield axios.get('/api/facility/all');
-		yield put({ type: 'SET_ADMIN_FACILITIES', payload: facilityResponse.data });
+		yield put({ type: 'SET_FACILITIES', payload: facilityResponse.data });
 		console.log('check fetchFacilities', facilityResponse.data);
 	} catch (error) {
 		console.log('error fetching facilities', error);

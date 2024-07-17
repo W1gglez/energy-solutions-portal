@@ -7,8 +7,8 @@ function FacilityPage() {
     return (
         <>
             
-            {/* <AdminFacilities /> */}
-             <Facilities />
+            <AdminFacilities />
+             {/* <Facilities /> */}
             <FacilityForm />
         </>
     );

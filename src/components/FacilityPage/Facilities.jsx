@@ -90,25 +90,28 @@ function Facilities() {
                                     <TextField
                                         label="Name"
                                         name="name"
+                                        fullWidth
                                         value={editFormData.name}
                                         onChange={handleChange}
-                                        fullWidth
+                                        InputLabelProps={{ shrink: true }}
                                         margin="normal"
                                     />
                                     <TextField
                                         label="Address"
                                         name="address"
+                                        fullWidth
                                         value={editFormData.address}
                                         onChange={handleChange}
-                                        fullWidth
+                                        InputLabelProps={{ shrink: true }}
                                         margin="normal"
                                     />
                                     <TextField
                                         label="State"
                                         name="state"
+                                        
                                         value={editFormData.state}
                                         onChange={handleChange}
-                                        fullWidth
+                                        InputLabelProps={{ shrink: true }}
                                         margin="normal"
                                     />
                                     <TextField
@@ -116,7 +119,7 @@ function Facilities() {
                                         name="zip"
                                         value={editFormData.zip}
                                         onChange={handleChange}
-                                        fullWidth
+                                        InputLabelProps={{ shrink: true }}
                                         margin="normal"
                                     />
                                     <TextField
@@ -124,7 +127,7 @@ function Facilities() {
                                         name="years_in_business"
                                         value={editFormData.years_in_business}
                                         onChange={handleChange}
-                                        fullWidth
+                                        InputLabelProps={{ shrink: true }}
                                         margin="normal"
                                     />
                                     <TextField
@@ -132,7 +135,7 @@ function Facilities() {
                                         name="building_age"
                                         value={editFormData.building_age}
                                         onChange={handleChange}
-                                        fullWidth
+                                        InputLabelProps={{ shrink: true }}
                                         margin="normal"
                                     />
                                     <TextField
@@ -140,7 +143,7 @@ function Facilities() {
                                         name="hours_of_operation"
                                         value={editFormData.hours_of_operation}
                                         onChange={handleChange}
-                                        fullWidth
+                                        InputLabelProps={{ shrink: true }}
                                         margin="normal"
                                     />
                                     <TextField
@@ -148,7 +151,7 @@ function Facilities() {
                                         name="weekly_customers"
                                         value={editFormData.weekly_customers}
                                         onChange={handleChange}
-                                        fullWidth
+                                        InputLabelProps={{ shrink: true }}
                                         margin="normal"
                                     />
                                     <TextField
@@ -156,7 +159,7 @@ function Facilities() {
                                         name="sit_down"
                                         value={editFormData.sit_down}
                                         onChange={handleChange}
-                                        fullWidth
+                                        InputLabelProps={{ shrink: true }}
                                         margin="normal"
                                     />
                                 </CardContent>
