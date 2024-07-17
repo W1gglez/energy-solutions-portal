@@ -11,9 +11,12 @@ import Button from '@mui/joy/Button';
 
 function HomePage() {
   const reports = useSelector((store) => store.reports);
+  console.log('reports', reports);
   const facilities = useSelector((store) => store.facilities);
+  console.log('facilities', facilities);
   const carbonTotal = useSelector((store) => store.carbon);
-  console.log('check carbon', carbonTotal);
+  const energyCost = useSelector((store) => store.cost);
+  console.log('cost', energyCost);
 
   const dispatch = useDispatch();
 
@@ -21,6 +24,7 @@ function HomePage() {
     dispatch({ type: 'FETCH_USER_REPORTS' });
     dispatch({ type: 'FETCH_USER_FACILITIES' });
     dispatch({ type: 'FETCH_CARBON' });
+    dispatch({ type: 'FETCH_COST' });
   }, []);
 
   const deleteFacility = (facilityId) => {
@@ -43,11 +47,18 @@ function HomePage() {
           <Card variant='outlined'>
             <CardContent>
               <Typography level='title-md'>Total carbon footprint: </Typography>
-              <Typography>Total energy cost #</Typography>
+              {carbonTotal.map((carbon) => (
+                <p>{carbon.sum} tons/year</p>
+              ))}
+              <Typography>Total energy cost: </Typography>
+              {energyCost.map((cost) => (
+                <p>${cost.sum}/year</p>
+              ))}
             </CardContent>
           </Card>
         </Box>
         <h3>My assessments</h3>
+        <Button>View all assessments</Button>
         <Sheet sx={{ height: 200, overflow: 'auto' }}>
           <Table borderAxis='bothBetween' color='neutral' size='md' stickyFooter={false} stickyHeader variant='plain'>
             <thead>
@@ -61,7 +72,7 @@ function HomePage() {
               {reports.map((report) => (
                 <tr key={report.id}>
                   <td>{DateTime.fromISO(report.date_submitted).toFormat('MMMM dd, yyyy')}</td>
-                  <td>{report.facility_id}</td>
+                  <td>{report.name}</td>
                   {report.approved ? <td>View Report</td> : <td>In Review</td>}
                 </tr>
               ))}
@@ -69,26 +80,23 @@ function HomePage() {
           </Table>
         </Sheet>
         <h3>My facilities </h3>
+        <Button>View all Facilities</Button>
         <Sheet sx={{ height: 200, overflow: 'auto' }}>
           <Table borderAxis='bothBetween' color='neutral' size='md' stickyFooter={false} stickyHeader variant='plain'>
             <thead>
               <tr>
                 <th style={{ width: '25%' }}>Facility</th>
                 <th>Address</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th>State</th>
+                <th>Delete Facility</th> {/* Add an alert confirming delete */}
               </tr>
             </thead>
             <tbody>
               {facilities.map((facility) => (
                 <tr key={facility.id}>
                   <td>{facility.name}</td>
-                  <td>
-                    {facility.address}, {facility.state}
-                  </td>
-                  <td>
-                    <Button>Edit</Button>
-                  </td>
+                  <td>{facility.address}</td>
+                  <td>{facility.state}</td>
                   <td>
                     <Button onClick={() => deleteFacility(facility.id)}>Delete</Button>
                   </td>

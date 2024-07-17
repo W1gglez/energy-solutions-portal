@@ -18,7 +18,7 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
 // GET all reports for a single user
 router.get('/', rejectUnauthenticated, (req, res) => {
   const userId = req.user.id;
-  const queryText = `SELECT reports.* FROM "reports" JOIN "facility" ON "reports"."facility_id" = "facility"."id" WHERE "user_id"=$1;`;
+  const queryText = `SELECT reports.*, "facility"."name" FROM "reports" JOIN "facility" ON "reports"."facility_id" = "facility"."id" WHERE "user_id"=$1;`;
   pool
     .query(queryText, [userId])
     .then((result) => res.send(result.rows))
@@ -31,7 +31,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // GET carbon footprint for all of users facilities
 router.get('/carbon-footprint', rejectUnauthenticated, (req, res) => {
   const userId = req.user.id;
-  const queryText = `SELECT SUM(current_monthly_cost)
+  const queryText = `SELECT SUM(current_carbon_footprint)
 FROM "reports"
 JOIN "facility" 
 ON "reports"."facility_id" = "facility"."id" 
@@ -41,6 +41,23 @@ WHERE "user_id"=$1;`;
     .then((result) => res.send(result.rows))
     .catch((error) => {
       console.log('error getting total carbon footprint', error);
+      res.sendStatus(500);
+    });
+});
+
+// GET total energy cost for all of users facilities
+router.get('/energy-cost', rejectUnauthenticated, (req, res) => {
+  const userId = req.user.id;
+  const queryText = `SELECT SUM(current_monthly_cost)
+FROM "reports"
+JOIN "facility" 
+ON "reports"."facility_id" = "facility"."id" 
+WHERE "user_id"=$1;`;
+  pool
+    .query(queryText, [userId])
+    .then((result) => res.send(result.rows))
+    .catch((error) => {
+      console.log('error getting total monthly cost', error);
       res.sendStatus(500);
     });
 });
