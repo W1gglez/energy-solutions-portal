@@ -20,6 +20,7 @@ import '@fontsource/inter';
 import './App.css';
 import Q1 from '../Assessment/Q1Page';
 import Q2 from '../Assessment/Q2Page';
+import Q3 from '../Assessment/Q3Page';
 
 function App() {
   const dispatch = useDispatch();
@@ -93,6 +94,12 @@ function App() {
             path='/assessment/q2'
           >
             <Q2 />
+          </ProtectedRoute>
+          <ProtectedRoute
+            exact
+            path='/assessment/q3'
+          >
+            <Q3 />
           </ProtectedRoute>
 
           <Route

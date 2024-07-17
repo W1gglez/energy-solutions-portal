@@ -26,13 +26,14 @@ export default function Q2() {
   const locations = useSelector((store) => store.locations);
 
   const [entryHeater, setEntryHeater] = useState(
-    responses.entry_heater || false
+    responses.entry_heater?.entryHeater || false
   );
-  const [isRunning, setIsRunning] = useState(responses.isRunning || false);
+  const [isRunning, setIsRunning] = useState(
+    responses.entry_heater?.isRunning || false
+  );
   const [open, setOpen] = useState(false);
 
   const recordResponse = () => {
-    console.log(selectedValue);
     dispatch({
       type: 'SET_RESPONSE',
       payload: (responses['entry_heater'] = {
@@ -40,7 +41,7 @@ export default function Q2() {
         isRunning,
       }),
     });
-    // history.push('/assessment/q3');
+    history.push('/assessment/q3');
   };
 
   const handleExit = () => {

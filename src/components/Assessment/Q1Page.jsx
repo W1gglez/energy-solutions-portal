@@ -40,7 +40,7 @@ export default function Q1() {
       </Button>
       <Grid
         container
-        spacing={16}
+        spacing={12}
       >
         <Grid xs={12}>
           <Typography
@@ -58,7 +58,6 @@ export default function Q1() {
             sx={{
               gap: 24,
               justifyContent: 'center',
-              ':checked': { backgroundColor: 'red' },
             }}
             onChange={handleChange}
           >
