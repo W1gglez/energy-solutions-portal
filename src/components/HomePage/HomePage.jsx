@@ -6,7 +6,6 @@ import Box from '@mui/joy/Box';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
-// import IconButton from '@mui/joy/IconButton';
 import Button from '@mui/joy/Button';
 import DialogTitle from '@mui/joy/DialogTitle';
 import DialogContent from '@mui/joy/DialogContent';
@@ -23,7 +22,7 @@ function HomePage() {
   // console.log('check facilities', facilities);
   const carbonTotal = useSelector((store) => store.carbon);
   const energyCost = useSelector((store) => store.cost);
-  console.log('check cost', energyCost);
+  // console.log('check cost', energyCost);
 
   const dispatch = useDispatch();
 
@@ -37,7 +36,7 @@ function HomePage() {
   const [open, setOpen] = React.useState(false);
 
   const deleteFacility = (facilityId) => {
-    console.log('delete facility was clicked, check id', facilityId);
+    // console.log('delete facility was clicked, check id', facilityId);
     dispatch({ type: 'DELETE_FACILITY', payload: facilityId });
     setOpen(false);
   };
@@ -58,11 +57,11 @@ function HomePage() {
             <CardContent>
               <Typography level='title-md'>Total carbon footprint: </Typography>
               {carbonTotal.map((carbon) => (
-                <p>{carbon.sum}</p>
+                <p>{carbon.sum} tons/year</p>
               ))}
               <Typography>Total energy cost: </Typography>
               {energyCost.map((cost) => (
-                <p>${cost.sum}</p>
+                <p>${cost.sum} /year</p>
               ))}
             </CardContent>
           </Card>
