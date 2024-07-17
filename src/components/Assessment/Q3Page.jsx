@@ -1,12 +1,10 @@
-import {
-  Button,
-  Radio,
-  RadioGroup,
-  Grid,
-  Typography,
-  FormLabel,
-  Input,
-} from '@mui/joy';
+import Button from '@mui/joy/Button';
+import Radio from '@mui/joy/Radio';
+import RadioGroup from '@mui/joy/RadioGroup';
+import Grid from '@mui/joy/Grid';
+import Typography from '@mui/joy/Typography';
+import FormLabel from '@mui/joy/FormLabel';
+import Input from '@mui/joy/Input';
 import Container from '@mui/joy/Container';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';

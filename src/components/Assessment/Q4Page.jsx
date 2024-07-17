@@ -38,7 +38,7 @@ export default function Q4() {
         age,
       }),
     });
-    // history.push('/assessment/q5');
+    history.push('/assessment/q5');
   };
 
   const handleExit = () => {
