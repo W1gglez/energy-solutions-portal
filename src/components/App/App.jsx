@@ -17,6 +17,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import HomePage from '../HomePage/HomePage';
 
 import './App.css';
+import ReportList from '../ReportPages/ReportList/ReportList';
 
 function App() {
   const dispatch = useDispatch();
@@ -62,6 +63,10 @@ function App() {
             path='/info'
           >
             <InfoPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/reports'>
+            <ReportList />
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/home-page'>
