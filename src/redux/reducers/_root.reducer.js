@@ -5,6 +5,7 @@ import reports from './report.reducer';
 import facilities from './facility.reducer';
 import energy from './energyCost.reducer';
 import carbon from './carbon.reducer';
+import adminFacilities from './admin.facility.reducer';
 
 
 // rootReducer is the primary reducer for our entire project
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   facilities,
   energy,
   carbon,
+  adminFacilities,
 });
 
 export default rootReducer;

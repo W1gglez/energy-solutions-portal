@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useDispatch, } from 'react-redux';
-import { Modal, Box, Typography, TextField, Button, Input } from '@mui/joy';
-import { useParams } from 'react-router-dom/';
+import { useDispatch } from 'react-redux';
+import { Modal, Box, Typography, Input, Button, Grid, FormControl, FormLabel } from '@mui/joy';
+import { useParams } from 'react-router-dom';
 
 function EnergyCostForm() {
-    const report_id = useParams;
+    const { report_id } = useParams();
     const [energyCost, setEnergyCost] = useState({
         electric: '',
         natural_gas: '',
@@ -15,13 +15,13 @@ function EnergyCostForm() {
     const [open, setOpen] = useState(false);
     const dispatch = useDispatch();
 
-	const handleChange = (e) => {
-		const { name, value } = e.target;
-		setEnergyCost((prevState) => ({
-			...prevState,
-			[name]: value,
-		}));
-	};
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setEnergyCost((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -48,7 +48,7 @@ function EnergyCostForm() {
             console.error('Error updating Energy Costs', error);
             alert('Error updating Energy Costs');
         }
-    }
+    };
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -65,7 +65,7 @@ function EnergyCostForm() {
         p: 4,
     };
 
-	return (
+    return (
         <>
             <Button variant="outlined" onClick={handleOpen}>Add Energy Costs</Button>
             <Modal
@@ -79,74 +79,83 @@ function EnergyCostForm() {
                         Monthly Energy Costs (in dollars)
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                        <Input
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="electric"
-                            placeholder='Electric'
-                            label="Electric"
-                            name="electric"
-                            type="number"
-                            value={energyCost.electric}
-                            onChange={handleChange}
-                            autoFocus
-                        />
-                         <Input
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="natural_gas"
-                            placeholder='Natural Gas'
-                            label="Natural Gas"
-                            name="natural_gas"
-                            type="number"
-                            value={energyCost.natural_gas}
-                            onChange={handleChange}
-                            autoFocus
-                        />
-                         <Input
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="liquid_propane"
-                            placeholder='Liquid Propane'
-                            label="Liquid Propane"
-                            name="liquid_propane"
-                            type="number"
-                            value={energyCost.liquid_propane}
-                            onChange={handleChange}
-                            autoFocus
-                        />
-                         <Input
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="gas_propane"
-                            placeholder='Gas Propane'
-                            label="Gas Propane"
-                            name="gas_propane"
-                            type="number"
-                            value={energyCost.gas_propane}
-                            onChange={handleChange}
-                            autoFocus
-                        />
-                         <Input
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="heating_oil"
-                            placeholder='Heating Oil'
-                            label="Heating Oil"
-                            name="heating_oil"
-                            type="number"
-                            value={energyCost.heating_oil}
-                            onChange={handleChange}
-                            autoFocus
-                        />
-                        <Button type="submit" fullWidth sx={{ mt: 3, mb: 2 }}>
-                            Submit
-                        </Button>
+                        <Grid container spacing={2}>
+                            <Grid item xs={6}>
+                                <FormControl fullWidth>
+                                    <FormLabel>Electric</FormLabel>
+                                    <Input
+                                        required
+                                        id="electric"
+                                        placeholder='Electric'
+                                        name="electric"
+                                        type="number"
+                                        value={energyCost.electric}
+                                        onChange={handleChange}
+                                    />
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <FormControl fullWidth>
+                                    <FormLabel>Natural Gas</FormLabel>
+                                    <Input
+                                        required
+                                        id="natural_gas"
+                                        placeholder='Natural Gas'
+                                        name="natural_gas"
+                                        type="number"
+                                        value={energyCost.natural_gas}
+                                        onChange={handleChange}
+                                    />
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <FormControl fullWidth>
+                                    <FormLabel>Liquid Propane</FormLabel>
+                                    <Input
+                                        required
+                                        id="liquid_propane"
+                                        placeholder='Liquid Propane'
+                                        name="liquid_propane"
+                                        type="number"
+                                        value={energyCost.liquid_propane}
+                                        onChange={handleChange}
+                                    />
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <FormControl fullWidth>
+                                    <FormLabel>Gas Propane</FormLabel>
+                                    <Input
+                                        required
+                                        id="gas_propane"
+                                        placeholder='Gas Propane'
+                                        name="gas_propane"
+                                        type="number"
+                                        value={energyCost.gas_propane}
+                                        onChange={handleChange}
+                                    />
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <FormControl fullWidth>
+                                    <FormLabel>Heating Oil</FormLabel>
+                                    <Input
+                                        required
+                                        id="heating_oil"
+                                        placeholder='Heating Oil'
+                                        name="heating_oil"
+                                        type="number"
+                                        value={energyCost.heating_oil}
+                                        onChange={handleChange}
+                                    />
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Button type="submit" fullWidth sx={{ mt: 3, mb: 2 }}>
+                                    Submit
+                                </Button>
+                            </Grid>
+                        </Grid>
                     </Box>
                 </Box>
             </Modal>

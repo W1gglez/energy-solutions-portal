@@ -197,8 +197,11 @@ function FacilityForm() {
 								</FormControl>
 							</Grid>
 							<Grid item xs={12}>
-								<Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
+								<Button type='submit' variant='contained' color='white' sx={{ mt: 3, mb: 2 }}>
 									Submit
+								</Button>
+								<Button variant='contained' color='white' onClick={handleClose} sx={{ mt: 3, mb: 2 }}>
+									Cancel
 								</Button>
 							</Grid>
 						</Grid>
