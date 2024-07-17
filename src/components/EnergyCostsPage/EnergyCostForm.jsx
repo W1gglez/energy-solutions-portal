@@ -59,7 +59,7 @@ function EnergyCostForm() {
         left: '50%',
         transform: 'translate(-50%, -50%)',
         width: 400,
-        bgcolor: 'lightgreen',
+        bgcolor: 'white',
         border: '2px solid #000',
         boxShadow: 24,
         p: 4,
@@ -154,6 +154,7 @@ function EnergyCostForm() {
                                 <Button type="submit" fullWidth sx={{ mt: 3, mb: 2 }}>
                                     Submit
                                 </Button>
+                                <Button fullWidth onClick={handleClose}> Cancel </Button>
                             </Grid>
                         </Grid>
                     </Box>

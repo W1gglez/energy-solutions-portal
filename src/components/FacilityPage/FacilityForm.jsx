@@ -75,12 +75,11 @@ function FacilityForm() {
 				Enter New Facility
 			</Button>
 			<Modal open={open} onClose={handleClose} aria-labelledby='modal-title' aria-describedby='modal-description'>
-				<ModalDialog sx={{ width: '65vw' }}>
+				<ModalDialog sx={{ width: '65vw', border: '2px solid #000' }}>
 					<Typography id='modal-title' level='h4'>
 						Add Facility Information
 					</Typography>
-					<Typography>Fill in the information from your equipment's data plate.</Typography>
-					<Box component='form' onSubmit={handleSubmit} noValidate>
+					<Box component='form' onSubmit={handleSubmit} noValidate >
 						<Grid container spacing={2}>
 							<Grid item xs={6}>
 								<FormControl fullWidth>
@@ -197,10 +196,10 @@ function FacilityForm() {
 								</FormControl>
 							</Grid>
 							<Grid item xs={12}>
-								<Button type='submit' variant='contained' color='white' sx={{ mt: 3, mb: 2 }}>
+								<Button type='submit' fullWidth  sx={{ mt: 3, mb: 2 }}>
 									Submit
 								</Button>
-								<Button variant='contained' color='white' onClick={handleClose} sx={{ mt: 3, mb: 2 }}>
+								<Button fullWidth  onClick={handleClose} sx={{ mb: 2 }}>
 									Cancel
 								</Button>
 							</Grid>
