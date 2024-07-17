@@ -128,6 +128,7 @@ SELECT
   "reports".*,
   "facility"."name",
   "facility"."user_id",
+  "facility"."address",
   equipment_agg.equipment,
   recommendations_agg.recommendations,
   energy_cost_agg.energy_cost

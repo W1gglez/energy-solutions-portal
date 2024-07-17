@@ -6,8 +6,15 @@ import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
 import { DateTime } from 'luxon';
 import { Box } from '@mui/joy';
+import { useHistory } from 'react-router-dom';
 
 export default function ReportItem({ report }) {
+  const history = useHistory();
+  const viewDetails = (reportId) => {
+    console.log('veiw deets clicked', reportId);
+    history.push(`/report/${reportId}`);
+  };
+
   return (
     <>
       <Box key={report.id} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 3 }}>
@@ -35,6 +42,7 @@ export default function ReportItem({ report }) {
                 color='success'
                 aria-label='View Facility Report'
                 sx={{ ml: 'auto', alignSelf: 'center', fontWeight: 600 }}
+                onClick={() => viewDetails(report.id)}
               >
                 View Report
               </Button>
@@ -45,6 +53,7 @@ export default function ReportItem({ report }) {
                 color='danger'
                 aria-label='Review and Approved Facility Report'
                 sx={{ ml: 'auto', alignSelf: 'center', fontWeight: 600 }}
+                onClick={() => viewDetails(report.id)}
               >
                 Review Report
               </Button>
