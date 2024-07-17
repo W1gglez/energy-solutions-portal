@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS "equipment" (
 	"category_id" int references "energy_category" not null,
 	"amps" decimal,
 	"volts" int,
-	"watts" int, 
+	"watts" int,
 	"kW" decimal,
 	"btu" int,
 	"hours_used/day" int not null,
@@ -110,16 +110,12 @@ INSERT INTO equipment_type (type) VALUES
 ('Air Conditioner'),
 ('Furnace'),
 ('Heat Pump'),
+('Heater'),
 ('Ventilation System'),
-('Thermostat'),
 ('TVs'),
-('Server'),
 ('Coffee Maker'),
 ('Refrigerator'),
-('Vending Machine'),
-('Solar Panels'),
-('Water Pumps'),
-('Electric Hand Dryers');
+('Water Pumps');
 
 
 
@@ -146,8 +142,7 @@ INSERT INTO energy_category (category) VALUES
 ('Electric'),
 ('Natural Gas'),
 ('Liquid Propane'),
-('Gas Propane'),
-('Water');
+('Gas Propane');
 
 INSERT INTO energy_units (unit) VALUES
 ('Amps/Volts'),

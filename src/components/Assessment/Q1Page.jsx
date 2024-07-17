@@ -33,7 +33,7 @@ export default function Q1() {
   return (
     <Container sx={{ height: '75vh', alignContent: 'center' }}>
       <Button
-        onClick={() => handleExit}
+        onClick={handleExit}
         sx={{ position: 'absolute', top: '10%', left: '8%' }}
       >
         Exit Assessment
