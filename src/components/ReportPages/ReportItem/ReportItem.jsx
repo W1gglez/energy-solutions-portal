@@ -27,7 +27,7 @@ export default function ReportItem({ report }) {
             </Typography>
           </div>
           <AspectRatio minHeight='40px' maxHeight='120px'>
-            <img src='public/rj-logo.jpg' srcSet='public/rj-logo.jpg 2x' loading='lazy' alt='' />
+            <img src='/rj-logo.jpg' srcSet='/rj-logo.jpg 2x' loading='lazy' alt='' />
           </AspectRatio>
           {user.admin ? (
             <CardContent orientation='horizontal'>

@@ -77,6 +77,17 @@ function* deleteReport(action) {
   }
 }
 
+// saga to mark report as approved
+function* approveReport(action) {
+  try {
+    console.log('in approveReport, check action.payload', action.payload);
+    yield axios.put(`/api/report/${action.payload}`);
+    yield put({ type: 'FETCH_REPORT_DETAILS', payload: action.payload });
+  } catch (error) {
+    console.log('error approving report', error);
+  }
+}
+
 // export
 function* reportSaga() {
   yield takeLatest('FETCH_REPORTS', fetchReports);
@@ -86,6 +97,7 @@ function* reportSaga() {
   yield takeLatest('FETCH_COST', fetchEnergyCost);
   yield takeLatest('ADD_REPORT', addReport);
   yield takeLatest('DELETE_REPORT', deleteReport);
+  yield takeLatest('APPROVE_REPORT', approveReport);
 }
 
 export default reportSaga;

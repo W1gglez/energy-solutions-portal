@@ -283,4 +283,19 @@ router.delete('/:id', rejectUnauthenticated, async (req, res) => {
   }
 });
 
+// put to mark report as approved
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+  try {
+    const queryText = `
+     UPDATE "reports"
+ SET "approved" = true
+ WHERE "id"=$1;`;
+    pool.query(queryText, [req.params.id]);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log('error marking report as approved', error);
+    res.sendStatus(500);
+  }
+});
+
 module.exports = router;

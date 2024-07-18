@@ -18,10 +18,19 @@ export default function EnergyReport() {
     dispatch({ type: 'FETCH_REPORT_DETAILS', payload: params.id });
   }, []);
 
+  const approveReport = (reportId) => {
+    console.log('approve report clicked check id', reportId);
+    dispatch({ type: 'APPROVE_REPORT', payload: reportId });
+  };
+
   return (
     <>
       <div className='container'>
-        {user.admin ? <Button>Approve</Button> : ''}
+        {user.admin && !reportDetails.approved ? (
+          <Button onClick={() => approveReport(reportDetails.id)}>Approve</Button>
+        ) : (
+          ''
+        )}
         <Box
           className='card-container'
           sx={{ minHeight: 75, display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 3 }}

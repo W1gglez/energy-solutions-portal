@@ -20,10 +20,8 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 function HomePage() {
   const reports = useSelector((store) => store.reports.reportReducer);
   const facilities = useSelector((store) => store.facilities);
-  // console.log('check facilities', facilities);
   const carbonTotal = useSelector((store) => store.carbon);
   const energyCost = useSelector((store) => store.cost);
-  // console.log('check cost', energyCost);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -38,7 +36,6 @@ function HomePage() {
   const [open, setOpen] = React.useState(false);
 
   const deleteFacility = (facilityId) => {
-    // console.log('delete facility was clicked, check id', facilityId);
     dispatch({ type: 'DELETE_FACILITY', payload: facilityId });
     setOpen(false);
   };
