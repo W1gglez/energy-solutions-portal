@@ -7,11 +7,12 @@ import Typography from '@mui/joy/Typography';
 import { DateTime } from 'luxon';
 import { Box } from '@mui/joy';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function ReportItem({ report }) {
+  const user = useSelector((store) => store.user);
   const history = useHistory();
   const viewDetails = (reportId) => {
-    console.log('view deets clicked', reportId);
     history.push(`/report/${reportId}`);
   };
 
@@ -28,37 +29,71 @@ export default function ReportItem({ report }) {
           <AspectRatio minHeight='40px' maxHeight='120px'>
             <img src='public/rj-logo.jpg' srcSet='public/rj-logo.jpg 2x' loading='lazy' alt='' />
           </AspectRatio>
-          <CardContent orientation='horizontal'>
-            <div>
-              <Typography level='body-xs'>Report Status:</Typography>
-              <Typography fontSize='lg' fontWeight='lg'>
-                {report.approved ? <td>Approved</td> : <td>Needs Review</td>}
-              </Typography>
-            </div>
-            {report.approved ? (
-              <Button
-                variant='solid'
-                size='md'
-                color='success'
-                aria-label='View Facility Report'
-                sx={{ ml: 'auto', alignSelf: 'center', fontWeight: 600 }}
-                onClick={() => viewDetails(report.id)}
-              >
-                View Report
-              </Button>
-            ) : (
-              <Button
-                variant='solid'
-                size='md'
-                color='danger'
-                aria-label='Review and Approved Facility Report'
-                sx={{ ml: 'auto', alignSelf: 'center', fontWeight: 600 }}
-                onClick={() => viewDetails(report.id)}
-              >
-                Review Report
-              </Button>
-            )}
-          </CardContent>
+          {user.admin ? (
+            <CardContent orientation='horizontal'>
+              <div>
+                <Typography level='body-xs'>Report Status:</Typography>
+                <Typography fontSize='lg' fontWeight='lg'>
+                  {report.approved ? <td>Approved</td> : <td>Needs Review</td>}
+                </Typography>
+              </div>
+              {report.approved ? (
+                <Button
+                  variant='solid'
+                  size='md'
+                  color='success'
+                  aria-label='View Facility Report'
+                  sx={{ ml: 'auto', alignSelf: 'center', fontWeight: 600 }}
+                  onClick={() => viewDetails(report.id)}
+                >
+                  View Report
+                </Button>
+              ) : (
+                <Button
+                  variant='solid'
+                  size='md'
+                  color='danger'
+                  aria-label='Review and Approved Facility Report'
+                  sx={{ ml: 'auto', alignSelf: 'center', fontWeight: 600 }}
+                  onClick={() => viewDetails(report.id)}
+                >
+                  Review Report
+                </Button>
+              )}
+            </CardContent>
+          ) : (
+            <CardContent orientation='horizontal'>
+              <div>
+                <Typography level='body-xs'>Report Status:</Typography>
+                <Typography fontSize='lg' fontWeight='lg'>
+                  {report.approved ? <td>Approved</td> : <td>Pending Review</td>}
+                </Typography>
+              </div>
+              {report.approved ? (
+                <Button
+                  variant='solid'
+                  size='md'
+                  color='success'
+                  aria-label='View Facility Report'
+                  sx={{ ml: 'auto', alignSelf: 'center', fontWeight: 600 }}
+                  onClick={() => viewDetails(report.id)}
+                >
+                  View Report
+                </Button>
+              ) : (
+                <Button
+                  variant='solid'
+                  size='md'
+                  color='danger'
+                  aria-label='Review and Approved Facility Report'
+                  sx={{ ml: 'auto', alignSelf: 'center', fontWeight: 600 }}
+                  onClick={() => viewDetails(report.id)}
+                >
+                  Review Responses
+                </Button>
+              )}
+            </CardContent>
+          )}
         </Card>
       </Box>
     </>

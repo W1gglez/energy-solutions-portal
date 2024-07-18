@@ -15,6 +15,7 @@ import ModalDialog from '@mui/joy/ModalDialog';
 import DeleteForever from '@mui/icons-material/DeleteForever';
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import Divider from '@mui/joy/Divider';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function HomePage() {
   const reports = useSelector((store) => store.reports.reportReducer);
@@ -25,6 +26,7 @@ function HomePage() {
   // console.log('check cost', energyCost);
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER_REPORTS' });
@@ -39,6 +41,10 @@ function HomePage() {
     // console.log('delete facility was clicked, check id', facilityId);
     dispatch({ type: 'DELETE_FACILITY', payload: facilityId });
     setOpen(false);
+  };
+
+  const navReportPage = () => {
+    history.push('/user-reports');
   };
 
   return (
@@ -67,7 +73,7 @@ function HomePage() {
           </Card>
         </Box>
         <h3>My assessments</h3>
-        <Button>View all assessments</Button>
+        <Button onClick={navReportPage}>View all assessments</Button>
         <Sheet sx={{ height: 200, overflow: 'auto' }}>
           <Table borderAxis='bothBetween' color='neutral' size='md' stickyFooter={false} stickyHeader variant='plain'>
             <thead>
