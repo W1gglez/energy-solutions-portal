@@ -1,5 +1,14 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fontsource/inter';
+import './App.css';
+
 import React, { useEffect } from 'react';
-import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import {
+  HashRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -16,7 +25,16 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import HomePage from '../UserHomePage/HomePage';
 
-import './App.css';
+import Q1 from '../Assessment/Q1Page';
+import Q2 from '../Assessment/Q2Page';
+import Q3 from '../Assessment/Q3Page';
+import Q4 from '../Assessment/Q4Page';
+import Q5 from '../Assessment/Q5Page';
+import Q6 from '../Assessment/Q6Page';
+import Q7 from '../Assessment/Q7Page';
+import AdditionalEquipment from '../Assessment/AdditionalEquipmentPage';
+import FacilityPage from '../FacilityPage/FacilityPage';
+import EnergyCost from '../Assessment/EnergyCost';
 import ReportList from '../ReportPages/ReportLists/AdminReportList';
 import AdminHomePage from '../AdminHomePage/AdminHomePage';
 import EnergyReport from '../ReportPages/EnergyReport/EnergyReport';
@@ -29,6 +47,10 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
+    dispatch({ type: 'FETCH_CATEGORIES' });
+    dispatch({ type: 'FETCH_LOCATIONS' });
+    dispatch({ type: 'FETCH_TYPES' });
+    dispatch({ type: 'FETCH_UNITS' });
   }, [dispatch]);
 
   return (
@@ -37,7 +59,11 @@ function App() {
         <Nav />
         <Switch>
           {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
-          <Redirect exact from='/' to='/home' />
+          <Redirect
+            exact
+            from='/'
+            to='/home'
+          />
 
           {/* Visiting localhost:5173/about will show the about page. */}
           <Route
@@ -88,7 +114,71 @@ function App() {
             <HomePage />
           </ProtectedRoute>
 
-          <Route exact path='/login'>
+          <ProtectedRoute
+            exact
+            path='/assessment/q1'
+          >
+            <Q1 />
+          </ProtectedRoute>
+          <ProtectedRoute
+            exact
+            path='/assessment/q2'
+          >
+            <Q2 />
+          </ProtectedRoute>
+          <ProtectedRoute
+            exact
+            path='/assessment/q3'
+          >
+            <Q3 />
+          </ProtectedRoute>
+          <ProtectedRoute
+            exact
+            path='/assessment/q4'
+          >
+            <Q4 />
+          </ProtectedRoute>
+          <ProtectedRoute
+            exact
+            path='/assessment/q5'
+          >
+            <Q5 />
+          </ProtectedRoute>
+          <ProtectedRoute
+            exact
+            path='/assessment/q6'
+          >
+            <Q6 />
+          </ProtectedRoute>
+          <ProtectedRoute
+            exact
+            path='/assessment/q7'
+          >
+            <Q7 />
+          </ProtectedRoute>
+          <ProtectedRoute
+            exact
+            path='/assessment/additional-equipment'
+          >
+            <AdditionalEquipment />
+          </ProtectedRoute>
+          <ProtectedRoute
+            exact
+            path='/assessment/energy-cost'
+          >
+            <EnergyCost />
+          </ProtectedRoute>
+          <ProtectedRoute
+            exact
+            path='/facilities'
+          >
+            <FacilityPage />
+          </ProtectedRoute>
+
+          <Route
+            exact
+            path='/login'
+          >
             {user.id ? (
               // If the user is already logged in,
               // redirect to the /user page
@@ -99,7 +189,10 @@ function App() {
             )}
           </Route>
 
-          <Route exact path='/registration'>
+          <Route
+            exact
+            path='/registration'
+          >
             {user.id ? (
               // If the user is already logged in,
               // redirect them to the /user page
@@ -110,7 +203,10 @@ function App() {
             )}
           </Route>
 
-          <Route exact path='/home'>
+          <Route
+            exact
+            path='/home'
+          >
             {user.id ? (
               // If the user is already logged in,
               // redirect them to the /user page

@@ -18,10 +18,20 @@ import Divider from '@mui/joy/Divider';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function HomePage() {
+<<<<<<< HEAD:src/components/UserHomePage/HomePage.jsx
   const reports = useSelector((store) => store.reports.reportReducer);
   const facilities = useSelector((store) => store.facilities);
   const carbonTotal = useSelector((store) => store.carbon);
   const energyCost = useSelector((store) => store.cost);
+=======
+  const reports = useSelector((store) => store.reports);
+  console.log('reports', reports);
+  const facilities = useSelector((store) => store.facilities);
+  console.log('facilities', facilities);
+  const carbonTotal = useSelector((store) => store.carbon);
+  const energyCost = useSelector((store) => store.cost);
+  console.log('cost', energyCost);
+>>>>>>> master:src/components/HomePage/HomePage.jsx
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -64,7 +74,11 @@ function HomePage() {
               ))}
               <Typography>Total energy cost: </Typography>
               {energyCost.map((cost) => (
+<<<<<<< HEAD:src/components/UserHomePage/HomePage.jsx
                 <p>${cost.sum} /year</p>
+=======
+                <p>${cost.sum}/year</p>
+>>>>>>> master:src/components/HomePage/HomePage.jsx
               ))}
             </CardContent>
           </Card>
