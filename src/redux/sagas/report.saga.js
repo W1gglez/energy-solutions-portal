@@ -81,8 +81,8 @@ function* deleteReport(action) {
 function* approveReport(action) {
   try {
     console.log('in approveReport, check action.payload', action.payload);
-    yield axios.put(`/api/report/${action.payload}`);
-    yield put({ type: 'FETCH_REPORT_DETAILS', payload: action.payload });
+    yield axios.put(`/api/report/${action.payload.reportId}`, action.payload);
+    yield put({ type: 'FETCH_REPORT_DETAILS', payload: action.payload.reportId });
   } catch (error) {
     console.log('error approving report', error);
   }

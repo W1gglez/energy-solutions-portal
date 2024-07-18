@@ -286,13 +286,14 @@ router.delete('/:id', rejectUnauthenticated, async (req, res) => {
 
 // put to mark report as approved
 router.put('/:id', rejectUnauthenticated, (req, res) => {
-  console.log('in approve report router, check req.user.id, req.params.id', req.user.id, req.params.id);
+  console.log('in report put, check req.body.approvedAt', req.body.approvedAt);
+  console.log('in report put, check req.params.id', req.params.id);
   try {
     const queryText = `
-     UPDATE "reports"
- SET "approved" = true, "approvedBy" = $1
- WHERE "id"=$2;`;
-    pool.query(queryText, [req.user.id, req.params.id]);
+       UPDATE "reports"
+   SET "approved" = true, "approvedBy" = $1, "approvedAt" = $2
+   WHERE "id"=$3;`;
+    pool.query(queryText, [req.user.id, req.body.approvedAt, req.params.id]);
     res.sendStatus(200);
   } catch (error) {
     console.log('error marking report as approved', error);

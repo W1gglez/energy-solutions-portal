@@ -12,16 +12,17 @@ export default function EnergyReport() {
   const params = useParams();
   const user = useSelector((store) => store.user);
   const reportDetails = useSelector((store) => store.reports.reportDetails);
-  console.log('check reportDetails', reportDetails);
+  // console.log('check reportDetails', reportDetails);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_REPORT_DETAILS', payload: params.id });
   }, []);
 
   const approveReport = (reportId) => {
-    // console.log('approve report clicked check id', reportId);
-    // console.log('check approved by', reportDetails.username);
-    dispatch({ type: 'APPROVE_REPORT', payload: reportId });
+    console.log('approve report clicked check id', reportId);
+    const timeApproved = DateTime.now().setLocale('zh').toLocaleString();
+    console.log('check timeApproved', timeApproved);
+    dispatch({ type: 'APPROVE_REPORT', payload: { reportId, approvedAt: timeApproved } });
   };
 
   return (
@@ -30,7 +31,9 @@ export default function EnergyReport() {
         {user.admin && !reportDetails.approved ? (
           <Button onClick={() => approveReport(reportDetails.id)}>Approve</Button>
         ) : (
-          <p>Approved by: {reportDetails.username} at timestamp</p>
+          <p>
+            Approved by: {reportDetails.username} on {DateTime.now().toLocaleString(reportDetails.approvedAt)}
+          </p>
         )}
         <Box
           className='card-container'
