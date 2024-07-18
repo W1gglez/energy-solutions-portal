@@ -1,170 +1,195 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Modal, Box, Typography, Input, Button, Grid, FormControl, FormLabel } from '@mui/joy';
+import Modal from '@mui/joy/Modal';
+import Box from '@mui/joy/Box';
+import DialogTitle from '@mui/joy/DialogTitle';
+import Input from '@mui/joy/Input';
+import Button from '@mui/joy/Button';
+import Grid from '@mui/joy/Grid';
+import FormControl from '@mui/joy/FormControl';
+import FormLabel from '@mui/joy/FormLabel';
+import ModalDialog from '@mui/joy/ModalDialog';
+
 import { useParams } from 'react-router-dom';
+import { EnergySavingsLeafSharp } from '@mui/icons-material';
 
 function EnergyCostForm() {
-	const { report_id } = useParams();
-	const [energyCost, setEnergyCost] = useState({
-		electric: '',
-		natural_gas: '',
-		liquid_propane: '',
-		gas_propane: '',
-		heating_oil: '',
-	});
-	const [open, setOpen] = useState(false);
-	const dispatch = useDispatch();
+  const [energyCost, setEnergyCost] = useState({
+    // electric: '',
+    // natural_gas: '',
+    // liquid_propane: '',
+    // gas_propane: '',
+    // heating_oil: '',
+  });
+  const decimal = new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: 3,
+    maximumFractionDigits: 3,
+  });
+  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
 
-	const handleChange = (e) => {
-		const { name, value } = e.target;
-		setEnergyCost((prevState) => ({
-			...prevState,
-			[name]: value,
-		}));
-	};
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEnergyCost({
+      ...energyCost,
+      [name]: Number(value),
+    });
+    console.table(energyCost);
+  };
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		const submissionData = {
-			report_id: report_id,
-			electric: parseFloat(energyCost.electric, 10),
-			natural_gas: parseFloat(energyCost.natural_gas, 10),
-			liquid_propane: parseFloat(energyCost.liquid_propane, 10),
-			gas_propane: parseFloat(energyCost.gas_propane, 10),
-			heating_oil: parseFloat(energyCost.heating_oil, 10),
-		};
-		try {
-			dispatch({ type: 'ADD_ENERGY_COST', payload: submissionData });
-			alert('Energy Costs Submitted');
-			setEnergyCost({
-				electric: '',
-				natural_gas: '',
-				liquid_propane: '',
-				gas_propane: '',
-				heating_oil: '',
-			});
-			handleClose();
-		} catch (error) {
-			console.error('Error updating Energy Costs', error);
-			alert('Error updating Energy Costs');
-		}
-	};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch({ type: 'SET_ENERGY_COST', payload: energyCost });
+    handleClose();
+  };
 
-	const handleOpen = () => setOpen(true);
-	const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+    setEnergyCost({
+      electric: null,
+      natural_gas: null,
+      liquid_propane: null,
+      gas_propane: null,
+      heating_oil: null,
+    });
+  };
 
-	const style = {
-		position: 'absolute',
-		top: '50%',
-		left: '50%',
-		transform: 'translate(-50%, -50%)',
-		width: 400,
-		bgcolor: 'white',
-		border: '2px solid #000',
-		boxShadow: 24,
-		p: 4,
-	};
-
-	return (
-		<>
-			<Button variant='outlined' onClick={handleOpen}>
-				Add Energy Costs
-			</Button>
-			<Modal
-				open={open}
-				onClose={handleClose}
-				aria-labelledby='modal-modal-title'
-				aria-describedby='modal-modal-description'
-			>
-				<Box sx={style}>
-					<Typography level='h4'>Monthly Energy Costs (in dollars)</Typography>
-					<Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-						<Grid container spacing={2}>
-							<Grid item xs={6}>
-								<FormControl fullWidth>
-									<FormLabel>Electric</FormLabel>
-									<Input
-										required
-										id='electric'
-										placeholder='Electric'
-										name='electric'
-										type='number'
-										value={energyCost.electric}
-										onChange={handleChange}
-									/>
-								</FormControl>
-							</Grid>
-							<Grid item xs={6}>
-								<FormControl fullWidth>
-									<FormLabel>Natural Gas</FormLabel>
-									<Input
-										required
-										id='natural_gas'
-										placeholder='Natural Gas'
-										name='natural_gas'
-										type='number'
-										value={energyCost.natural_gas}
-										onChange={handleChange}
-									/>
-								</FormControl>
-							</Grid>
-							<Grid item xs={6}>
-								<FormControl fullWidth>
-									<FormLabel>Liquid Propane</FormLabel>
-									<Input
-										required
-										id='liquid_propane'
-										placeholder='Liquid Propane'
-										name='liquid_propane'
-										type='number'
-										value={energyCost.liquid_propane}
-										onChange={handleChange}
-									/>
-								</FormControl>
-							</Grid>
-							<Grid item xs={6}>
-								<FormControl fullWidth>
-									<FormLabel>Gas Propane</FormLabel>
-									<Input
-										required
-										id='gas_propane'
-										placeholder='Gas Propane'
-										name='gas_propane'
-										type='number'
-										value={energyCost.gas_propane}
-										onChange={handleChange}
-									/>
-								</FormControl>
-							</Grid>
-							<Grid item xs={6}>
-								<FormControl fullWidth>
-									<FormLabel>Heating Oil</FormLabel>
-									<Input
-										required
-										id='heating_oil'
-										placeholder='Heating Oil'
-										name='heating_oil'
-										type='number'
-										value={energyCost.heating_oil}
-										onChange={handleChange}
-									/>
-								</FormControl>
-							</Grid>
-							<Grid item xs={12}>
-								<Button type='submit' fullWidth sx={{ mt: 3, mb: 2 }}>
-									Submit
-								</Button>
-								<Button fullWidth onClick={handleClose}>
-									{' '}
-									Cancel{' '}
-								</Button>
-							</Grid>
-						</Grid>
-					</Box>
-				</Box>
-			</Modal>
-		</>
-	);
+ 
+  return (
+    <>
+      <Button onClick={handleOpen}>Add Energy Costs</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+      >
+        <ModalDialog>
+          <DialogTitle>Monthly Energy Costs (in dollars)</DialogTitle>
+          <Box
+            component='form'
+            onSubmit={handleSubmit}
+            sx={{ mt: 1 }}
+          >
+            <Grid
+              container
+              spacing={2}
+            >
+              <Grid
+                item
+                xs={6}
+              >
+                <FormControl>
+                  <FormLabel>Electric</FormLabel>
+                  <Input
+                    startDecorator={'$'}
+                    slotProps={{ input: { step: '.001' } }}
+                    required
+                    id='electric'
+                    placeholder='Electric'
+                    name='electric'
+                    type='number'
+                    value={energyCost.electric || null}
+                    onChange={handleChange}
+                  />
+                </FormControl>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+              >
+                <FormControl>
+                  <FormLabel>Natural Gas</FormLabel>
+                  <Input
+                    startDecorator={'$'}
+                    slotProps={{ input: { step: '.001' } }}
+                    required
+                    id='natural_gas'
+                    placeholder='Natural Gas'
+                    name='natural_gas'
+                    type='number'
+                    value={energyCost.natural_gas || null}
+                    onChange={handleChange}
+                  />
+                </FormControl>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+              >
+                <FormControl>
+                  <FormLabel>Liquid Propane</FormLabel>
+                  <Input
+                    startDecorator={'$'}
+                    slotProps={{ input: { step: '.001' } }}
+                    id='liquid_propane'
+                    placeholder='Liquid Propane'
+                    name='liquid_propane'
+                    type='number'
+                    value={energyCost.liquid_propane || null}
+                    onChange={handleChange}
+                  />
+                </FormControl>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+              >
+                <FormControl>
+                  <FormLabel>Gas Propane</FormLabel>
+                  <Input
+                    startDecorator={'$'}
+                    slotProps={{ input: { step: '.001' } }}
+                    id='gas_propane'
+                    placeholder='Gas Propane'
+                    name='gas_propane'
+                    type='number'
+                    value={energyCost.gas_propane || null}
+                    onChange={handleChange}
+                  />
+                </FormControl>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+              >
+                <FormControl>
+                  <FormLabel>Heating Oil</FormLabel>
+                  <Input
+                    startDecorator={'$'}
+                    slotProps={{ input: { step: '.001' } }}
+                    id='heating_oil'
+                    placeholder='Heating Oil'
+                    name='heating_oil'
+                    type='number'
+                    value={energyCost.heating_oil || null}
+                    onChange={handleChange}
+                  />
+                </FormControl>
+              </Grid>
+              <Grid
+                container
+                xs={12}
+                sx={{ my: 1, justifyContent: 'space-around' }}
+              >
+                <Button
+                  type='submit'
+                  sx={{ px: 12 }}
+                >
+                  Submit
+                </Button>
+                <Button
+                  onClick={handleClose}
+                  sx={{ px: 12 }}
+                >
+                  Cancel
+                </Button>
+              </Grid>
+            </Grid>
+          </Box>
+        </ModalDialog>
+      </Modal>
+    </>
+  );
 }
 
 export default EnergyCostForm;

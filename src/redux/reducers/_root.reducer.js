@@ -13,7 +13,7 @@ import energy from './energyCost.reducer';
 import carbon from './carbon.reducer';
 import adminFacilities from './admin.facility.reducer';
 import cost from './cost.reducer';
-
+import energyCost from './energyCost.reducer';
 
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
@@ -30,6 +30,7 @@ const rootReducer = combineReducers({
   carbon,
   adminFacilities,
   cost,
+  energyCost,
 });
 
 export default rootReducer;

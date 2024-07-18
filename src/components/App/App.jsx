@@ -1,5 +1,14 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fontsource/inter';
+import './App.css';
+
 import React, { useEffect } from 'react';
-import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import {
+  HashRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -16,8 +25,6 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import HomePage from '../HomePage/HomePage';
 
-import '@fontsource/inter';
-import './App.css';
 import Q1 from '../Assessment/Q1Page';
 import Q2 from '../Assessment/Q2Page';
 import Q3 from '../Assessment/Q3Page';
@@ -26,9 +33,8 @@ import Q5 from '../Assessment/Q5Page';
 import Q6 from '../Assessment/Q6Page';
 import Q7 from '../Assessment/Q7Page';
 import AdditionalEquipment from '../Assessment/AdditionalEquipmentPage';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import FacilityPage from '../FacilityPage/FacilityPage';
-import EnergyCost from '../EnergyCostsPage/EnergyCost';
+import EnergyCost from '../Assessment/EnergyCost';
 
 function App() {
   const dispatch = useDispatch();
@@ -139,6 +145,18 @@ function App() {
           >
             <AdditionalEquipment />
           </ProtectedRoute>
+          <ProtectedRoute
+            exact
+            path='/assessment/energy-cost'
+          >
+            <EnergyCost />
+          </ProtectedRoute>
+          <ProtectedRoute
+            exact
+            path='/facilities'
+          >
+            <FacilityPage />
+          </ProtectedRoute>
 
           <Route
             exact
@@ -168,14 +186,10 @@ function App() {
             )}
           </Route>
 
-          <ProtectedRoute exact path='/facilities'>
-            <FacilityPage />
-          </ProtectedRoute>
-          <ProtectedRoute exact path='/energy-cost'>
-            <EnergyCost />
-          </ProtectedRoute>
-          
-          <Route exact path='/home'>
+          <Route
+            exact
+            path='/home'
+          >
             {user.id ? (
               // If the user is already logged in,
               // redirect them to the /user page

@@ -161,10 +161,10 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
       req.body.date_submitted,
     ])
     .then((result) => {
-      // res.sendStatus(201);
       const reportId = result.rows[0].id;
       const { equipment, recommendations, energyCosts } = req.body;
-      const { electric, naturalGas, liquidPropane, gasPropane, heatingOil } = energyCosts;
+      const { electric, naturalGas, liquidPropane, gasPropane, heatingOil } =
+        energyCosts;
       const query = `Insert INTO energy_cost (
       "report_id",
       "electric",
@@ -173,7 +173,14 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
       "gas_propane",
       "heating_oil") VALUES ($1, $2, $3, $4, $5, $6)`;
       pool
-        .query(query, [reportId, electric, naturalGas, liquidPropane || null, gasPropane || null, heatingOil || null])
+        .query(query, [
+          reportId,
+          electric,
+          naturalGas,
+          liquidPropane || null,
+          gasPropane || null,
+          heatingOil || null,
+        ])
         .then()
         .catch((err) => {
           console.error('Error POSTing energy costs', err);

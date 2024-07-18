@@ -17,7 +17,7 @@ export default function AdditionalEquipment() {
   const [open, setOpen] = useState(false);
 
   const recordResponse = () => {
-    history.push('/assessment/q7');
+    history.push('/assessment/energy-cost');
   };
 
   const handleExit = () => {
@@ -27,7 +27,7 @@ export default function AdditionalEquipment() {
   };
 
   return (
-    <Container sx={{ height: '79vh', alignContent: 'center' }}>
+    <Container sx={{ height: '78vh', alignContent: 'center' }}>
       <Button
         onClick={handleExit}
         sx={{ position: 'absolute', top: '10%', left: '8%' }}
