@@ -14,7 +14,8 @@ export default function Q6() {
 
   const equipmentInv = useSelector((store) => store.equipmentInv);
   const hvac = equipmentInv.filter(
-    (e) => e.typeId === 18 || e.typeId === 14 || e.typeId === 15
+    (e) =>
+      e.typeId === 18 || e.typeId === 14 || e.typeId === 15 || e.typeId === 12
   );
   const [open, setOpen] = useState(false);
 
@@ -54,14 +55,14 @@ export default function Q6() {
           category={1}
         />
         {hvac && (
-          <>
-            {hvac.map((e) => (
+          <Grid sx={{ maxHeight: '500px', width: '50vw', overflow: 'auto' }}>
+            {hvac.map((e, i) => (
               <EquipmentCard
-                key={e.id}
+                key={i}
                 equipment={e}
               />
             ))}
-          </>
+          </Grid>
         )}
         <Grid
           xs={8}
@@ -74,7 +75,7 @@ export default function Q6() {
           sx={{ display: 'flex', justifyContent: 'space-between' }}
         >
           <Button
-            onClick={() => history.goBack()}
+            onClick={() => history.push('/assessment/q5')}
             sx={{ width: '25%' }}
           >
             Previous

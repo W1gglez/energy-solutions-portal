@@ -3,10 +3,6 @@ import Button from '@mui/joy/Button';
 import Input from '@mui/joy/Input';
 import Grid from '@mui/joy/Grid';
 import Typography from '@mui/joy/Typography';
-import Card from '@mui/joy/Card';
-import CardContent from '@mui/joy/CardContent';
-import DialogTitle from '@mui/joy/DialogTitle';
-import Box from '@mui/joy/Box';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
@@ -22,9 +18,9 @@ export default function Q4() {
   const waterHeater = equipmentInv.find((e) => e.typeId === 8);
 
   const [tempSetting, setTempSetting] = useState(
-    responses.water_heater?.tempSetting || null
+    responses.water_heater?.tempSetting || 0
   );
-  const [age, setAge] = useState(responses.water_heater?.age || null);
+  const [age, setAge] = useState(responses.water_heater?.age || 0);
   const [open, setOpen] = useState(false);
 
   const recordResponse = () => {
@@ -139,7 +135,7 @@ export default function Q4() {
           sx={{ display: 'flex', justifyContent: 'space-between' }}
         >
           <Button
-            onClick={() => history.goBack()}
+            onClick={() => history.push('/assessment/q3')}
             sx={{ width: '25%' }}
           >
             Previous

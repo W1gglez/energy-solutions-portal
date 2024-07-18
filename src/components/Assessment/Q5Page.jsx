@@ -145,7 +145,7 @@ export default function Q5() {
           sx={{ display: 'flex', justifyContent: 'space-between' }}
         >
           <Button
-            onClick={() => history.goBack()}
+            onClick={() => history.push('/assessment/q4')}
             sx={{ width: '25%' }}
           >
             Previous

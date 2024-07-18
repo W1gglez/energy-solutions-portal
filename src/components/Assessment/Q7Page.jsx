@@ -8,14 +8,23 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 
+import EquipmentForm from './EqupmentForm';
+import EquipmentCard from '../EquipmentCard/EquipmentCard';
+import { Maximize } from '@mui/icons-material';
+
 export default function Q7() {
   const history = useHistory();
   const dispatch = useDispatch();
   const responses = useSelector((store) => store.responses);
+  const equipmentInv = useSelector((store) => store.equipmentInv);
+
+  const lights = equipmentInv.filter((e) => e.typeId === 9);
+
   const [isLED, setisLED] = useState(responses.lights?.isLED || false);
   const [motionSensor, setmotionSensor] = useState(
     responses.lights?.motionSensor || false
   );
+  const [open, setOpen] = useState(false);
 
   const handleExit = () => {
     history.push('/');
@@ -47,7 +56,7 @@ export default function Q7() {
       </Typography>
       <Grid
         container
-        spacing={12}
+        spacing={8}
         sx={{ justifyContent: 'center', alignItems: 'center' }}
       >
         <Grid xs={4}>
@@ -136,6 +145,30 @@ export default function Q7() {
             </RadioGroup>
           </Grid>
         </Grid>
+        <EquipmentForm
+          open={open}
+          setOpen={setOpen}
+          type={9}
+          category={1}
+        />
+        {lights && (
+          <Grid
+            sx={{ p: 0, maxHeight: '246px', width: '50vw', overflow: 'auto' }}
+          >
+            {lights.map((e) => (
+              <EquipmentCard
+                key={e.id}
+                equipment={e}
+              />
+            ))}
+          </Grid>
+        )}
+        <Grid
+          xs={8}
+          sx={{ textAlign: 'center', py: 4 }}
+        >
+          <Button onClick={() => setOpen(true)}>Add Light Details</Button>
+        </Grid>
         <Grid
           xs={12}
           sx={{
@@ -144,7 +177,7 @@ export default function Q7() {
           }}
         >
           <Button
-            onClick={() => history.goBack()}
+            onClick={() => history.push('/assessment/q6')}
             sx={{ width: '25%' }}
           >
             Previous

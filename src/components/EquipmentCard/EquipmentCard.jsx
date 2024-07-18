@@ -13,7 +13,7 @@ export default function EquipmentCard({ equipment }) {
   const locations = useSelector((store) => store.locations);
 
   return (
-    <Grid>
+    <Grid sx={{ p: 0.5 }}>
       <Card
         orientation='horizontal'
         variant='outlined'
