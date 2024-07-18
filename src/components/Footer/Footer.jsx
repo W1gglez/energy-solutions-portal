@@ -1,5 +1,6 @@
 import React from 'react';
 import './Footer.css';
+import { Divider, Grid } from '@mui/joy';
 
 // This is one of our simplest components
 // It doesn't have local state, so it can be a function component.
@@ -8,7 +9,12 @@ import './Footer.css';
 const year = new Date().getFullYear();
 
 function Footer() {
-  return <footer>&copy; RJ Energy Solutions {year}</footer>;
+  return (
+    <footer>
+      <Divider />
+      <Grid sx={{ p: 3 }}>&copy; RJ Energy Solutions {year}</Grid>
+    </footer>
+  );
 }
 
 export default Footer;

@@ -19,7 +19,7 @@ export default function Q6() {
   const [open, setOpen] = useState(false);
 
   const recordResponse = () => {
-    history.push('/assessment/q5');
+    history.push('/assessment/q7');
   };
 
   const handleExit = () => {
@@ -29,7 +29,7 @@ export default function Q6() {
   };
 
   return (
-    <Container sx={{ height: '75vh', alignContent: 'center' }}>
+    <Container sx={{ height: '79vh', alignContent: 'center' }}>
       <Button
         onClick={handleExit}
         sx={{ position: 'absolute', top: '10%', left: '8%' }}

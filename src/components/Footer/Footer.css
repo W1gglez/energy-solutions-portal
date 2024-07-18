@@ -1,5 +1,7 @@
 footer {
-  margin-top: 80px;
-  padding: 20px;
+  margin-top: 50px;
   text-align: center;
+  position: relative;
+  bottom: 0;
+  width: 100vw
 }

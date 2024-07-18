@@ -44,7 +44,7 @@ export default function Q2() {
   };
 
   return (
-    <Container sx={{ height: '75vh', alignContent: 'center' }}>
+    <Container sx={{ height: '79vh', alignContent: 'center' }}>
       <Button
         onClick={handleExit}
         sx={{ position: 'absolute', top: '10%', left: '8%' }}

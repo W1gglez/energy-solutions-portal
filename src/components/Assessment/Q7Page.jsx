@@ -8,15 +8,13 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 
-export default function Q5() {
+export default function Q7() {
   const history = useHistory();
   const dispatch = useDispatch();
   const responses = useSelector((store) => store.responses);
-  const [isProgrammable, setIsProgrammable] = useState(
-    responses.thermostat?.isProgrammable || false
-  );
-  const [isProgrammed, setIsProgrammed] = useState(
-    responses.thermostat?.isProgrammed || false
+  const [isLED, setisLED] = useState(responses.lights?.isLED || false);
+  const [motionSensor, setmotionSensor] = useState(
+    responses.lights?.motionSensor || false
   );
 
   const handleExit = () => {
@@ -28,9 +26,9 @@ export default function Q5() {
   const recordResponse = () => {
     dispatch({
       type: 'SET_RESPONSE',
-      payload: (responses['thermostat'] = { isProgrammable, isProgrammed }),
+      payload: (responses['lights'] = { isLED, motionSensor }),
     });
-    history.push('/assessment/q6');
+    // history.push('/assessment/additional-equipment');
   };
 
   return (
@@ -43,21 +41,21 @@ export default function Q5() {
       </Button>
       <Typography
         level='h1'
-        sx={{ position: 'absolute', top: '10%', left: '43vw' }}
+        sx={{ position: 'absolute', top: '10%', left: '47vw' }}
       >
-        Thermostats
+        Lights
       </Typography>
       <Grid
         container
         spacing={12}
         sx={{ justifyContent: 'center', alignItems: 'center' }}
       >
-        <Grid xs={4.25}>
+        <Grid xs={4}>
           <Typography
             level='h4'
             sx={{ textAlign: 'center' }}
           >
-            Are the thermostats programmable?
+            Is the facility using LED lightbulbs?
           </Typography>
         </Grid>
         <Grid
@@ -65,14 +63,14 @@ export default function Q5() {
           sx={{ pl: 0 }}
         >
           <RadioGroup
-            value={isProgrammable}
+            value={isLED}
             orientation='horizontal'
             sx={{
               gap: 18,
               justifyContent: 'center',
             }}
             onChange={(e) => {
-              setIsProgrammable(e.target.value);
+              setisLED(e.target.value);
             }}
           >
             <Radio
@@ -92,57 +90,58 @@ export default function Q5() {
             />
           </RadioGroup>
         </Grid>
-        {isProgrammable === 'true' && (
-          <Grid
-            container
-            xs={12}
-            sx={{ justifyContent: 'center', alignItems: 'center' }}
-          >
-            <Grid xs={4}>
-              <Typography
-                level='h4'
-                sx={{ textAlign: 'center' }}
-              >
-                If programmable, are they setup?
-              </Typography>
-            </Grid>
-            <Grid
-              xs={3}
-              sx={{ pl: 0 }}
+        <Grid
+          container
+          xs={12}
+          sx={{ justifyContent: 'center', alignItems: 'center' }}
+        >
+          <Grid xs={4}>
+            <Typography
+              level='h4'
+              sx={{ textAlign: 'center' }}
             >
-              <RadioGroup
-                value={isProgrammed}
-                orientation='horizontal'
-                sx={{
-                  gap: 18,
-                  justifyContent: 'center',
-                }}
-                onChange={(e) => {
-                  setIsProgrammed(e.target.value);
-                }}
-              >
-                <Radio
-                  sx={{
-                    fontSize: '24px',
-                  }}
-                  label='Yes'
-                  value={true}
-                />
-
-                <Radio
-                  sx={{
-                    fontSize: '24px',
-                  }}
-                  label='No'
-                  value={false}
-                />
-              </RadioGroup>
-            </Grid>
+              Are motion sensors being used?
+            </Typography>
           </Grid>
-        )}
+          <Grid
+            xs={3}
+            sx={{ pl: 0 }}
+          >
+            <RadioGroup
+              value={motionSensor}
+              orientation='horizontal'
+              sx={{
+                gap: 18,
+                justifyContent: 'center',
+              }}
+              onChange={(e) => {
+                setmotionSensor(e.target.value);
+              }}
+            >
+              <Radio
+                sx={{
+                  fontSize: '24px',
+                }}
+                label='Yes'
+                value={true}
+              />
+
+              <Radio
+                sx={{
+                  fontSize: '24px',
+                }}
+                label='No'
+                value={false}
+              />
+            </RadioGroup>
+          </Grid>
+        </Grid>
         <Grid
           xs={12}
-          sx={{ display: 'flex', justifyContent: 'space-between' }}
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}
         >
           <Button
             onClick={() => history.goBack()}
