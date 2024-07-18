@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 export default function ReportItem({ report }) {
   const history = useHistory();
   const viewDetails = (reportId) => {
-    console.log('veiw deets clicked', reportId);
+    console.log('view deets clicked', reportId);
     history.push(`/report/${reportId}`);
   };
 

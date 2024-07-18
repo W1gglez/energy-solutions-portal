@@ -20,7 +20,11 @@ function Nav() {
   const [open, setOpen] = React.useState(false);
 
   const navHome = () => {
-    history.push('/admin-home-page');
+    if (user.admin === true) {
+      history.push('/admin-home-page');
+    } else {
+      history.push('/home-page');
+    }
     setOpen(false);
   };
 
@@ -31,7 +35,11 @@ function Nav() {
   };
 
   const navReports = () => {
-    history.push('/admin-reports');
+    if (user.admin === true) {
+      history.push('/admin-reports');
+    } else {
+      history.push('/user-reports');
+    }
     setOpen(false);
   };
 
@@ -121,10 +129,10 @@ function Nav() {
               <ListItemButton onClick={navHome} sx={{ fontWeight: 'lg' }}>
                 Home
               </ListItemButton>
-              <ListItemButton>My Facilities</ListItemButton>
-              <ListItemButton>My Reports</ListItemButton>
+              <ListItemButton onClick={navFacilities}>My Facilities</ListItemButton>
+              <ListItemButton onClick={navReports}>My Reports</ListItemButton>
               <Divider />
-              <ListItemButton>New Report</ListItemButton>
+              <ListItemButton onClick={navReports}>New Report</ListItemButton>
               <Divider />
               <ListItemButton onClick={() => dispatch({ type: 'LOGOUT' })}>Log Out</ListItemButton>
             </List>

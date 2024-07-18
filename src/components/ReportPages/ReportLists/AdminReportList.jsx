@@ -14,7 +14,7 @@ export default function ReportList() {
   }, []);
   return (
     <>
-      <h1>All Reports - Admin Page</h1>
+      <h1>Admin Reports</h1>
       <section className='report-container'>
         {reports.map((report) => (
           <ReportItem key={report.id} report={report} />

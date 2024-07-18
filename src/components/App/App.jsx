@@ -17,9 +17,10 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import HomePage from '../UserHomePage/HomePage';
 
 import './App.css';
-import ReportList from '../ReportPages/ReportList/ReportList';
+import ReportList from '../ReportPages/ReportLists/AdminReportList';
 import AdminHomePage from '../AdminHomePage/AdminHomePage';
 import EnergyReport from '../ReportPages/EnergyReport/EnergyReport';
+import UserReportList from '../ReportPages/ReportLists/UserReportList';
 
 function App() {
   const dispatch = useDispatch();
@@ -73,6 +74,10 @@ function App() {
 
           <ProtectedRoute exact path='/admin-reports'>
             <ReportList />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/user-reports'>
+            <UserReportList />
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/admin-home-page'>
