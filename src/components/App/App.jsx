@@ -23,6 +23,7 @@ import Q2 from '../Assessment/Q2Page';
 import Q3 from '../Assessment/Q3Page';
 import Q4 from '../Assessment/Q4Page';
 import Q5 from '../Assessment/Q5Page';
+import Q6 from '../Assessment/Q6Page';
 
 function App() {
   const dispatch = useDispatch();
@@ -114,6 +115,12 @@ function App() {
             path='/assessment/q5'
           >
             <Q5 />
+          </ProtectedRoute>
+          <ProtectedRoute
+            exact
+            path='/assessment/q6'
+          >
+            <Q6 />
           </ProtectedRoute>
 
           <Route

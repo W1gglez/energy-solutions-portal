@@ -30,7 +30,7 @@ export default function Q5() {
       type: 'SET_RESPONSE',
       payload: (responses['thermostat'] = { isProgrammable, isProgrammed }),
     });
-    // history.push('/assessment/q6');
+    history.push('/assessment/q6');
   };
 
   return (

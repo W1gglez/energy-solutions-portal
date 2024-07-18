@@ -7,11 +7,11 @@ import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import DialogTitle from '@mui/joy/DialogTitle';
 import Box from '@mui/joy/Box';
-import FormLabel from '@mui/joy/FormLabel';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import EquipmentForm from './EqupmentForm';
+import EquipmentCard from '../EquipmentCard/EquipmentCard';
 
 export default function Q4() {
   const history = useHistory();
@@ -19,15 +19,12 @@ export default function Q4() {
 
   const responses = useSelector((store) => store.responses);
   const equipmentInv = useSelector((store) => store.equipmentInv);
-  const categories = useSelector((store) => store.categories);
-  const types = useSelector((store) => store.equipmentTypes);
-  const locations = useSelector((store) => store.locations);
   const waterHeater = equipmentInv.find((e) => e.typeId === 8);
 
   const [tempSetting, setTempSetting] = useState(
-    responses.water_heater?.tempSetting || false
+    responses.water_heater?.tempSetting || null
   );
-  const [age, setAge] = useState(responses.water_heater?.age || 0);
+  const [age, setAge] = useState(responses.water_heater?.age || null);
   const [open, setOpen] = useState(false);
 
   const recordResponse = () => {
@@ -124,72 +121,7 @@ export default function Q4() {
             sx={{ justifyContent: 'center' }}
             xs={12}
           >
-            <Card
-              orientation='horizontal'
-              variant='outlined'
-              sx={{ width: '45vw' }}
-            >
-              <CardContent>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <DialogTitle>
-                    {waterHeater.description ??
-                      types[waterHeater.typeId - 1].type}
-                  </DialogTitle>
-                  <DialogTitle>Qty: {waterHeater.qty}</DialogTitle>
-                </Box>
-
-                <Typography>
-                  {locations[waterHeater.locationId - 1].location}
-                </Typography>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    flexWrap: 'wrap',
-                  }}
-                >
-                  {waterHeater.brand && (
-                    <Typography>Brand: {waterHeater.brand}</Typography>
-                  )}
-                  {waterHeater.modelNumber && (
-                    <Typography>Model: {waterHeater.modelNumber}</Typography>
-                  )}
-                  {waterHeater.serialNumber && (
-                    <Typography>SN: {waterHeater.serialNumber}</Typography>
-                  )}
-                </Box>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    flexWrap: 'wrap',
-                  }}
-                >
-                  <Typography>
-                    Type: {categories[waterHeater.categoryId - 1].category}
-                  </Typography>
-                  {waterHeater.amps && (
-                    <Typography>Amps: {waterHeater.amps}</Typography>
-                  )}
-                  {waterHeater.watts && (
-                    <Typography>Watts: {waterHeater.watts}</Typography>
-                  )}
-                  {waterHeater.volts && (
-                    <Typography>Volts: ${waterHeater.volts}</Typography>
-                  )}
-                  {waterHeater.kW && (
-                    <Typography>Killowatts: {waterHeater.kW}</Typography>
-                  )}
-                  {waterHeater.btu && (
-                    <Typography>BTUs: {waterHeater.btu}</Typography>
-                  )}
-
-                  <Typography>
-                    Hours running per day: {waterHeater.hoursPerDay}
-                  </Typography>
-                </Box>
-              </CardContent>
-            </Card>
+            <EquipmentCard equipment={waterHeater} />
           </Grid>
         ) : (
           <Grid

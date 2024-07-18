@@ -4,14 +4,11 @@ import Radio from '@mui/joy/Radio';
 import RadioGroup from '@mui/joy/RadioGroup';
 import Grid from '@mui/joy/Grid';
 import Typography from '@mui/joy/Typography';
-import Card from '@mui/joy/Card';
-import CardContent from '@mui/joy/CardContent';
-import DialogTitle from '@mui/joy/DialogTitle';
-import Box from '@mui/joy/Box';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import EquipmentForm from './EqupmentForm';
+import EquipmentCard from '../EquipmentCard/EquipmentCard';
 
 export default function Q2() {
   const history = useHistory();
@@ -19,9 +16,6 @@ export default function Q2() {
 
   const responses = useSelector((store) => store.responses);
   const equipmentInv = useSelector((store) => store.equipmentInv);
-  const categories = useSelector((store) => store.categories);
-  const types = useSelector((store) => store.equipmentTypes);
-  const locations = useSelector((store) => store.locations);
   const entryHeater = equipmentInv.find((e) => e.typeId === 17);
 
   const [isEntryHeater, setIsEntryHeater] = useState(
@@ -125,68 +119,7 @@ export default function Q2() {
                 sx={{ justifyContent: 'center' }}
                 xs={12}
               >
-                <Card
-                  orientation='horizontal'
-                  variant='outlined'
-                  sx={{ width: '45vw' }}
-                >
-                  <CardContent>
-                    <Box
-                      sx={{ display: 'flex', justifyContent: 'space-between' }}
-                    >
-                      <DialogTitle>
-                        {entryHeater.description ??
-                          types[entryHeater.typeId - 1].type}
-                      </DialogTitle>
-                      <DialogTitle>Qty: {entryHeater.qty}</DialogTitle>
-                    </Box>
-
-                    <Typography>
-                      {locations[entryHeater.locationId - 1].location}
-                    </Typography>
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        flexWrap: 'wrap',
-                      }}
-                    >
-                      <Typography>Brand: {entryHeater.brand}</Typography>
-                      <Typography>Model: {entryHeater.modelNumber}</Typography>
-                      <Typography>SN: {entryHeater.serialNumber}</Typography>
-                    </Box>
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        flexWrap: 'wrap',
-                      }}
-                    >
-                      <Typography>
-                        Type: {categories[entryHeater.categoryId - 1].category}
-                      </Typography>
-                      {entryHeater.amps && (
-                        <Typography>Amps: {entryHeater.amps}</Typography>
-                      )}
-                      {entryHeater.watts && (
-                        <Typography>Watts: {entryHeater.watts}</Typography>
-                      )}
-                      {entryHeater.volts && (
-                        <Typography>Volts: ${entryHeater.volts}</Typography>
-                      )}
-                      {entryHeater.kW && (
-                        <Typography>Killowatts: {entryHeater.kW}</Typography>
-                      )}
-                      {entryHeater.btu && (
-                        <Typography>BTUs: {entryHeater.btu}</Typography>
-                      )}
-
-                      <Typography>
-                        Hours running per day: {entryHeater.hoursPerDay}
-                      </Typography>
-                    </Box>
-                  </CardContent>
-                </Card>
+                <EquipmentCard equipment={entryHeater} />
               </Grid>
             )}
             <Grid xs={3}>
