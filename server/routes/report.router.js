@@ -129,6 +129,7 @@ SELECT
   "facility"."name",
   "facility"."user_id",
   "facility"."address",
+  "user"."username",
   equipment_agg.equipment,
   recommendations_agg.recommendations,
   energy_cost_agg.energy_cost
@@ -285,12 +286,13 @@ router.delete('/:id', rejectUnauthenticated, async (req, res) => {
 
 // put to mark report as approved
 router.put('/:id', rejectUnauthenticated, (req, res) => {
+  console.log('in approve report router, check req.user.id, req.params.id', req.user.id, req.params.id);
   try {
     const queryText = `
      UPDATE "reports"
- SET "approved" = true
- WHERE "id"=$1;`;
-    pool.query(queryText, [req.params.id]);
+ SET "approved" = true, "approvedBy" = $1
+ WHERE "id"=$2;`;
+    pool.query(queryText, [req.user.id, req.params.id]);
     res.sendStatus(200);
   } catch (error) {
     console.log('error marking report as approved', error);

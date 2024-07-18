@@ -19,7 +19,8 @@ export default function EnergyReport() {
   }, []);
 
   const approveReport = (reportId) => {
-    console.log('approve report clicked check id', reportId);
+    // console.log('approve report clicked check id', reportId);
+    // console.log('check approved by', reportDetails.username);
     dispatch({ type: 'APPROVE_REPORT', payload: reportId });
   };
 
@@ -29,7 +30,7 @@ export default function EnergyReport() {
         {user.admin && !reportDetails.approved ? (
           <Button onClick={() => approveReport(reportDetails.id)}>Approve</Button>
         ) : (
-          ''
+          <p>Approved by: {reportDetails.username} at timestamp</p>
         )}
         <Box
           className='card-container'
