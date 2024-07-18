@@ -26,6 +26,9 @@ import Q5 from '../Assessment/Q5Page';
 import Q6 from '../Assessment/Q6Page';
 import Q7 from '../Assessment/Q7Page';
 import AdditionalEquipment from '../Assessment/AdditionalEquipmentPage';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import FacilityPage from '../FacilityPage/FacilityPage';
+import EnergyCost from '../EnergyCostsPage/EnergyCost';
 
 function App() {
   const dispatch = useDispatch();
@@ -165,10 +168,14 @@ function App() {
             )}
           </Route>
 
-          <Route
-            exact
-            path='/home'
-          >
+          <ProtectedRoute exact path='/facilities'>
+            <FacilityPage />
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/energy-cost'>
+            <EnergyCost />
+          </ProtectedRoute>
+          
+          <Route exact path='/home'>
             {user.id ? (
               // If the user is already logged in,
               // redirect them to the /user page
