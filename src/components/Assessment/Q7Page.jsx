@@ -37,7 +37,7 @@ export default function Q7() {
       type: 'SET_RESPONSE',
       payload: (responses['lights'] = { isLED, motionSensor }),
     });
-    // history.push('/assessment/additional-equipment');
+    history.push('/assessment/additional-equipment');
   };
 
   return (
@@ -155,9 +155,9 @@ export default function Q7() {
           <Grid
             sx={{ p: 0, maxHeight: '246px', width: '50vw', overflow: 'auto' }}
           >
-            {lights.map((e) => (
+            {lights.map((e, i) => (
               <EquipmentCard
-                key={e.id}
+                key={i}
                 equipment={e}
               />
             ))}

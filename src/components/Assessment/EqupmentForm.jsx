@@ -235,7 +235,7 @@ export default function EquipmentForm(props) {
                 >
                   <Input
                     type='number'
-                    slotProps={{ input: { min: 0 } }}
+                    slotProps={{ input: { step: '.01', min: 0 } }}
                     placeholder='Amps'
                     onChange={(e) =>
                       setEquipment({
