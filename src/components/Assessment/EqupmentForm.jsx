@@ -10,11 +10,11 @@ import Option from '@mui/joy/Option';
 import Select from '@mui/joy/Select';
 import Textarea from '@mui/joy/Textarea';
 import Button from '@mui/joy/Button';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 export default function EquipmentForm(props) {
-  const { type, location, category } = props;
+  const { type, location, category, unit, e, i, open, setOpen } = props;
 
   const dispatch = useDispatch();
 
@@ -24,37 +24,61 @@ export default function EquipmentForm(props) {
   const energyUnits = useSelector((store) => store.energyUnits);
 
   const [equipment, setEquipment] = useState({
-    description: null,
-    typeId: type || 0,
-    brand: null,
-    modelNumber: null,
-    serialNumber: null,
-    qty: 1,
-    locationId: location || 0,
-    categoryId: category || 0,
-    amps: null,
-    volts: null,
-    watts: null,
-    kW: null,
-    btu: null,
-    hoursPerDay: null,
-    notes: null,
+    description: e?.description || null,
+    typeId: e?.typeId || type || 0,
+    brand: e?.brand || null,
+    modelNumber: e?.modelNumber || null,
+    serialNumber: e?.serialNumber || null,
+    qty: e?.qty || 1,
+    locationId: e?.locationId || location || 0,
+    categoryId: e?.categoryId || category || 0,
+    amps: e?.amps || null,
+    volts: e?.volts || null,
+    watts: e?.watts || null,
+    kW: e?.kW || null,
+    btu: e?.btu || null,
+    hoursPerDay: e?.hoursPerDay || null,
+    notes: e?.notes || null,
   });
 
-  const [selectedOption, setSelectedOption] = useState(1);
+  const [selectedOption, setSelectedOption] = useState(unit ?? 1);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch({ type: 'ADD_EQUIPMENT', payload: equipment });
-    props.setOpen(false);
+    {
+      typeof i !== 'undefined'
+        ? dispatch({ type: 'UPDATE_EQUIPMENT', payload: { i, equipment } })
+        : dispatch({ type: 'ADD_EQUIPMENT', payload: equipment });
+    }
+    handleClose();
   };
 
-  //   useEffect(() => {
-  //     console.table(equipment);
-  //   }, [equipment]);
+  const handleClose = () => {
+    setEquipment({
+      description: e?.description || null,
+      typeId: e?.typeId || type || 0,
+      brand: e?.brand || null,
+      modelNumber: e?.modelNumber || null,
+      serialNumber: e?.serialNumber || null,
+      qty: e?.qty || 1,
+      locationId: e?.locationId || location || 0,
+      categoryId: e?.categoryId || category || 0,
+      amps: e?.amps || null,
+      volts: e?.volts || null,
+      watts: e?.watts || null,
+      kW: e?.kW || null,
+      btu: e?.btu || null,
+      hoursPerDay: e?.hoursPerDay || null,
+      notes: e?.notes || null,
+    });
+    setOpen(false);
+  };
 
   return (
-    <Modal open={Boolean(props.open)}>
+    <Modal
+      open={Boolean(open)}
+      onClose={handleClose}
+    >
       <ModalDialog sx={{ width: '65vw' }}>
         <DialogTitle>Equipment Details</DialogTitle>
         <DialogContent>
@@ -73,10 +97,11 @@ export default function EquipmentForm(props) {
                 <FormLabel>Description</FormLabel>
                 <Input
                   placeholder='ex: "Beer Cooler"'
+                  value={equipment.description}
                   onChange={(e) =>
                     setEquipment({
                       ...equipment,
-                      description: e.target.value || null,
+                      description: e.target.value,
                     })
                   }
                 />
@@ -89,7 +114,7 @@ export default function EquipmentForm(props) {
               <FormControl>
                 <FormLabel>Location*</FormLabel>
                 <Select
-                  defaultValue={location || null}
+                  defaultValue={equipment.locationId}
                   placeholder='Select the equipment location...'
                   sx={{ height: 41 }}
                   onChange={(e, newVal) => {
@@ -137,7 +162,7 @@ export default function EquipmentForm(props) {
               <FormControl>
                 <FormLabel>Type*</FormLabel>
                 <Select
-                  defaultValue={type || null}
+                  defaultValue={equipment.typeId}
                   placeholder='Select the equipment type...'
                   sx={{ height: 41 }}
                   onChange={(e, newVal) => {
@@ -160,6 +185,7 @@ export default function EquipmentForm(props) {
               <FormControl>
                 <FormLabel>Brand</FormLabel>
                 <Input
+                  value={equipment.brand}
                   onChange={(e) =>
                     setEquipment({
                       ...equipment,
@@ -173,6 +199,7 @@ export default function EquipmentForm(props) {
               <FormControl>
                 <FormLabel>Model</FormLabel>
                 <Input
+                  value={equipment.modelNumber}
                   onChange={(e) =>
                     setEquipment({
                       ...equipment,
@@ -186,6 +213,7 @@ export default function EquipmentForm(props) {
               <FormControl>
                 <FormLabel>Serial Number</FormLabel>
                 <Input
+                  value={equipment.serialNumber}
                   onChange={(e) =>
                     setEquipment({
                       ...equipment,
@@ -204,7 +232,7 @@ export default function EquipmentForm(props) {
               <FormControl>
                 <FormLabel>Category*</FormLabel>
                 <Select
-                  defaultValue={category || null}
+                  defaultValue={equipment.categoryId}
                   placeholder='Select the equipment category...'
                   sx={{ height: 41 }}
                   onChange={(e, newVal) => {
@@ -235,6 +263,7 @@ export default function EquipmentForm(props) {
                 >
                   <Input
                     type='number'
+                    value={equipment.amps}
                     slotProps={{ input: { step: '.01', min: 0 } }}
                     placeholder='Amps'
                     onChange={(e) =>
@@ -247,6 +276,7 @@ export default function EquipmentForm(props) {
                   />
                   <Input
                     type='number'
+                    value={equipment.volts}
                     slotProps={{ input: { min: 0 } }}
                     placeholder='Volts'
                     sx={{ ml: 1 }}
@@ -263,6 +293,7 @@ export default function EquipmentForm(props) {
               {selectedOption === 2 && (
                 <Input
                   type='number'
+                  value={equipment.watts}
                   slotProps={{ input: { min: 0 } }}
                   placeholder='Watts'
                   sx={{ mt: '26px' }}
@@ -278,6 +309,7 @@ export default function EquipmentForm(props) {
               {selectedOption === 3 && (
                 <Input
                   type='number'
+                  value={equipment.kW}
                   placeholder='Killowatts'
                   slotProps={{ input: { step: '.001', min: 0 } }}
                   sx={{ mt: '26px' }}
@@ -294,6 +326,7 @@ export default function EquipmentForm(props) {
               {selectedOption === 4 && (
                 <Input
                   type='number'
+                  value={equipment.btu}
                   slotProps={{ input: { min: 0 } }}
                   placeholder='BTUs'
                   sx={{ mt: '26px' }}
@@ -320,7 +353,7 @@ export default function EquipmentForm(props) {
                     btu: null,
                   });
                 }}
-                defaultValue={selectedOption}
+                value={selectedOption}
                 sx={{ height: 41, mt: '26px' }}
               >
                 {energyUnits.map((u) => (
@@ -338,6 +371,7 @@ export default function EquipmentForm(props) {
                 <FormLabel>Daily Use*</FormLabel>
                 <Input
                   type='number'
+                  value={equipment.hoursPerDay}
                   slotProps={{ input: { min: 0 } }}
                   placeholder='Hours used per day'
                   onChange={(e) =>
@@ -356,6 +390,7 @@ export default function EquipmentForm(props) {
             sx={{ my: 1 }}
           >
             <Textarea
+              value={equipment.notes}
               placeholder='Additional Notes'
               minRows={3}
               onChange={(e) =>
@@ -368,13 +403,19 @@ export default function EquipmentForm(props) {
           </Grid>
           <Grid
             xs={12}
-            sx={{ display: 'flex', justifyContent: 'center' }}
+            sx={{ display: 'flex', justifyContent: 'space-between' }}
           >
             <Button
               type='submit'
               sx={{ width: '25vw' }}
             >
               Submit
+            </Button>
+            <Button
+              sx={{ width: '25vw' }}
+              onClick={handleClose}
+            >
+              Cancel
             </Button>
           </Grid>
         </form>

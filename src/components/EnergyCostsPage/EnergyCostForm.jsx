@@ -34,7 +34,6 @@ function EnergyCostForm() {
       ...energyCost,
       [name]: Number(value),
     });
-    console.table(energyCost);
   };
 
   const handleSubmit = (e) => {

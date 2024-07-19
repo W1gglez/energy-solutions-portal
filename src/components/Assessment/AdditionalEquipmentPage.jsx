@@ -36,7 +36,7 @@ export default function AdditionalEquipment() {
       </Button>
       <Typography
         level='h1'
-        sx={{ position: 'absolute', top: '10%', left: '33%' }}
+        sx={{ position: 'absolute', top: '10%', left: '38%' }}
       >
         Additional Equipment
       </Typography>
@@ -50,10 +50,19 @@ export default function AdditionalEquipment() {
           setOpen={setOpen}
         />
 
-        <Grid sx={{ maxHeight: '500px', width: '50vw', overflow: 'auto' }}>
+        <Grid
+          container
+          sx={{
+            maxHeight: '500px',
+            width: '50vw',
+            overflow: 'auto',
+            justifyContent: 'center',
+          }}
+        >
           {equipmentInv.map((e, i) => (
             <EquipmentCard
               key={i}
+              i={i}
               equipment={e}
             />
           ))}
@@ -69,7 +78,7 @@ export default function AdditionalEquipment() {
           sx={{ display: 'flex', justifyContent: 'space-between' }}
         >
           <Button
-            onClick={() => history.push('/assessment/q5')}
+            onClick={() => history.push('/assessment/q7')}
             sx={{ width: '25%' }}
           >
             Previous
