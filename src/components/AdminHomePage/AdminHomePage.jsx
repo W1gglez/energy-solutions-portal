@@ -50,7 +50,7 @@ function AdminHomePage() {
   return (
     <div>
       <>
-        <Box
+        {/* <Box
           sx={{
             width: '100%',
             maxWidth: 500,
@@ -71,33 +71,57 @@ function AdminHomePage() {
               ))}
             </CardContent>
           </Card>
-        </Box>
-        <h3>Assessments Pending Review</h3>
-        <Button onClick={navReportPage}>View all assessments</Button>
-        <Sheet sx={{ height: 200, overflow: 'auto' }}>
-          <Table borderAxis='bothBetween' color='neutral' size='md' stickyFooter={false} stickyHeader variant='plain'>
-            <thead>
-              <tr>
-                <th style={{ width: '40%' }}>Date Submitted</th>
-                <th>Facility</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {reportsReady.map((report) => (
-                <tr key={report.id}>
-                  <td>{DateTime.fromISO(report.date_submitted).toFormat('MMMM dd, yyyy')}</td>
-                  <td>{report.name}</td>
-                  {report.approved ? <td>View Report</td> : <td>Review Report</td>}
+        </Box> */}
+        <section className='container'>
+          <h3>Assessments Pending Review</h3>
+          <Button onClick={navReportPage}>View all assessments</Button>
+          <Sheet sx={{ height: 200, overflow: 'auto' }}>
+            <Table
+              borderAxis='bothBetween'
+              color='neutral'
+              size='md'
+              stickyFooter={false}
+              stickyHeader
+              variant='plain'
+            >
+              <thead>
+                <tr>
+                  <th style={{ width: '40%' }}>Date Submitted</th>
+                  <th>Facility</th>
+                  <th>Status</th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
-        </Sheet>
+              </thead>
+              <tbody>
+                {reportsReady.map((report) => (
+                  <tr key={report.id}>
+                    <td>
+                      {DateTime.fromISO(report.date_submitted).toFormat(
+                        'MMMM dd, yyyy'
+                      )}
+                    </td>
+                    <td>{report.name}</td>
+                    {report.approved ? (
+                      <td>View Report</td>
+                    ) : (
+                      <td>Review Report</td>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </Sheet>
+        </section>
         <h3>Recently Added Facilities</h3>
         <Button>View all Facilities</Button>
         <Sheet sx={{ height: 200, overflow: 'auto' }}>
-          <Table borderAxis='bothBetween' color='neutral' size='md' stickyFooter={false} stickyHeader variant='plain'>
+          <Table
+            borderAxis='bothBetween'
+            color='neutral'
+            size='md'
+            stickyFooter={false}
+            stickyHeader
+            variant='plain'
+          >
             <thead>
               <tr>
                 <th style={{ width: '25%' }}>Facility</th>
@@ -121,21 +145,36 @@ function AdminHomePage() {
                     >
                       Delete
                     </Button>
-                    <Modal open={open} onClose={() => setOpen(false)}>
-                      <ModalDialog variant='outlined' role='alertdialog'>
+                    <Modal
+                      open={open}
+                      onClose={() => setOpen(false)}
+                    >
+                      <ModalDialog
+                        variant='outlined'
+                        role='alertdialog'
+                      >
                         <DialogTitle>
                           <WarningRoundedIcon />
                           Confirmation
                         </DialogTitle>
                         <Divider />
                         <DialogContent>
-                          Are you sure you want to delete this facility? This will delete all corresponding reports.
+                          Are you sure you want to delete this facility? This
+                          will delete all corresponding reports.
                         </DialogContent>
                         <DialogActions>
-                          <Button variant='solid' color='danger' onClick={() => deleteFacility(facility.id)}>
+                          <Button
+                            variant='solid'
+                            color='danger'
+                            onClick={() => deleteFacility(facility.id)}
+                          >
                             Delete Facility
                           </Button>
-                          <Button variant='plain' color='neutral' onClick={() => setOpen(false)}>
+                          <Button
+                            variant='plain'
+                            color='neutral'
+                            onClick={() => setOpen(false)}
+                          >
                             Cancel
                           </Button>
                         </DialogActions>

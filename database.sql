@@ -3,7 +3,6 @@ CREATE TABLE IF NOT EXISTS "user" (
 	 "username" varChar(80) not null UNIQUE,
 	"password" varChar(100) not null,
 	"admin" boolean default false,
-	"registered" boolean default false
 );
 
 CREATE TABLE IF NOT EXISTS "facility" (

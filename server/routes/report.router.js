@@ -164,7 +164,7 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
     ])
     .then((result) => {
       const reportId = result.rows[0].id;
-      const { equipment, recommendations, energyCosts } = req.body;
+      const { equipment, responses, energyCosts } = req.body;
       const { electric, naturalGas, liquidPropane, gasPropane, heatingOil } =
         energyCosts;
       const query = `Insert INTO energy_cost (
@@ -187,9 +187,30 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
           console.error('Error POSTing energy costs', err);
           res.sendStatus(500);
         });
-        if (lights && lights.isLED === false) {
-          recommendations.push('Update lightbulbs to LED bulbs');
-        }
+      const {
+        Rush_of_air,
+        entry_heater,
+        facilityId,
+        hot_water,
+        lights,
+        restroom_leaks,
+        thermostat,
+        water_heater,
+      } = responses;
+      const recommendations = [];
+      // if (lights && lights.isLED === false) {
+      //   recommendations.push('Update lightbulbs to LED bulbs');
+      // }
+      // if (lights && lights.motionSensor === false) {
+      //   recommendations.push('Set up Motion Sensors to automatically turn off lights unless someone is in the room');
+      // }
+      // if (hot_water > 10) {
+      //   recommendations.push('Install a hot water circulating system.')
+      // }
+      // if (restroom_leaks !== false) {
+
+      // }
+
       recommendations.forEach((item) => {
         const query = `INSERT INTO "recommendations" ("report_id", "recommendations") VALUES ($1, $2);`;
         pool
