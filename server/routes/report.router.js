@@ -170,8 +170,8 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
       "electric",
       "natural_gas",
       "liquid_propane",
-      "gas_propane",
-      "heating_oil") VALUES ($1, $2, $3, $4, $5, $6)`;
+      "gas_propane"
+      ") VALUES ($1, $2, $3, $4, $5)`;
       pool
         .query(query, [
           reportId,
@@ -179,7 +179,6 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
           naturalGas,
           liquidPropane || null,
           gasPropane || null,
-          heatingOil || null,
         ])
         .then()
         .catch((err) => {
@@ -232,6 +231,7 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
     "category_id",
     "amps",
     "volts",
+    "watts",
     "kW",
     "btu",
     "hours_used/day",

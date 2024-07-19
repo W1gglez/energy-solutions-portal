@@ -22,6 +22,7 @@ export default function EquipmentForm(props) {
   const types = useSelector((store) => store.equipmentTypes);
   const locations = useSelector((store) => store.locations);
   const energyUnits = useSelector((store) => store.energyUnits);
+  const energyCost = useSelector((store) => store.energyCost);
 
   const [equipment, setEquipment] = useState({
     description: e?.description || null,
@@ -43,12 +44,107 @@ export default function EquipmentForm(props) {
 
   const [selectedOption, setSelectedOption] = useState(unit ?? 1);
 
+  const calculateEnergyUsage = () => {
+    const { amps, volts, watts, kW, btu, hoursPerDay } = equipment;
+    let energyUsage;
+    if (amps != null) {
+      energyUsage = ((volts * amps) / 1000) * hoursPerDay;
+    } else if (watts != null) {
+      energyUsage = (watts / 1000) * hoursPerDay;
+    } else if (kW != null) {
+      energyUsage = kW * hoursPerDay;
+    } else if (btu != null) {
+      energyUsage = (btu / 3412.13) * hoursPerDay;
+    }
+    return energyUsage.toFixed(3);
+  };
+
+  function calculateCostPerDay(energyUsage) {
+    const { categoryId, qty } = equipment;
+    console.log(energyCost, categoryId, qty, energyUsage);
+    const { electric, natural_gas, liquid_propane, gas_propane } = energyCost;
+    let costPerDay;
+    switch (categoryId) {
+      case 1:
+        costPerDay = energyUsage * qty * electric;
+        break;
+      case 2:
+        costPerDay = energyUsage * qty * natural_gas;
+        break;
+      case 3:
+        costPerDay = energyUsage * qty * liquid_propane;
+        break;
+      case 4:
+        costPerDay = energyUsage * qty * gas_propane;
+        break;
+    }
+    return costPerDay.toFixed(2);
+  }
+
+  const calculateCarbonFootprint = (costPerDay) => {
+    const { categoryId } = equipment;
+    //Store as lbs/kWh
+    const carbonEmissions = {
+      electric: 0.99,
+      natural_gas: 0.399,
+      liquid_propane: 0.494,
+      gas_propane: 0.494,
+    };
+    let carbonFootprint;
+    switch (categoryId) {
+      case 1:
+        carbonFootprint = (costPerDay * carbonEmissions.electric * 365) / 2000;
+        break;
+      case 2:
+        carbonFootprint =
+          (costPerDay * carbonEmissions.natural_gas * 365) / 2000;
+        break;
+      case 3:
+        carbonFootprint =
+          (costPerDay * carbonEmissions.liquid_propane * 365) / 2000;
+        break;
+      case 4:
+        carbonFootprint =
+          (costPerDay * carbonEmissions.gas_propane * 365) / 2000;
+        break;
+    }
+    return carbonFootprint.toFixed(3);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    const energyUsage = calculateEnergyUsage();
+    console.log(energyUsage);
+    const costPerDay = calculateCostPerDay(energyUsage);
+    console.log(costPerDay);
+
+    const costPerMonth = costPerDay * 30.5;
+    const carbonFootprint = calculateCarbonFootprint(costPerDay);
     {
       typeof i !== 'undefined'
-        ? dispatch({ type: 'UPDATE_EQUIPMENT', payload: { i, equipment } })
-        : dispatch({ type: 'ADD_EQUIPMENT', payload: equipment });
+        ? dispatch({
+            type: 'UPDATE_EQUIPMENT',
+            payload: {
+              i,
+              equipment: {
+                ...equipment,
+                energyUsage,
+                costPerDay,
+                costPerMonth,
+                carbonFootprint,
+              },
+            },
+          })
+        : dispatch({
+            type: 'ADD_EQUIPMENT',
+            payload: {
+              ...equipment,
+              energyUsage,
+              costPerDay,
+              costPerMonth,
+              carbonFootprint,
+            },
+          });
     }
     handleClose();
   };

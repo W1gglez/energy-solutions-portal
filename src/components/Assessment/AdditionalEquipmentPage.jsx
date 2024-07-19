@@ -12,12 +12,17 @@ export default function AdditionalEquipment() {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const responses = useSelector((store) => store.responses);
   const equipmentInv = useSelector((store) => store.equipmentInv);
 
   const [open, setOpen] = useState(false);
 
   const recordResponse = () => {
-    history.push('/assessment/energy-cost');
+    dispatch({
+      type: 'SET_RESPONSE',
+      payload: (responses['inReview'] = true),
+    });
+    history.push('/assessment/review');
   };
 
   const handleExit = () => {
@@ -87,7 +92,7 @@ export default function AdditionalEquipment() {
             onClick={recordResponse}
             sx={{ width: '25%' }}
           >
-            Next
+            Review
           </Button>
         </Grid>
       </Grid>

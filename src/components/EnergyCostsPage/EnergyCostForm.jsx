@@ -50,11 +50,9 @@ function EnergyCostForm() {
       natural_gas: null,
       liquid_propane: null,
       gas_propane: null,
-      heating_oil: null,
     });
   };
 
- 
   return (
     <>
       <Button onClick={handleOpen}>Add Energy Costs</Button>
@@ -78,7 +76,7 @@ function EnergyCostForm() {
                 xs={6}
               >
                 <FormControl>
-                  <FormLabel>Electric</FormLabel>
+                  <FormLabel>Electric*</FormLabel>
                   <Input
                     startDecorator={'$'}
                     slotProps={{ input: { step: '.001' } }}
@@ -97,7 +95,7 @@ function EnergyCostForm() {
                 xs={6}
               >
                 <FormControl>
-                  <FormLabel>Natural Gas</FormLabel>
+                  <FormLabel>Natural Gas*</FormLabel>
                   <Input
                     startDecorator={'$'}
                     slotProps={{ input: { step: '.001' } }}
@@ -143,24 +141,6 @@ function EnergyCostForm() {
                     name='gas_propane'
                     type='number'
                     value={energyCost.gas_propane || null}
-                    onChange={handleChange}
-                  />
-                </FormControl>
-              </Grid>
-              <Grid
-                item
-                xs={6}
-              >
-                <FormControl>
-                  <FormLabel>Heating Oil</FormLabel>
-                  <Input
-                    startDecorator={'$'}
-                    slotProps={{ input: { step: '.001' } }}
-                    id='heating_oil'
-                    placeholder='Heating Oil'
-                    name='heating_oil'
-                    type='number'
-                    value={energyCost.heating_oil || null}
                     onChange={handleChange}
                   />
                 </FormControl>

@@ -94,8 +94,14 @@ export default function Q1() {
         </Grid>
         <Grid
           xs={12}
-          sx={{ display: 'flex', justifyContent: 'right' }}
+          sx={{ display: 'flex', justifyContent: 'space-between' }}
         >
+          <Button
+            onClick={() => history.push('/assessment/energy-cost')}
+            sx={{ width: '25%' }}
+          >
+            Previous
+          </Button>
           <Button
             onClick={recordResponse}
             sx={{ width: '25%' }}

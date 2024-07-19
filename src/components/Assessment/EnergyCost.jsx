@@ -15,14 +15,9 @@ function EnergyCost() {
   const history = useHistory();
   const dispatch = useDispatch();
   const energyCost = useSelector((store) => store.energyCost);
-  const responses = useSelector((store) => store.responses);
 
   const recordResponse = () => {
-    dispatch({
-      type: 'SET_RESPONSE',
-      payload: (responses['inReview'] = true),
-    });
-    history.push('/assessment/review');
+    history.push('/assessment/q1');
   };
 
   const handleExit = () => {
@@ -55,19 +50,13 @@ function EnergyCost() {
       </Grid>
       <Grid
         xs={12}
-        sx={{ display: 'flex', justifyContent: 'space-between' }}
+        sx={{ display: 'flex', justifyContent: 'flex-end' }}
       >
-        <Button
-          onClick={() => history.push('/assessment/additional-equipment')}
-          sx={{ width: '25%' }}
-        >
-          Previous
-        </Button>
         <Button
           onClick={recordResponse}
           sx={{ width: '25%' }}
         >
-          Review
+          Next
         </Button>
       </Grid>
     </Container>

@@ -17,8 +17,38 @@ export default function AssessmentReview() {
   const dispatch = useDispatch();
   const responses = useSelector((store) => store.responses);
   const equipmentInv = useSelector((store) => store.equipmentInv);
+  const energyCosts = useSelector((store) => store.energyCost);
+  const date_submitted = new Date().toLocaleDateString();
+
+  function calculateMonthlyCost() {
+    return equipmentInv.reduce((sum, item) => {
+      // Convert costPerMonth from string to number
+      const cost = parseFloat(item.costPerMonth);
+      // Add the cost to the accumulator
+      return sum + cost;
+    }, 0);
+  }
+
+  function calculateCarbonFootprint() {
+    return equipmentInv.reduce((sum, item) => {
+      // Convert costPerMonth from string to number
+      const value = parseFloat(item.carbonFootprint);
+      // Add the cost to the accumulator
+      return sum + value;
+    }, 0);
+  }
 
   const submitAssessment = () => {
+    const payload = {
+      // facility_id,
+      current_monthly_cost: calculateMonthlyCost(),
+      current_carbon_footprint: calculateCarbonFootprint(), //represented in (ton/yr)
+      date_submitted,
+      equipment: equipmentInv,
+      // recommendations,
+      energyCosts,
+    };
+    console.table(payload);
     // dispatch({ type: 'ADD_REPORT', payload: {} });
     // history.push('/');
   };
