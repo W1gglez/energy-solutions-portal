@@ -36,7 +36,6 @@ function* addFacility(action) {
 
 // saga to delete a facility
 function* deleteFacility(action) {
-<<<<<<< HEAD
   try {
     console.log('in deleteFacility, check action.payload', action.payload);
     yield axios.delete(`/api/facility/${action.payload}`);
@@ -44,14 +43,6 @@ function* deleteFacility(action) {
   } catch (error) {
     console.log('error deleting facility', error);
   }
-=======
-	try {
-		console.log('in deleteFacility, check action.payload', action.payload);
-		yield axios.delete(`/api/facility/${action.payload}`);
-		yield put({ type: 'FETCH_USER_FACILITIES' });
-	} catch (error) {
-		console.log('error deleting facility', error);
-	}
 }
 
 //saga to update a facility
@@ -60,9 +51,8 @@ function* updateFacility(action) {
 		yield axios.put(`/api/facility/${action.payload.id}`, action.payload);
 		yield put({ type: 'FETCH_FACILITIES' });
 	} catch (error) {
-		console.log('error updating facility', error);
-	}
->>>>>>> master
+    console.log('error updating facility', error);
+  }
 }
 
 // export

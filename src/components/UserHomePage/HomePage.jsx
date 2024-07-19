@@ -18,12 +18,7 @@ import Divider from '@mui/joy/Divider';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function HomePage() {
-<<<<<<< HEAD:src/components/UserHomePage/HomePage.jsx
-  const reports = useSelector((store) => store.reports.reportReducer);
-  const facilities = useSelector((store) => store.facilities);
-  const carbonTotal = useSelector((store) => store.carbon);
-  const energyCost = useSelector((store) => store.cost);
-=======
+
   const reports = useSelector((store) => store.reports);
   console.log('reports', reports);
   const facilities = useSelector((store) => store.facilities);
@@ -31,7 +26,6 @@ function HomePage() {
   const carbonTotal = useSelector((store) => store.carbon);
   const energyCost = useSelector((store) => store.cost);
   console.log('cost', energyCost);
->>>>>>> master:src/components/HomePage/HomePage.jsx
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -74,11 +68,7 @@ function HomePage() {
               ))}
               <Typography>Total energy cost: </Typography>
               {energyCost.map((cost) => (
-<<<<<<< HEAD:src/components/UserHomePage/HomePage.jsx
-                <p>${cost.sum} /year</p>
-=======
                 <p>${cost.sum}/year</p>
->>>>>>> master:src/components/HomePage/HomePage.jsx
               ))}
             </CardContent>
           </Card>
@@ -86,7 +76,14 @@ function HomePage() {
         <h3>My assessments</h3>
         <Button onClick={navReportPage}>View all assessments</Button>
         <Sheet sx={{ height: 200, overflow: 'auto' }}>
-          <Table borderAxis='bothBetween' color='neutral' size='md' stickyFooter={false} stickyHeader variant='plain'>
+          <Table
+            borderAxis='bothBetween'
+            color='neutral'
+            size='md'
+            stickyFooter={false}
+            stickyHeader
+            variant='plain'
+          >
             <thead>
               <tr>
                 <th style={{ width: '40%' }}>Date Submitted</th>
@@ -97,7 +94,11 @@ function HomePage() {
             <tbody>
               {reports.map((report) => (
                 <tr key={report.id}>
-                  <td>{DateTime.fromISO(report.date_submitted).toFormat('MMMM dd, yyyy')}</td>
+                  <td>
+                    {DateTime.fromISO(report.date_submitted).toFormat(
+                      'MMMM dd, yyyy'
+                    )}
+                  </td>
                   <td>{report.name}</td>
                   {report.approved ? <td>View Report</td> : <td>In Review</td>}
                 </tr>
@@ -108,7 +109,14 @@ function HomePage() {
         <h3>My facilities </h3>
         <Button>View all Facilities</Button>
         <Sheet sx={{ height: 200, overflow: 'auto' }}>
-          <Table borderAxis='bothBetween' color='neutral' size='md' stickyFooter={false} stickyHeader variant='plain'>
+          <Table
+            borderAxis='bothBetween'
+            color='neutral'
+            size='md'
+            stickyFooter={false}
+            stickyHeader
+            variant='plain'
+          >
             <thead>
               <tr>
                 <th style={{ width: '25%' }}>Facility</th>
@@ -132,21 +140,36 @@ function HomePage() {
                     >
                       Delete
                     </Button>
-                    <Modal open={open} onClose={() => setOpen(false)}>
-                      <ModalDialog variant='outlined' role='alertdialog'>
+                    <Modal
+                      open={open}
+                      onClose={() => setOpen(false)}
+                    >
+                      <ModalDialog
+                        variant='outlined'
+                        role='alertdialog'
+                      >
                         <DialogTitle>
                           <WarningRoundedIcon />
                           Confirmation
                         </DialogTitle>
                         <Divider />
                         <DialogContent>
-                          Are you sure you want to delete this facility? This will delete all corresponding reports.
+                          Are you sure you want to delete this facility? This
+                          will delete all corresponding reports.
                         </DialogContent>
                         <DialogActions>
-                          <Button variant='solid' color='danger' onClick={() => deleteFacility(facility.id)}>
+                          <Button
+                            variant='solid'
+                            color='danger'
+                            onClick={() => deleteFacility(facility.id)}
+                          >
                             Delete Facility
                           </Button>
-                          <Button variant='plain' color='neutral' onClick={() => setOpen(false)}>
+                          <Button
+                            variant='plain'
+                            color='neutral'
+                            onClick={() => setOpen(false)}
+                          >
                             Cancel
                           </Button>
                         </DialogActions>
