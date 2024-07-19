@@ -30,7 +30,9 @@ CREATE TABLE IF NOT EXISTS "reports" (
 	"current_monthly_cost" decimal not null,
 	"current_carbon_footprint" decimal not null,
 	"approved" boolean default false,
-	"notes" varchar
+	"notes" varchar,
+	"approvedBy" int references "user"."id",
+	"approvedAt" date
 );
 
 CREATE TABLE IF NOT EXISTS "equipment_type" (
