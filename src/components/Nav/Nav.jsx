@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/joy/Box';
@@ -13,11 +13,14 @@ import './Nav.css';
 import { Divider } from '@mui/joy';
 import { useHistory } from 'react-router-dom';
 
+import FaciliytSelect from '../Assessment/FacilitySelect';
+
 function Nav() {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((store) => store.user);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [openFacilitySelect, setOpenFacilitySelect] = useState(false);
 
   const navHome = () => {
     if (user.admin === true) {
@@ -29,11 +32,14 @@ function Nav() {
   };
 
   const navFacilities = () => {
-    console.log('navFacilities clicked');
-    // history push to facilities page when merge
-    // setOpen(false);
+    history.push('/facilities');
+    setOpen(false);
   };
 
+  const newReport = () => {
+    setOpenFacilitySelect(true);
+    setOpen(false);
+  };
 
   const navReports = () => {
     if (user.admin === true) {
@@ -48,10 +54,16 @@ function Nav() {
     <>
       {user.id && user.admin ? (
         <div className='nav'>
-          <IconButton variant='outlined' color='neutral' onClick={() => setOpen(true)}>
+          <IconButton
+            sx={{ marginLeft: 2 }}
+            onClick={() => setOpen(true)}
+          >
             <MenuIcon />
           </IconButton>
-          <Drawer open={open} onClose={() => setOpen(false)}>
+          <Drawer
+            open={open}
+            onClose={() => setOpen(false)}
+          >
             <Box
               sx={{
                 display: 'flex',
@@ -69,7 +81,10 @@ function Nav() {
                 fontWeight='lg'
                 sx={{ cursor: 'pointer' }}
               ></Typography>
-              <ModalClose id='close-icon' sx={{ position: 'initial' }} />
+              <ModalClose
+                id='close-icon'
+                sx={{ position: 'initial' }}
+              />
             </Box>
             <List
               size='lg'
@@ -80,25 +95,45 @@ function Nav() {
                 '& > div': { justifyContent: 'center' },
               }}
             >
-              <ListItemButton onClick={navHome} sx={{ fontWeight: 'lg' }}>
+              <ListItemButton
+                onClick={navHome}
+                sx={{ fontWeight: 'lg' }}
+              >
                 Home
               </ListItemButton>
-              <ListItemButton onClick={navFacilities}>View All Facilities</ListItemButton>
-              <ListItemButton onClick={navReports}>View All Reports</ListItemButton>
+              <ListItemButton onClick={navFacilities}>
+                View All Facilities
+              </ListItemButton>
+              <ListItemButton onClick={navReports}>
+                View All Reports
+              </ListItemButton>
               <Divider />
-              <ListItemButton onClick={() => dispatch({ type: 'LOGOUT' })}>Log Out</ListItemButton>
+              <ListItemButton
+                onClick={() => {
+                  dispatch({ type: 'LOGOUT' });
+                  setOpen(false);
+                }}
+              >
+                Log Out
+              </ListItemButton>
             </List>
           </Drawer>
-          <Link to='/home'>
+          <Link to='/'>
             <h2 className='nav-title'>Energy Solutions Portal</h2>
           </Link>
         </div>
       ) : (
         <div className='nav'>
-          <IconButton variant='outlined' color='neutral' onClick={() => setOpen(true)}>
+          <IconButton
+            sx={{ marginLeft: 2 }}
+            onClick={() => setOpen(true)}
+          >
             <MenuIcon />
           </IconButton>
-          <Drawer open={open} onClose={() => setOpen(false)}>
+          <Drawer
+            open={open}
+            onClose={() => setOpen(false)}
+          >
             <Box
               sx={{
                 display: 'flex',
@@ -116,7 +151,10 @@ function Nav() {
                 fontWeight='lg'
                 sx={{ cursor: 'pointer' }}
               ></Typography>
-              <ModalClose id='close-icon' sx={{ position: 'initial' }} />
+              <ModalClose
+                id='close-icon'
+                sx={{ position: 'initial' }}
+              />
             </Box>
             <List
               size='lg'
@@ -127,34 +165,51 @@ function Nav() {
                 '& > div': { justifyContent: 'center' },
               }}
             >
-              <ListItemButton onClick={navHome} sx={{ fontWeight: 'lg' }}>
+              <ListItemButton
+                onClick={navHome}
+                sx={{ fontWeight: 'lg' }}
+              >
                 Home
               </ListItemButton>
-              <ListItemButton onClick={navFacilities}>My Facilities</ListItemButton>
+              <ListItemButton onClick={navFacilities}>
+                My Facilities
+              </ListItemButton>
               <ListItemButton onClick={navReports}>My Reports</ListItemButton>
               <Divider />
-              <ListItemButton onClick={navReports}>New Report</ListItemButton>
+              <ListItemButton onClick={newReport}>New Report</ListItemButton>
               <Divider />
-              <ListItemButton onClick={() => dispatch({ type: 'LOGOUT' })}>Log Out</ListItemButton>
+              <ListItemButton onClick={() => dispatch({ type: 'LOGOUT' })}>
+                Log Out
+              </ListItemButton>
             </List>
           </Drawer>
-          <Link to='/home'>
+          <Link to='/'>
             <h2 className='nav-title'>Energy Solutions Portal</h2>
           </Link>
+          <FaciliytSelect
+            open={openFacilitySelect}
+            setOpen={setOpenFacilitySelect}
+          />
         </div>
       )}
-      {!user.id && (
+      {/* {!user.id && (
         <div className='nav'>
           <h2 className='nav-title'>Energy Solutions Portal</h2>
 
-          <Link className='navLink' to='/about'>
+          <Link
+            className='navLink'
+            to='/about'
+          >
             About
           </Link>
-          <Link className='navLink' to='/login'>
+          <Link
+            className='navLink'
+            to='/login'
+          >
             Login / Register
           </Link>
         </div>
-      )}
+      )} */}
     </>
   );
 }

@@ -187,7 +187,9 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
           console.error('Error POSTing energy costs', err);
           res.sendStatus(500);
         });
-
+        if (lights && lights.isLED === false) {
+          recommendations.push('Update lightbulbs to LED bulbs');
+        }
       recommendations.forEach((item) => {
         const query = `INSERT INTO "recommendations" ("report_id", "recommendations") VALUES ($1, $2);`;
         pool

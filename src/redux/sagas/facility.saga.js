@@ -25,13 +25,13 @@ function* fetchUserFacilities() {
 
 // saga to add a new facility
 function* addFacility(action) {
-	try {
-		yield axios.post('/api/facility', action.payload);
-		console.log('check addFacility action.payload', action.payload);
-		yield put({ type: 'FETCH_FACILITIES' });
-	} catch (error) {
-		console.log('error adding new facility', error);
-	}
+  try {
+    yield axios.post('/api/facility', action.payload);
+    console.log('check addFacility action.payload', action.payload);
+    yield put({ type: 'FETCH_USER_FACILITIES' });
+  } catch (error) {
+    console.log('error adding new facility', error);
+  }
 }
 
 // saga to delete a facility
@@ -47,10 +47,10 @@ function* deleteFacility(action) {
 
 //saga to update a facility
 function* updateFacility(action) {
-	try {
-		yield axios.put(`/api/facility/${action.payload.id}`, action.payload);
-		yield put({ type: 'FETCH_FACILITIES' });
-	} catch (error) {
+  try {
+    yield axios.put(`/api/facility/${action.payload.id}`, action.payload);
+    yield put({ type: 'FETCH_USER_FACILITIES' });
+  } catch (error) {
     console.log('error updating facility', error);
   }
 }

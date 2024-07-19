@@ -468,7 +468,7 @@ export default function EquipmentForm(props) {
                 <Input
                   type='number'
                   value={equipment.hoursPerDay}
-                  slotProps={{ input: { min: 0 } }}
+                  slotProps={{ input: { min: 0, max: 24 } }}
                   placeholder='Hours used per day'
                   onChange={(e) =>
                     setEquipment({

@@ -40,7 +40,7 @@ export default function AssessmentReview() {
 
   const submitAssessment = () => {
     const payload = {
-      // facility_id,
+      facility_id: responses.facilityId,
       current_monthly_cost: calculateMonthlyCost(),
       current_carbon_footprint: calculateCarbonFootprint(), //represented in (ton/yr)
       date_submitted,
@@ -323,7 +323,7 @@ export default function AssessmentReview() {
         sx={{ display: 'flex', justifyContent: 'space-between' }}
       >
         <Button
-          onClick={() => history.push('/assessment/energy-cost')}
+          onClick={() => history.push('/assessment/additional-equipment')}
           sx={{ width: '25%' }}
         >
           Previous

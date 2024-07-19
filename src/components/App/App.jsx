@@ -64,11 +64,11 @@ function App() {
       <Box sx={{ overflowY: 'auto', overflowX: 'hidden' }}>
         <Nav />
         <Switch>
-          {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
+          {/* Visiting localhost:5173 will redirect to localhost:5173/login */}
           <Redirect
             exact
             from='/'
-            to='/home'
+            to='/login'
           />
 
           {/* Visiting localhost:5173/about will show the about page. */}
@@ -100,25 +100,38 @@ function App() {
             <InfoPage />
           </ProtectedRoute>
 
-
-          <ProtectedRoute exact path='/report/:id'>
+          <ProtectedRoute
+            exact
+            path='/report/:id'
+          >
             <EnergyReport />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/admin-reports'>
+          <ProtectedRoute
+            exact
+            path='/admin-reports'
+          >
             <ReportList />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/user-reports'>
+          <ProtectedRoute
+            exact
+            path='/user-reports'
+          >
             <UserReportList />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/admin-home-page'>
+          <ProtectedRoute
+            exact
+            path='/admin-home-page'
+          >
             <AdminHomePage />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/home-page'>
-
+          <ProtectedRoute
+            exact
+            path='/home-page'
+          >
             <HomePage />
           </ProtectedRoute>
 
@@ -202,7 +215,7 @@ function App() {
             {user.id ? (
               // If the user is already logged in,
               // redirect to the /user page
-              <Redirect to='/user' />
+              <Redirect to='/home-page' />
             ) : (
               // Otherwise, show the login page
               <LoginPage />
@@ -216,26 +229,26 @@ function App() {
             {user.id ? (
               // If the user is already logged in,
               // redirect them to the /user page
-              <Redirect to='/user' />
+              <Redirect to='/home-page' />
             ) : (
               // Otherwise, show the registration page
               <RegisterPage />
             )}
           </Route>
 
-          <Route
+          {/* <Route
             exact
             path='/home'
           >
             {user.id ? (
               // If the user is already logged in,
               // redirect them to the /user page
-              <Redirect to='/home' />
+              <Redirect to='/home-page' />
             ) : (
               // Otherwise, show the Landing page
               <HomePage />
             )}
-          </Route>
+          </Route> */}
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
