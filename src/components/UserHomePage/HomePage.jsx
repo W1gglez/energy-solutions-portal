@@ -45,14 +45,6 @@ function HomePage() {
     setOpen(false);
   };
 
-  const navReportPage = () => {
-    history.push('/user-reports');
-  };
-
-  const navFacilities = () => {
-    history.push('/facilities');
-  };
-
   return (
     <div>
       <>
@@ -68,9 +60,7 @@ function HomePage() {
           >
             <Card variant='outlined'>
               <CardContent>
-                <Typography level='title-md'>
-                  Total carbon footprint:{' '}
-                </Typography>
+                <Typography level='title-md'>Total carbon footprint: </Typography>
                 {carbonTotal.map((carbon) => (
                   <p>{carbon.sum} tons/year</p>
                 ))}
@@ -112,23 +102,17 @@ function HomePage() {
                   <tbody>
                     {reports.map((report) => (
                       <tr key={report.id}>
-                        <td>
-                          {DateTime.fromISO(report.date_submitted).toFormat(
-                            'MMMM dd, yyyy'
-                          )}
-                        </td>
+                        <td>{DateTime.fromISO(report.date_submitted).toFormat('MMMM dd, yyyy')}</td>
                         <td>{report.name}</td>
-                        {report.approved ? (
-                          <td>View Report</td>
-                        ) : (
-                          <td>In Review</td>
-                        )}
+                        {report.approved ? <td>View Report</td> : <td>In Review</td>}
                       </tr>
                     ))}
                   </tbody>
                 </Table>
               </Sheet>
-              <Button onClick={navReportPage}>View all assessments</Button>
+              <Box sx={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '10px', marginTop: '10px' }}>
+                <Button onClick={() => history.push('/user-reports')}>View all assessments</Button>
+              </Box>
             </>
           ) : (
             <Box
@@ -138,13 +122,8 @@ function HomePage() {
                 marginTop: '10px',
               }}
             >
-              <Button onClick={() => setOpenFacilitySelect(true)}>
-                Start Assessment
-              </Button>
-              <FaciliytSelect
-                open={openFacilitySelect}
-                setOpen={setOpenFacilitySelect}
-              />
+              <Button onClick={() => setOpenFacilitySelect(true)}>Start Assessment</Button>
+              <FaciliytSelect open={openFacilitySelect} setOpen={setOpenFacilitySelect} />
             </Box>
           )}
         </section>
@@ -191,36 +170,22 @@ function HomePage() {
                           >
                             Delete
                           </Button>
-                          <Modal
-                            open={open}
-                            onClose={() => setOpen(false)}
-                          >
-                            <ModalDialog
-                              variant='outlined'
-                              role='alertdialog'
-                            >
+                          <Modal open={open} onClose={() => setOpen(false)}>
+                            <ModalDialog variant='outlined' role='alertdialog'>
                               <DialogTitle>
                                 <WarningRoundedIcon />
                                 Confirmation
                               </DialogTitle>
                               <Divider />
                               <DialogContent>
-                                Are you sure you want to delete this facility?
-                                This will delete all corresponding reports.
+                                Are you sure you want to delete this facility? This will delete all corresponding
+                                reports.
                               </DialogContent>
                               <DialogActions>
-                                <Button
-                                  variant='solid'
-                                  color='danger'
-                                  onClick={() => deleteFacility(facility.id)}
-                                >
+                                <Button variant='solid' color='danger' onClick={() => deleteFacility(facility.id)}>
                                   Delete Facility
                                 </Button>
-                                <Button
-                                  variant='plain'
-                                  color='neutral'
-                                  onClick={() => setOpen(false)}
-                                >
+                                <Button variant='plain' color='neutral' onClick={() => setOpen(false)}>
                                   Cancel
                                 </Button>
                               </DialogActions>
@@ -239,13 +204,13 @@ function HomePage() {
                   marginTop: '10px',
                 }}
               >
-                <Button onClick={navFacilities}>View all Facilities</Button>
+                <Button onClick={() => history.push('/facilities')}>View all Facilities</Button>
               </Box>
             </>
           ) : (
-            <Button onClick={() => history.push('/facilities')}>
-              Add Facility
-            </Button>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '10px', marginTop: '10px' }}>
+              <Button onClick={() => history.push('/facilities')}>Add Facility</Button>
+            </Box>
           )}
         </section>
       </>
