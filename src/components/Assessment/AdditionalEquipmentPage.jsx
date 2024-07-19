@@ -12,12 +12,17 @@ export default function AdditionalEquipment() {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const responses = useSelector((store) => store.responses);
   const equipmentInv = useSelector((store) => store.equipmentInv);
 
   const [open, setOpen] = useState(false);
 
   const recordResponse = () => {
-    history.push('/assessment/energy-cost');
+    dispatch({
+      type: 'SET_RESPONSE',
+      payload: (responses['inReview'] = true),
+    });
+    history.push('/assessment/review');
   };
 
   const handleExit = () => {
@@ -36,7 +41,7 @@ export default function AdditionalEquipment() {
       </Button>
       <Typography
         level='h1'
-        sx={{ position: 'absolute', top: '10%', left: '33%' }}
+        sx={{ position: 'absolute', top: '10%', left: '38%' }}
       >
         Additional Equipment
       </Typography>
@@ -50,10 +55,19 @@ export default function AdditionalEquipment() {
           setOpen={setOpen}
         />
 
-        <Grid sx={{ maxHeight: '500px', width: '50vw', overflow: 'auto' }}>
+        <Grid
+          container
+          sx={{
+            maxHeight: '500px',
+            width: '50vw',
+            overflow: 'auto',
+            justifyContent: 'center',
+          }}
+        >
           {equipmentInv.map((e, i) => (
             <EquipmentCard
               key={i}
+              i={i}
               equipment={e}
             />
           ))}
@@ -69,7 +83,7 @@ export default function AdditionalEquipment() {
           sx={{ display: 'flex', justifyContent: 'space-between' }}
         >
           <Button
-            onClick={() => history.push('/assessment/q5')}
+            onClick={() => history.push('/assessment/q7')}
             sx={{ width: '25%' }}
           >
             Previous
@@ -78,7 +92,7 @@ export default function AdditionalEquipment() {
             onClick={recordResponse}
             sx={{ width: '25%' }}
           >
-            Next
+            Review
           </Button>
         </Grid>
       </Grid>

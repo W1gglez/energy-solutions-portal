@@ -9,7 +9,6 @@ import equipmentTypes from './equip_type.reducer';
 import energyUnits from './energy_units.reducer';
 import equipmentInv from './equipment.reducer';
 import facilities from './facility.reducer';
-import energy from './energyCost.reducer';
 import carbon from './carbon.reducer';
 import adminFacilities from './admin.facility.reducer';
 import cost from './cost.reducer';
@@ -26,7 +25,6 @@ const rootReducer = combineReducers({
   energyUnits,
   equipmentInv,
   facilities,
-  energy,
   carbon,
   adminFacilities,
   cost,

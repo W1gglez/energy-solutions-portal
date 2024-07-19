@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
+import { Box } from '@mui/joy';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
@@ -24,7 +25,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import HomePage from '../HomePage/HomePage';
+import HomePage from '../UserHomePage/HomePage';
 
 import Q1 from '../Assessment/Q1Page';
 import Q2 from '../Assessment/Q2Page';
@@ -36,7 +37,14 @@ import Q7 from '../Assessment/Q7Page';
 import AdditionalEquipment from '../Assessment/AdditionalEquipmentPage';
 import FacilityPage from '../FacilityPage/FacilityPage';
 import EnergyCost from '../Assessment/EnergyCost';
+
 import AdminFacilityPage from '../FacilityPage/AdminFacilityPage';
+
+import AssessmentReview from '../Assessment/AssessmentReview';
+import ReportList from '../ReportPages/ReportLists/AdminReportList';
+import AdminHomePage from '../AdminHomePage/AdminHomePage';
+import EnergyReport from '../ReportPages/EnergyReport/EnergyReport';
+import UserReportList from '../ReportPages/ReportLists/UserReportList';
 
 function App() {
   const dispatch = useDispatch();
@@ -53,7 +61,7 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <Box sx={{ overflowY: 'auto', overflowX: 'hidden' }}>
         <Nav />
         <Switch>
           {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
@@ -92,10 +100,25 @@ function App() {
             <InfoPage />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            exact
-            path='/home'
-          >
+
+          <ProtectedRoute exact path='/report/:id'>
+            <EnergyReport />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/admin-reports'>
+            <ReportList />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/user-reports'>
+            <UserReportList />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/admin-home-page'>
+            <AdminHomePage />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/home-page'>
+
             <HomePage />
           </ProtectedRoute>
 
@@ -152,6 +175,12 @@ function App() {
             path='/assessment/energy-cost'
           >
             <EnergyCost />
+          </ProtectedRoute>
+          <ProtectedRoute
+            exact
+            path='/assessment/review'
+          >
+            <AssessmentReview />
           </ProtectedRoute>
           <ProtectedRoute
             exact
@@ -214,7 +243,7 @@ function App() {
           </Route>
         </Switch>
         <Footer />
-      </div>
+      </Box>
     </Router>
   );
 }

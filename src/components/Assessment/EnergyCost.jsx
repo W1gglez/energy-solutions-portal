@@ -7,16 +7,17 @@ import Typography from '@mui/joy/Typography';
 import Button from '@mui/joy/Button';
 import Grid from '@mui/joy/Grid';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min.js';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import EnergyCostCard from '../EnergyCostCard.jsx/EnergyCostCard.jsx';
 
 //reports are commented out for testing purposes, will be uncommented when the reports are needed
 function EnergyCost() {
   const history = useHistory();
+  const dispatch = useDispatch();
   const energyCost = useSelector((store) => store.energyCost);
 
   const recordResponse = () => {
-    history.push('/assessment/q7');
+    history.push('/assessment/q1');
   };
 
   const handleExit = () => {
@@ -49,19 +50,13 @@ function EnergyCost() {
       </Grid>
       <Grid
         xs={12}
-        sx={{ display: 'flex', justifyContent: 'space-between' }}
+        sx={{ display: 'flex', justifyContent: 'flex-end' }}
       >
-        <Button
-          onClick={() => history.push('/assessment/additional-equipment')}
-          sx={{ width: '25%' }}
-        >
-          Previous
-        </Button>
         <Button
           onClick={recordResponse}
           sx={{ width: '25%' }}
         >
-          Review
+          Next
         </Button>
       </Grid>
     </Container>

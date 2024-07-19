@@ -11,6 +11,7 @@ import { useState } from 'react';
 import EquipmentForm from './EqupmentForm';
 import EquipmentCard from '../EquipmentCard/EquipmentCard';
 import { Maximize } from '@mui/icons-material';
+import BackToReviewButton from '../BackToReviewButton.jsx/BackToReviewButton';
 
 export default function Q7() {
   const history = useHistory();
@@ -20,9 +21,9 @@ export default function Q7() {
 
   const lights = equipmentInv.filter((e) => e.typeId === 9);
 
-  const [isLED, setisLED] = useState(responses.lights?.isLED || false);
+  const [isLED, setisLED] = useState(responses.lights?.isLED || 'false');
   const [motionSensor, setmotionSensor] = useState(
-    responses.lights?.motionSensor || false
+    responses.lights?.motionSensor || 'false'
   );
   const [open, setOpen] = useState(false);
 
@@ -48,6 +49,9 @@ export default function Q7() {
       >
         Exit Assessment
       </Button>
+      <BackToReviewButton
+        payload={(responses['lights'] = { isLED, motionSensor })}
+      />
       <Typography
         level='h1'
         sx={{ position: 'absolute', top: '10%', left: '47vw' }}
@@ -150,14 +154,22 @@ export default function Q7() {
           setOpen={setOpen}
           type={9}
           category={1}
+          unit={2}
         />
         {lights && (
           <Grid
-            sx={{ p: 0, maxHeight: '246px', width: '50vw', overflow: 'auto' }}
+            container
+            sx={{
+              maxHeight: '246px',
+              width: '50vw',
+              overflow: 'auto',
+              justifyContent: 'center',
+            }}
           >
             {lights.map((e, i) => (
               <EquipmentCard
                 key={i}
+                i={i}
                 equipment={e}
               />
             ))}

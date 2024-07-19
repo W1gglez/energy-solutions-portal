@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import EquipmentForm from './EqupmentForm';
 import EquipmentCard from '../EquipmentCard/EquipmentCard';
+import BackToReviewButton from '../BackToReviewButton.jsx/BackToReviewButton';
 
 export default function Q2() {
   const history = useHistory();
@@ -17,12 +18,13 @@ export default function Q2() {
   const responses = useSelector((store) => store.responses);
   const equipmentInv = useSelector((store) => store.equipmentInv);
   const entryHeater = equipmentInv.find((e) => e.typeId === 17);
+  const entryHeaterIndex = equipmentInv.findIndex((e) => e.typeId === 17);
 
   const [isEntryHeater, setIsEntryHeater] = useState(
-    responses.entry_heater?.isEntryHeater || false
+    responses.entry_heater?.isEntryHeater || 'false'
   );
   const [isRunning, setIsRunning] = useState(
-    responses.entry_heater?.isRunning || false
+    responses.entry_heater?.isRunning || 'false'
   );
   const [open, setOpen] = useState(false);
 
@@ -51,6 +53,14 @@ export default function Q2() {
       >
         Exit Assessment
       </Button>
+      <BackToReviewButton
+        payload={
+          (responses['entry_heater'] = {
+            isEntryHeater,
+            isRunning,
+          })
+        }
+      />
       <Typography
         level='h1'
         sx={{ position: 'absolute', top: '10%', left: '43vw' }}
@@ -83,8 +93,10 @@ export default function Q2() {
               justifyContent: 'center',
             }}
             onChange={(e) => {
-              setIsEntryHeater(e.target.value);
-              setOpen(e.target.value);
+              e.target.value === 'true'
+                ? (setIsEntryHeater(e.target.value), setOpen(e.target.value))
+                : (setIsEntryHeater(e.target.value),
+                  setIsRunning(e.target.value));
             }}
           >
             <Radio
@@ -119,7 +131,10 @@ export default function Q2() {
                 sx={{ justifyContent: 'center' }}
                 xs={12}
               >
-                <EquipmentCard equipment={entryHeater} />
+                <EquipmentCard
+                  equipment={entryHeater}
+                  i={entryHeaterIndex}
+                />
               </Grid>
             )}
             <Grid xs={3}>

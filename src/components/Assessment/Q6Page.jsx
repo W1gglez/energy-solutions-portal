@@ -55,10 +55,19 @@ export default function Q6() {
           category={1}
         />
         {hvac && (
-          <Grid sx={{ maxHeight: '500px', width: '50vw', overflow: 'auto' }}>
+          <Grid
+            container
+            sx={{
+              maxHeight: '500px',
+              width: '50vw',
+              overflow: 'auto',
+              justifyContent: 'center',
+            }}
+          >
             {hvac.map((e, i) => (
               <EquipmentCard
                 key={i}
+                i={i}
                 equipment={e}
               />
             ))}

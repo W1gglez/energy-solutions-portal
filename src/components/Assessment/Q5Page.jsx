@@ -7,16 +7,17 @@ import Container from '@mui/joy/Container';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
+import BackToReviewButton from '../BackToReviewButton.jsx/BackToReviewButton';
 
 export default function Q5() {
   const history = useHistory();
   const dispatch = useDispatch();
   const responses = useSelector((store) => store.responses);
   const [isProgrammable, setIsProgrammable] = useState(
-    responses.thermostat?.isProgrammable || false
+    responses.thermostat?.isProgrammable || 'false'
   );
   const [isProgrammed, setIsProgrammed] = useState(
-    responses.thermostat?.isProgrammed || false
+    responses.thermostat?.isProgrammed || 'false'
   );
 
   const handleExit = () => {
@@ -41,6 +42,9 @@ export default function Q5() {
       >
         Exit Assessment
       </Button>
+      <BackToReviewButton
+        payload={(responses['thermostat'] = { isProgrammable, isProgrammed })}
+      />
       <Typography
         level='h1'
         sx={{ position: 'absolute', top: '10%', left: '43vw' }}
@@ -72,7 +76,10 @@ export default function Q5() {
               justifyContent: 'center',
             }}
             onChange={(e) => {
-              setIsProgrammable(e.target.value);
+              e.target.value === true
+                ? setIsProgrammable(e.target.value)
+                : setIsProgrammable(e.target.value),
+                setIsProgrammed(e.target.value);
             }}
           >
             <Radio

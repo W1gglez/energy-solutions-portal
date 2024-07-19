@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import EquipmentForm from './EqupmentForm';
 import EquipmentCard from '../EquipmentCard/EquipmentCard';
+import BackToReviewButton from '../BackToReviewButton.jsx/BackToReviewButton';
 
 export default function Q4() {
   const history = useHistory();
@@ -16,11 +17,12 @@ export default function Q4() {
   const responses = useSelector((store) => store.responses);
   const equipmentInv = useSelector((store) => store.equipmentInv);
   const waterHeater = equipmentInv.find((e) => e.typeId === 8);
+  const waterHeaterIndex = equipmentInv.findIndex((e) => e.typeId === 8);
 
   const [tempSetting, setTempSetting] = useState(
-    responses.water_heater?.tempSetting || 0
+    responses?.water_heater?.tempSetting || undefined
   );
-  const [age, setAge] = useState(responses.water_heater?.age || 0);
+  const [age, setAge] = useState(responses?.water_heater?.age || undefined);
   const [open, setOpen] = useState(false);
 
   const recordResponse = () => {
@@ -48,6 +50,14 @@ export default function Q4() {
       >
         Exit Assessment
       </Button>
+      <BackToReviewButton
+        payload={
+          (responses['water_heater'] = {
+            tempSetting,
+            age,
+          })
+        }
+      />
       <Typography
         level='h1'
         sx={{ position: 'absolute', top: '10%', left: '43vw' }}
@@ -110,6 +120,7 @@ export default function Q4() {
           type={8}
           category={2}
           location={12}
+          unit={4}
         />
         {waterHeater ? (
           <Grid
@@ -117,7 +128,10 @@ export default function Q4() {
             sx={{ justifyContent: 'center' }}
             xs={12}
           >
-            <EquipmentCard equipment={waterHeater} />
+            <EquipmentCard
+              equipment={waterHeater}
+              i={waterHeaterIndex}
+            />
           </Grid>
         ) : (
           <Grid
