@@ -23,6 +23,16 @@ function* fetchUserReports() {
   }
 }
 
+// saga to get report details for one facility
+function* fetchReportDetails(action) {
+  try {
+    const reportDetails = yield axios.get(`/api/report/details/${action.payload}`);
+    yield put({ type: 'SET_REPORT_DETAILS', payload: reportDetails.data[0] ?? {} });
+  } catch (error) {
+    console.log('error fetching report details', error);
+  }
+}
+
 // saga to get carbon footprint for users facilities
 function* fetchCarbonFootprint() {
   try {
@@ -67,14 +77,27 @@ function* deleteReport(action) {
   }
 }
 
+// saga to mark report as approved
+function* approveReport(action) {
+  try {
+    console.log('in approveReport, check action.payload', action.payload);
+    yield axios.put(`/api/report/${action.payload.reportId}`, action.payload);
+    yield put({ type: 'FETCH_REPORT_DETAILS', payload: action.payload.reportId });
+  } catch (error) {
+    console.log('error approving report', error);
+  }
+}
+
 // export
 function* reportSaga() {
   yield takeLatest('FETCH_REPORTS', fetchReports);
   yield takeLatest('FETCH_USER_REPORTS', fetchUserReports);
+  yield takeLatest('FETCH_REPORT_DETAILS', fetchReportDetails);
   yield takeLatest('FETCH_CARBON', fetchCarbonFootprint);
   yield takeLatest('FETCH_COST', fetchEnergyCost);
   yield takeLatest('ADD_REPORT', addReport);
   yield takeLatest('DELETE_REPORT', deleteReport);
+  yield takeLatest('APPROVE_REPORT', approveReport);
 }
 
 export default reportSaga;
