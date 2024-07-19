@@ -85,157 +85,221 @@ function FacilityForm() {
 	const handleClose = () => setOpen(false);
 
 	return (
-		<>
-			<Button variant='outlined' onClick={handleOpen} style={{margin: '40px'}}>
-				Enter New Facility
-			</Button>
-			<Modal open={open} onClose={handleClose} aria-labelledby='modal-title' aria-describedby='modal-description'>
-				<ModalDialog sx={{ width: '65vw', border: '2px solid #000' }}>
-					<Typography id='modal-title' level='h4'>
-						Add Facility Information
-					</Typography>
-					<Box component='form' onSubmit={handleSubmit} noValidate>
-						<Grid container spacing={2}>
-							<Grid item xs={10}>
-								<FormControl fullWidth>
-									<FormLabel>Facility Name</FormLabel>
-									<Input
-										placeholder='Facility Name'
-										name='facilityName'
-										value={facilityInfo.facilityName}
-										onChange={handleChange}
-										required
-									/>
-								</FormControl>
-							</Grid>
-							<Grid item xs={6}>
-								<FormControl fullWidth>
-									<FormLabel>Facility Address</FormLabel>
-									<Input
-										placeholder='Facility Address'
-										name='facilityAddress'
-										value={facilityInfo.facilityAddress}
-										onChange={handleChange}
-										required
-									/>
-								</FormControl>
-							</Grid>
-							<Grid item xs={6}>
-								<FormControl fullWidth>
-									<FormLabel>Facility City</FormLabel>
-									<Input
-										placeholder='Facility City'
-										name='facilityCity'
-										value={facilityInfo.facilityCity}
-										onChange={handleChange}
-										required
-									/>
-								</FormControl>
-							</Grid>
-							<Grid item xs={4}>
-								<FormControl fullWidth>
-									<FormLabel>State</FormLabel>
-									<Input
-										placeholder='State'
-										name='facilityState'
-										value={facilityInfo.facilityState}
-										onChange={handleChange}
-										required
-									/>
-								</FormControl>
-							</Grid>
-							<Grid item xs={4}>
-								<FormControl fullWidth>
-									<FormLabel>Zip</FormLabel>
-									<Input
-										placeholder='Zip'
-										name='facilityZip'
-										value={facilityInfo.facilityZip}
-										onChange={handleChange}
-										required
-									/>
-								</FormControl>
-							</Grid>
-							<Grid item xs={4}>
-								<FormControl fullWidth>
-									<FormLabel>Years in Business</FormLabel>
-									<Input
-										placeholder='Years in Business'
-										name='facilityYearsInBusiness'
-										type='number'
-										value={facilityInfo.facilityYearsInBusiness}
-										onChange={handleChange}
-										required
-									/>
-								</FormControl>
-							</Grid>
-							<Grid item xs={6}>
-								<FormControl fullWidth>
-									<FormLabel>Building Age</FormLabel>
-									<Input
-										placeholder='Building Age'
-										name='facilityBuildingAge'
-										type='number'
-										value={facilityInfo.facilityBuildingAge}
-										onChange={handleChange}
-										required
-									/>
-								</FormControl>
-							</Grid>
-							<Grid item xs={6}>
-								<FormControl fullWidth>
-									<FormLabel>Hours of Operation per week</FormLabel>
-									<Input
-										placeholder='Hours of Operation per week'
-										name='facilityHoursOfOperation'
-										type='number'
-										value={facilityInfo.facilityHoursOfOperation}
-										onChange={handleChange}
-										required
-									/>
-								</FormControl>
-							</Grid>
-							<Grid item xs={6}>
-								<FormControl fullWidth>
-									<FormLabel>Number of Guests per week</FormLabel>
-									<Input
-										placeholder='Number of Guests per week'
-										name='facilityNumberOfGuests'
-										type='number'
-										value={facilityInfo.facilityNumberOfGuests}
-										onChange={handleChange}
-										required
-									/>
-								</FormControl>
-							</Grid>
-							<Grid item xs={6}>
-								<FormControl fullWidth>
-									<FormLabel>Sit Down Restaurant</FormLabel>
-									<Select
-										value={facilityInfo.facilitySitDownRestaurant}
-										onChange={handleSelectChange}
-										placeholder='Select Option'
-										required
-									>
-										<Option value='Yes'>Yes</Option>
-										<Option value='No'>No</Option>
-									</Select>
-								</FormControl>
-							</Grid>
-							<Grid item xs={12}>
-								<Button type='submit' fullWidth sx={{ mt: 3, mb: 2 }}>
-									Submit
-								</Button>
-								<Button color='warning' fullWidth onClick={handleClose} sx={{ mb: 2 }}>
-									Cancel
-								</Button>
-							</Grid>
-						</Grid>
-					</Box>
-				</ModalDialog>
-			</Modal>
-		</>
-	);
+    <Grid
+      container
+      sx={{ justifyContent: 'center' }}
+    >
+      <Button
+        variant='outlined'
+        onClick={handleOpen}
+        style={{ margin: '40px' }}
+      >
+        Enter New Facility
+      </Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby='modal-title'
+        aria-describedby='modal-description'
+      >
+        <ModalDialog sx={{ width: '65vw', border: '2px solid #000' }}>
+          <Typography
+            id='modal-title'
+            level='h4'
+          >
+            Add Facility Information
+          </Typography>
+          <Box
+            component='form'
+            onSubmit={handleSubmit}
+            noValidate
+          >
+            <Grid
+              container
+              spacing={2}
+            >
+              <Grid
+                item
+                xs={10}
+              >
+                <FormControl fullWidth>
+                  <FormLabel>Facility Name</FormLabel>
+                  <Input
+                    placeholder='Facility Name'
+                    name='facilityName'
+                    value={facilityInfo.facilityName}
+                    onChange={handleChange}
+                    required
+                  />
+                </FormControl>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+              >
+                <FormControl fullWidth>
+                  <FormLabel>Facility Address</FormLabel>
+                  <Input
+                    placeholder='Facility Address'
+                    name='facilityAddress'
+                    value={facilityInfo.facilityAddress}
+                    onChange={handleChange}
+                    required
+                  />
+                </FormControl>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+              >
+                <FormControl fullWidth>
+                  <FormLabel>Facility City</FormLabel>
+                  <Input
+                    placeholder='Facility City'
+                    name='facilityCity'
+                    value={facilityInfo.facilityCity}
+                    onChange={handleChange}
+                    required
+                  />
+                </FormControl>
+              </Grid>
+              <Grid
+                item
+                xs={4}
+              >
+                <FormControl fullWidth>
+                  <FormLabel>State</FormLabel>
+                  <Input
+                    placeholder='State'
+                    name='facilityState'
+                    value={facilityInfo.facilityState}
+                    onChange={handleChange}
+                    required
+                  />
+                </FormControl>
+              </Grid>
+              <Grid
+                item
+                xs={4}
+              >
+                <FormControl fullWidth>
+                  <FormLabel>Zip</FormLabel>
+                  <Input
+                    placeholder='Zip'
+                    name='facilityZip'
+                    value={facilityInfo.facilityZip}
+                    onChange={handleChange}
+                    required
+                  />
+                </FormControl>
+              </Grid>
+              <Grid
+                item
+                xs={4}
+              >
+                <FormControl fullWidth>
+                  <FormLabel>Years in Business</FormLabel>
+                  <Input
+                    placeholder='Years in Business'
+                    name='facilityYearsInBusiness'
+                    type='number'
+                    value={facilityInfo.facilityYearsInBusiness}
+                    onChange={handleChange}
+                    required
+                  />
+                </FormControl>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+              >
+                <FormControl fullWidth>
+                  <FormLabel>Building Age</FormLabel>
+                  <Input
+                    placeholder='Building Age'
+                    name='facilityBuildingAge'
+                    type='number'
+                    value={facilityInfo.facilityBuildingAge}
+                    onChange={handleChange}
+                    required
+                  />
+                </FormControl>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+              >
+                <FormControl fullWidth>
+                  <FormLabel>Hours of Operation per week</FormLabel>
+                  <Input
+                    placeholder='Hours of Operation per week'
+                    name='facilityHoursOfOperation'
+                    type='number'
+                    value={facilityInfo.facilityHoursOfOperation}
+                    onChange={handleChange}
+                    required
+                  />
+                </FormControl>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+              >
+                <FormControl fullWidth>
+                  <FormLabel>Number of Guests per week</FormLabel>
+                  <Input
+                    placeholder='Number of Guests per week'
+                    name='facilityNumberOfGuests'
+                    type='number'
+                    value={facilityInfo.facilityNumberOfGuests}
+                    onChange={handleChange}
+                    required
+                  />
+                </FormControl>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+              >
+                <FormControl fullWidth>
+                  <FormLabel>Sit Down Restaurant</FormLabel>
+                  <Select
+                    value={facilityInfo.facilitySitDownRestaurant}
+                    onChange={handleSelectChange}
+                    placeholder='Select Option'
+                    required
+                  >
+                    <Option value='Yes'>Yes</Option>
+                    <Option value='No'>No</Option>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+              >
+                <Button
+                  type='submit'
+                  fullWidth
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Submit
+                </Button>
+                <Button
+                  color='warning'
+                  fullWidth
+                  onClick={handleClose}
+                  sx={{ mb: 2 }}
+                >
+                  Cancel
+                </Button>
+              </Grid>
+            </Grid>
+          </Box>
+        </ModalDialog>
+      </Modal>
+    </Grid>
+  );
 }
 
 export default FacilityForm;

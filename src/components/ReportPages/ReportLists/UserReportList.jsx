@@ -3,8 +3,7 @@ import ReportItem from '../ReportItem/ReportItem';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import './ReportList.css';
-import { Box } from '@mui/joy';
-
+import { Container, Box } from '@mui/joy';
 export default function UserReportList() {
   const dispatch = useDispatch();
   const reports = useSelector((store) => store.reports.reportReducer);
@@ -14,15 +13,24 @@ export default function UserReportList() {
     dispatch({ type: 'FETCH_USER_REPORTS' });
   }, []);
   return (
-    <>
-      <Box className='report-header' height={40} display='flex' alignItems='center' p={5}>
-        <h1>User Reports</h1>
-      </Box>
-      <section className='report-container'>
+
+    <Container
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        flex: 1,
+      }}
+    >
+      <h1>User Reports</h1>
+      <Box sx={{ flex: 1, py: 4 }}>
         {reports.map((report) => (
-          <ReportItem key={report.id} report={report} />
+          <ReportItem
+            key={report.id}
+            report={report}
+          />
         ))}
-      </section>
-    </>
+      </Box>
+    </Container>
   );
 }

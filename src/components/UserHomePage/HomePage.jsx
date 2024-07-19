@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Sheet, Table } from '@mui/joy';
+import { Container, Sheet, Table } from '@mui/joy';
 import { DateTime } from 'luxon';
 import Box from '@mui/joy/Box';
 import Card from '@mui/joy/Card';
@@ -16,7 +16,6 @@ import DeleteForever from '@mui/icons-material/DeleteForever';
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import Divider from '@mui/joy/Divider';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import './HomePage.css';
 import FaciliytSelect from '../Assessment/FacilitySelect';
 
 function HomePage() {
@@ -46,175 +45,233 @@ function HomePage() {
   };
 
   return (
-    <div>
-      <>
-        {energyCost[0]?.sum !== null && (
-          <Box
-            sx={{
-              width: '100%',
-              maxWidth: 500,
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
-              gap: 2,
-            }}
-          >
-            <Card variant='outlined'>
-              <CardContent>
-                <Typography level='title-md'>Total carbon footprint: </Typography>
-                {carbonTotal.map((carbon) => (
-                  <p>{carbon.sum} tons/year</p>
-                ))}
-                <Typography>Total energy cost: </Typography>
-                {energyCost.map((cost) => (
-                  <p>${cost.sum}/year</p>
-                ))}
-              </CardContent>
-            </Card>
-          </Box>
-        )}
-        <section className='container'>
-          <h3>My assessments</h3>
-          {reports.length > 0 ? (
-            <>
-              <Sheet
-                sx={{
-                  height: 100,
-                  overflow: 'auto',
-                  border: 1,
-                  borderRadius: 5,
-                }}
-              >
-                <Table
-                  borderAxis='bothBetween'
-                  color='neutral'
-                  size='md'
-                  stickyFooter={false}
-                  stickyHeader
-                  variant='plain'
-                >
-                  <thead>
-                    <tr>
-                      <th style={{ width: '40%' }}>Date Submitted</th>
-                      <th>Facility</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {reports.map((report) => (
-                      <tr key={report.id}>
-                        <td>{DateTime.fromISO(report.date_submitted).toFormat('MMMM dd, yyyy')}</td>
-                        <td>{report.name}</td>
-                        {report.approved ? <td>View Report</td> : <td>In Review</td>}
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
-              </Sheet>
-              <Box sx={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '10px', marginTop: '10px' }}>
-                <Button onClick={() => history.push('/user-reports')}>View all assessments</Button>
-              </Box>
-            </>
-          ) : (
+    <Container sx={{ justifyContent: 'center', flex: 1 }}>
+      {energyCost[0]?.sum !== null && (
+        <Box
+          sx={{
+            width: '100%',
+            maxWidth: 500,
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+            gap: 2,
+          }}
+        >
+          <Card variant='outlined'>
+            <CardContent>
+              <Typography level='title-md'>Total carbon footprint: </Typography>
+              {carbonTotal.map((carbon) => (
+                <p>{carbon.sum} tons/year</p>
+              ))}
+              <Typography>Total energy cost: </Typography>
+              {energyCost.map((cost) => (
+                <p>${cost.sum}/year</p>
+              ))}
+            </CardContent>
+          </Card>
+        </Box>
+      )}
+      <section className='container'>
+        {reports.length > 0 ? (
+          <>
             <Box
               sx={{
                 display: 'flex',
-                justifyContent: 'flex-start',
+                justifyContent: 'space-between',
+                my: '10px',
+              }}
+            >
+              <h3>My assessments</h3>
+              <Button onClick={() => history.push('/user-reports')}>
+                View all assessments
+              </Button>
+            </Box>
+            <Divider />
+            <Sheet
+              sx={{
+                height: 100,
+                overflow: 'auto',
+                border: 1,
+                borderRadius: 5,
+              }}
+            >
+              <Table
+                borderAxis='bothBetween'
+                color='neutral'
+                size='md'
+                stickyFooter={false}
+                stickyHeader
+                variant='plain'
+              >
+                <thead>
+                  <tr>
+                    <th style={{ width: '40%' }}>Date Submitted</th>
+                    <th>Facility</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {reports.map((report) => (
+                    <tr key={report.id}>
+                      <td>
+                        {DateTime.fromISO(report.date_submitted).toFormat(
+                          'MMMM dd, yyyy'
+                        )}
+                      </td>
+                      <td>{report.name}</td>
+                      {report.approved ? (
+                        <td>View Report</td>
+                      ) : (
+                        <td>In Review</td>
+                      )}
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Sheet>
+          </>
+        ) : (
+          <>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                my: '10px',
+              }}
+            >
+              <h3>My assessments</h3>{' '}
+            </Box>
+            <Divider />
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
                 marginTop: '10px',
               }}
             >
-              <Button onClick={() => setOpenFacilitySelect(true)}>Start Assessment</Button>
-              <FaciliytSelect open={openFacilitySelect} setOpen={setOpenFacilitySelect} />
+              <Button onClick={() => setOpenFacilitySelect(true)}>
+                Start Assessment
+              </Button>
+              <FaciliytSelect
+                open={openFacilitySelect}
+                setOpen={setOpenFacilitySelect}
+              />
             </Box>
-          )}
-        </section>
-        <section className='container'>
+          </>
+        )}
+      </section>
+      <section className='container'>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignContent: 'center',
+            my: '10px',
+          }}
+        >
           <h3>My facilities </h3>
-          {facilities.length > 0 ? (
-            <>
-              <Sheet
-                sx={{
-                  height: 100,
-                  overflow: 'auto',
-                  border: 1,
-                  borderRadius: 5,
-                }}
+          <Button onClick={() => history.push('/facilities')}>
+            View all Facilities
+          </Button>
+        </Box>
+        {facilities.length > 0 ? (
+          <>
+            <Sheet
+              sx={{
+                height: 100,
+                overflow: 'auto',
+                border: 1,
+                borderRadius: 5,
+              }}
+            >
+              <Table
+                borderAxis='bothBetween'
+                color='neutral'
+                size='md'
+                stickyFooter={false}
+                stickyHeader
+                variant='plain'
               >
-                <Table
-                  borderAxis='bothBetween'
-                  color='neutral'
-                  size='md'
-                  stickyFooter={false}
-                  stickyHeader
-                  variant='plain'
-                >
-                  <thead>
-                    <tr>
-                      <th style={{ width: '25%' }}>Facility</th>
-                      <th>Address</th>
-                      <th>State</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {facilities.map((facility) => (
-                      <tr key={facility.id}>
-                        <td>{facility.name}</td>
-                        <td>{facility.address}</td>
-                        <td>{facility.state}</td>
-                        <td>
-                          <Button
+                <thead>
+                  <tr>
+                    <th style={{ width: '25%' }}>Facility</th>
+                    <th>Address</th>
+                    <th>State</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {facilities.map((facility) => (
+                    <tr key={facility.id}>
+                      <td>{facility.name}</td>
+                      <td>{facility.address}</td>
+                      <td>{facility.state}</td>
+                      <td>
+                        <Button
+                          variant='outlined'
+                          color='danger'
+                          endDecorator={<DeleteForever />}
+                          onClick={() => setOpen(true)}
+                        >
+                          Delete
+                        </Button>
+                        <Modal
+                          open={open}
+                          onClose={() => setOpen(false)}
+                        >
+                          <ModalDialog
                             variant='outlined'
-                            color='danger'
-                            endDecorator={<DeleteForever />}
-                            onClick={() => setOpen(true)}
+                            role='alertdialog'
                           >
-                            Delete
-                          </Button>
-                          <Modal open={open} onClose={() => setOpen(false)}>
-                            <ModalDialog variant='outlined' role='alertdialog'>
-                              <DialogTitle>
-                                <WarningRoundedIcon />
-                                Confirmation
-                              </DialogTitle>
-                              <Divider />
-                              <DialogContent>
-                                Are you sure you want to delete this facility? This will delete all corresponding
-                                reports.
-                              </DialogContent>
-                              <DialogActions>
-                                <Button variant='solid' color='danger' onClick={() => deleteFacility(facility.id)}>
-                                  Delete Facility
-                                </Button>
-                                <Button variant='plain' color='neutral' onClick={() => setOpen(false)}>
-                                  Cancel
-                                </Button>
-                              </DialogActions>
-                            </ModalDialog>
-                          </Modal>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
-              </Sheet>
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'flex-start',
-                  marginTop: '10px',
-                }}
-              >
-                <Button onClick={() => history.push('/facilities')}>View all Facilities</Button>
-              </Box>
-            </>
-          ) : (
-            <Box sx={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '10px', marginTop: '10px' }}>
-              <Button onClick={() => history.push('/facilities')}>Add Facility</Button>
-            </Box>
-          )}
-        </section>
-      </>
-    </div>
+                            <DialogTitle>
+                              <WarningRoundedIcon />
+                              Confirmation
+                            </DialogTitle>
+                            <Divider />
+                            <DialogContent>
+                              Are you sure you want to delete this facility?
+                              This will delete all corresponding reports.
+                            </DialogContent>
+                            <DialogActions>
+                              <Button
+                                variant='solid'
+                                color='danger'
+                                onClick={() => deleteFacility(facility.id)}
+                              >
+                                Delete Facility
+                              </Button>
+                              <Button
+                                variant='plain'
+                                color='neutral'
+                                onClick={() => setOpen(false)}
+                              >
+                                Cancel
+                              </Button>
+                            </DialogActions>
+                          </ModalDialog>
+                        </Modal>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Sheet>
+          </>
+        ) : (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginBottom: '10px',
+              marginTop: '10px',
+            }}
+          >
+            <Button onClick={() => history.push('/facilities')}>
+              Add Facility
+            </Button>
+          </Box>
+        )}
+      </section>
+    </Container>
   );
 }
 
