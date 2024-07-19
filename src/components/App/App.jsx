@@ -59,7 +59,15 @@ function App() {
 
   return (
     <Router>
-      <Box sx={{ overflowY: 'auto', overflowX: 'hidden' }}>
+      <Box
+        sx={{
+          overflowY: 'auto',
+          overflowX: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
+        }}
+      >
         <Nav />
         <Switch>
           {/* Visiting localhost:5173 will redirect to localhost:5173/login */}
