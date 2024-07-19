@@ -62,7 +62,6 @@ CREATE TABLE IF NOT EXISTS "energy_cost" (
 	"natural_gas" decimal not null,
 	"liquid_propane" decimal not null,
 	"gas_propane" decimal not null,
-	"heating_oil" decimal not null
 );
 
 CREATE TABLE IF NOT EXISTS "equipment" (
