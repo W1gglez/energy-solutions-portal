@@ -3,9 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Sheet, Table } from '@mui/joy';
 import { DateTime } from 'luxon';
 import Box from '@mui/joy/Box';
-import Card from '@mui/joy/Card';
-import CardContent from '@mui/joy/CardContent';
-import Typography from '@mui/joy/Typography';
 import Button from '@mui/joy/Button';
 import DialogTitle from '@mui/joy/DialogTitle';
 import DialogContent from '@mui/joy/DialogContent';
@@ -21,8 +18,6 @@ function AdminHomePage() {
   const reports = useSelector((store) => store.reports.reportReducer);
   const reportsReady = reports.filter((report) => !report.approved);
   const facilities = useSelector((store) => store.facilities);
-  const carbonTotal = useSelector((store) => store.carbon);
-  const energyCost = useSelector((store) => store.cost);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -39,6 +34,10 @@ function AdminHomePage() {
   const deleteFacility = (facilityId) => {
     dispatch({ type: 'DELETE_FACILITY', payload: facilityId });
     setOpen(false);
+  };
+
+  const navReport = (reportId) => {
+    history.push(`/report/${reportId}`);
   };
 
   return (
@@ -77,14 +76,18 @@ function AdminHomePage() {
                       <tr key={report.id}>
                         <td>{DateTime.fromISO(report.date_submitted).toFormat('MMMM dd, yyyy')}</td>
                         <td>{report.name}</td>
-                        {report.approved ? <td>View Report</td> : <td>Review Report</td>}
+                        <td>
+                          <Button variant='outlined' color='primary' onClick={() => navReport(report.id)}>
+                            Review Report
+                          </Button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
                 </Table>
               </Sheet>
               <Box sx={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '10px', marginTop: '10px' }}>
-                <Button onClick={() => history.push('/admin-reports')}>View all assessments</Button>
+                <Button onClick={() => history.push('/admin-reports')}>View All Assessments</Button>
               </Box>
             </>
           ) : (
@@ -152,7 +155,7 @@ function AdminHomePage() {
             </Table>
           </Sheet>
           <Box sx={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '10px', marginTop: '10px' }}>
-            <Button onClick={() => history.push('/facilities')}>View all Facilities</Button>
+            <Button onClick={() => history.push('/facilities')}>View All Facilities</Button>
           </Box>
         </section>
       </>

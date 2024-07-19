@@ -4,12 +4,7 @@ import './App.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import React, { useEffect } from 'react';
-import {
-  HashRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-} from 'react-router-dom';
+import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -57,6 +52,9 @@ function App() {
     dispatch({ type: 'FETCH_LOCATIONS' });
     dispatch({ type: 'FETCH_TYPES' });
     dispatch({ type: 'FETCH_UNITS' });
+    {
+      user.admin ? dispatch({ type: 'FETCH_FACILITIES' }) : dispatch({ type: 'FETCH_USER_FACILITIES' });
+    }
   }, [dispatch]);
 
   return (
@@ -65,11 +63,7 @@ function App() {
         <Nav />
         <Switch>
           {/* Visiting localhost:5173 will redirect to localhost:5173/login */}
-          <Redirect
-            exact
-            from='/'
-            to='/login'
-          />
+          <Redirect exact from='/' to='/login' />
 
           {/* Visiting localhost:5173/about will show the about page. */}
           <Route
@@ -100,118 +94,64 @@ function App() {
             <InfoPage />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            exact
-            path='/report/:id'
-          >
+          <ProtectedRoute exact path='/report/:id'>
             <EnergyReport />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            exact
-            path='/admin-reports'
-          >
+          <ProtectedRoute exact path='/admin-reports'>
             <ReportList />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            exact
-            path='/user-reports'
-          >
+          <ProtectedRoute exact path='/user-reports'>
             <UserReportList />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            exact
-            path='/admin-home-page'
-          >
+          <ProtectedRoute exact path='/admin-home-page'>
             <AdminHomePage />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            exact
-            path='/home-page'
-          >
+          <ProtectedRoute exact path='/home-page'>
             <HomePage />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            exact
-            path='/assessment/q1'
-          >
+          <ProtectedRoute exact path='/assessment/q1'>
             <Q1 />
           </ProtectedRoute>
-          <ProtectedRoute
-            exact
-            path='/assessment/q2'
-          >
+          <ProtectedRoute exact path='/assessment/q2'>
             <Q2 />
           </ProtectedRoute>
-          <ProtectedRoute
-            exact
-            path='/assessment/q3'
-          >
+          <ProtectedRoute exact path='/assessment/q3'>
             <Q3 />
           </ProtectedRoute>
-          <ProtectedRoute
-            exact
-            path='/assessment/q4'
-          >
+          <ProtectedRoute exact path='/assessment/q4'>
             <Q4 />
           </ProtectedRoute>
-          <ProtectedRoute
-            exact
-            path='/assessment/q5'
-          >
+          <ProtectedRoute exact path='/assessment/q5'>
             <Q5 />
           </ProtectedRoute>
-          <ProtectedRoute
-            exact
-            path='/assessment/q6'
-          >
+          <ProtectedRoute exact path='/assessment/q6'>
             <Q6 />
           </ProtectedRoute>
-          <ProtectedRoute
-            exact
-            path='/assessment/q7'
-          >
+          <ProtectedRoute exact path='/assessment/q7'>
             <Q7 />
           </ProtectedRoute>
-          <ProtectedRoute
-            exact
-            path='/assessment/additional-equipment'
-          >
+          <ProtectedRoute exact path='/assessment/additional-equipment'>
             <AdditionalEquipment />
           </ProtectedRoute>
-          <ProtectedRoute
-            exact
-            path='/assessment/energy-cost'
-          >
+          <ProtectedRoute exact path='/assessment/energy-cost'>
             <EnergyCost />
           </ProtectedRoute>
-          <ProtectedRoute
-            exact
-            path='/assessment/review'
-          >
+          <ProtectedRoute exact path='/assessment/review'>
             <AssessmentReview />
           </ProtectedRoute>
-          <ProtectedRoute
-            exact
-            path='/facilities'
-          >
+          <ProtectedRoute exact path='/facilities'>
             <FacilityPage />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            exact
-            path='/admin-facilities'
-          >
+          <ProtectedRoute exact path='/admin-facilities'>
             <AdminFacilityPage />
           </ProtectedRoute>
-          <Route
-            exact
-            path='/login'
-          >
+          <Route exact path='/login'>
             {user.id ? (
               // If the user is already logged in,
               // redirect to the /user page
@@ -222,10 +162,7 @@ function App() {
             )}
           </Route>
 
-          <Route
-            exact
-            path='/registration'
-          >
+          <Route exact path='/registration'>
             {user.id ? (
               // If the user is already logged in,
               // redirect them to the /user page

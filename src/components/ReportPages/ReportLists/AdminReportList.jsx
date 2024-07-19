@@ -3,6 +3,7 @@ import ReportItem from '../ReportItem/ReportItem';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import './ReportList.css';
+import { Box } from '@mui/joy';
 
 export default function ReportList() {
   const dispatch = useDispatch();
@@ -14,7 +15,9 @@ export default function ReportList() {
   }, []);
   return (
     <>
-      <h1>Admin Reports</h1>
+      <Box className='report-header' height={40} display='flex' alignItems='center' p={5}>
+        <h1>All Reports</h1>
+      </Box>
       <section className='report-container'>
         {reports.map((report) => (
           <ReportItem key={report.id} report={report} />
