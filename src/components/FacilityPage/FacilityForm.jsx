@@ -1,6 +1,19 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Modal, Typography, TextField, Button, Input, Select, FormControl, FormLabel, Option, ModalDialog, Grid, Box } from '@mui/joy';
+import {
+	Modal,
+	Typography,
+	TextField,
+	Button,
+	Input,
+	Select,
+	FormControl,
+	FormLabel,
+	Option,
+	ModalDialog,
+	Grid,
+	Box,
+} from '@mui/joy';
 
 function FacilityForm() {
 	const [facilityInfo, setFacilityInfo] = useState({
@@ -37,6 +50,7 @@ function FacilityForm() {
 		const submissionData = {
 			name: facilityInfo.facilityName,
 			address: facilityInfo.facilityAddress,
+			city: facilityInfo.facilityCity,
 			state: facilityInfo.facilityState,
 			zip: facilityInfo.facilityZip,
 			years_in_business: parseFloat(facilityInfo.facilityYearsInBusiness, 10),
@@ -51,6 +65,7 @@ function FacilityForm() {
 			setFacilityInfo({
 				facilityName: '',
 				facilityAddress: '',
+				facilityCity: '',
 				facilityState: '',
 				facilityZip: '',
 				facilityYearsInBusiness: '',
@@ -71,7 +86,7 @@ function FacilityForm() {
 
 	return (
 		<>
-			<Button variant='outlined' onClick={handleOpen}>
+			<Button variant='outlined' onClick={handleOpen} style={{margin: '40px'}}>
 				Enter New Facility
 			</Button>
 			<Modal open={open} onClose={handleClose} aria-labelledby='modal-title' aria-describedby='modal-description'>
@@ -79,9 +94,9 @@ function FacilityForm() {
 					<Typography id='modal-title' level='h4'>
 						Add Facility Information
 					</Typography>
-					<Box component='form' onSubmit={handleSubmit} noValidate >
+					<Box component='form' onSubmit={handleSubmit} noValidate>
 						<Grid container spacing={2}>
-							<Grid item xs={6}>
+							<Grid item xs={10}>
 								<FormControl fullWidth>
 									<FormLabel>Facility Name</FormLabel>
 									<Input
@@ -100,6 +115,18 @@ function FacilityForm() {
 										placeholder='Facility Address'
 										name='facilityAddress'
 										value={facilityInfo.facilityAddress}
+										onChange={handleChange}
+										required
+									/>
+								</FormControl>
+							</Grid>
+							<Grid item xs={6}>
+								<FormControl fullWidth>
+									<FormLabel>Facility City</FormLabel>
+									<Input
+										placeholder='Facility City'
+										name='facilityCity'
+										value={facilityInfo.facilityCity}
 										onChange={handleChange}
 										required
 									/>
@@ -196,10 +223,10 @@ function FacilityForm() {
 								</FormControl>
 							</Grid>
 							<Grid item xs={12}>
-								<Button type='submit' fullWidth  sx={{ mt: 3, mb: 2 }}>
+								<Button type='submit' fullWidth sx={{ mt: 3, mb: 2 }}>
 									Submit
 								</Button>
-								<Button fullWidth  onClick={handleClose} sx={{ mb: 2 }}>
+								<Button color='warning' fullWidth onClick={handleClose} sx={{ mb: 2 }}>
 									Cancel
 								</Button>
 							</Grid>

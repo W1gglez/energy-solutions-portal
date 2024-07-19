@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fontsource/inter';
 import './App.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import React, { useEffect } from 'react';
 import {
@@ -36,6 +37,9 @@ import Q7 from '../Assessment/Q7Page';
 import AdditionalEquipment from '../Assessment/AdditionalEquipmentPage';
 import FacilityPage from '../FacilityPage/FacilityPage';
 import EnergyCost from '../Assessment/EnergyCost';
+
+import AdminFacilityPage from '../FacilityPage/AdminFacilityPage';
+
 import AssessmentReview from '../Assessment/AssessmentReview';
 import ReportList from '../ReportPages/ReportLists/AdminReportList';
 import AdminHomePage from '../AdminHomePage/AdminHomePage';
@@ -96,6 +100,7 @@ function App() {
             <InfoPage />
           </ProtectedRoute>
 
+
           <ProtectedRoute exact path='/report/:id'>
             <EnergyReport />
           </ProtectedRoute>
@@ -113,6 +118,7 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/home-page'>
+
             <HomePage />
           </ProtectedRoute>
 
@@ -183,6 +189,12 @@ function App() {
             <FacilityPage />
           </ProtectedRoute>
 
+          <ProtectedRoute
+            exact
+            path='/admin-facilities'
+          >
+            <AdminFacilityPage />
+          </ProtectedRoute>
           <Route
             exact
             path='/login'
@@ -218,10 +230,10 @@ function App() {
             {user.id ? (
               // If the user is already logged in,
               // redirect them to the /user page
-              <Redirect to='/user' />
+              <Redirect to='/home' />
             ) : (
               // Otherwise, show the Landing page
-              <LandingPage />
+              <HomePage />
             )}
           </Route>
 

@@ -34,6 +34,7 @@ function Nav() {
     // setOpen(false);
   };
 
+
   const navReports = () => {
     if (user.admin === true) {
       history.push('/admin-reports');

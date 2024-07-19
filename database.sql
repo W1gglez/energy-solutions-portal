@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS "facility" (
 	"user_id" int references "user" ON DELETE CASCADE,
 	"name" varchar not null,
 	"address" varchar not null,
+	"city" varchar not null DEFAULT 'Fargo',
 	"state" varchar not null,
 	"zip" int not null,
 	"years_in_business" int not null,
