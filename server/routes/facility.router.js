@@ -39,9 +39,9 @@ router.get ('/', rejectUnauthenticated, (req, res) => {
 router.post ('/', rejectUnauthenticated, (req, res) => {
     const userId = req.user.id;
     const facility = req.body;
-    const queryText = `INSERT INTO "facility" ("user_id", "name", "address", "state", "zip", "years_in_business", "building_age", "hours_of_operation", "weekly_customers", "sit_down")
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
-    pool.query(queryText, [userId, facility.name, facility.address, facility.state, facility.zip, facility.years_in_business, facility.building_age, facility.hours_of_operation, facility.weekly_customers, facility.sit_down])
+    const queryText = `INSERT INTO "facility" ("user_id", "name", "address", "state", "zip", "years_in_business", "building_age", "hours_of_operation", "weekly_customers", "sit_down", "city")
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`;
+    pool.query(queryText, [userId, facility.name, facility.address, facility.state, facility.zip, facility.years_in_business, facility.building_age, facility.hours_of_operation, facility.weekly_customers, facility.sit_down, facility.city])
         .then(() => {
             res.sendStatus(201);
         })
@@ -58,8 +58,19 @@ router.post ('/', rejectUnauthenticated, (req, res) => {
 router.put('/:id', rejectUnauthenticated, (req, res) => {
     const facilityId = req.params.id;
     const facility = req.body;
-    const queryText = `UPDATE "facility" SET "name" = $1, "address" = $2, "state" = $3, "zip" = $4, "years_in_business" = $5, "building_age" = $6, "hours_of_operation" = $7, "weekly_customers" = $8, "sit_down" = $9 WHERE "id" = $10;`;
-    pool.query(queryText, [facility.name, facility.address, facility.state, facility.zip, facility.years_in_business, facility.building_age, facility.hours_of_operation, facility.weekly_customers, facility.sit_down, facilityId])
+    const queryText = `UPDATE "facility" 
+                       SET "name" = $1, 
+                           "address" = $2, 
+                           "state" = $3, 
+                           "zip" = $4, 
+                           "years_in_business" = $5, 
+                           "building_age" = $6, 
+                           "hours_of_operation" = $7, 
+                           "weekly_customers" = $8, 
+                           "sit_down" = $9, 
+                           "city" = $10 
+                       WHERE "id" = $11;`;
+    pool.query(queryText, [facility.name, facility.address, facility.state, facility.zip, facility.years_in_business, facility.building_age, facility.hours_of_operation, facility.weekly_customers, facility.sit_down, facility.city, facilityId])
         .then(() => {
             res.sendStatus(200);
         })
@@ -68,6 +79,7 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500);
         });
 });
+
 
 // DELETE route to delete a facility
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
