@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
+import { Box } from '@mui/joy';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
@@ -35,6 +36,7 @@ import Q7 from '../Assessment/Q7Page';
 import AdditionalEquipment from '../Assessment/AdditionalEquipmentPage';
 import FacilityPage from '../FacilityPage/FacilityPage';
 import EnergyCost from '../Assessment/EnergyCost';
+import AssessmentReview from '../Assessment/AssessmentReview';
 import ReportList from '../ReportPages/ReportLists/AdminReportList';
 import AdminHomePage from '../AdminHomePage/AdminHomePage';
 import EnergyReport from '../ReportPages/EnergyReport/EnergyReport';
@@ -55,7 +57,7 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <Box sx={{ overflowY: 'auto', overflowX: 'hidden' }}>
         <Nav />
         <Switch>
           {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
@@ -170,6 +172,12 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute
             exact
+            path='/assessment/review'
+          >
+            <AssessmentReview />
+          </ProtectedRoute>
+          <ProtectedRoute
+            exact
             path='/facilities'
           >
             <FacilityPage />
@@ -223,7 +231,7 @@ function App() {
           </Route>
         </Switch>
         <Footer />
-      </div>
+      </Box>
     </Router>
   );
 }

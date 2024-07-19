@@ -9,14 +9,17 @@ import Container from '@mui/joy/Container';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
+import BackToReviewButton from '../BackToReviewButton.jsx/BackToReviewButton';
 
 export default function Q3() {
   const history = useHistory();
   const dispatch = useDispatch();
   const responses = useSelector((store) => store.responses);
-  const [lengthOfTime, setLengthOfTime] = useState(responses.hot_water || '');
+  const [lengthOfTime, setLengthOfTime] = useState(
+    responses.hot_water || undefined
+  );
   const [selectedValue, setSelectedValue] = useState(
-    responses.restroom_leaks || false
+    responses.restroom_leaks || 'false'
   );
 
   const handleExit = () => {
@@ -33,7 +36,7 @@ export default function Q3() {
     dispatch({
       type: 'SET_RESPONSE',
       payload:
-        ((responses['hot_water'] = lengthOfTime),
+        ((responses['hot_water'] = lengthOfTime ?? 0),
         (responses['restroom_leaks'] = selectedValue)),
     });
     history.push('/assessment/q4');
@@ -47,6 +50,12 @@ export default function Q3() {
       >
         Exit Assessment
       </Button>
+      <BackToReviewButton
+        payload={
+          ((responses['hot_water'] = lengthOfTime),
+          (responses['restroom_leaks'] = selectedValue))
+        }
+      />
       <Typography
         level='h1'
         sx={{ position: 'absolute', top: '10%', left: '43vw' }}

@@ -3,7 +3,6 @@ import CardContent from '@mui/joy/CardContent';
 import DialogTitle from '@mui/joy/DialogTitle';
 import Box from '@mui/joy/Box';
 import Typography from '@mui/joy/Typography';
-import Grid from '@mui/joy/Grid';
 import { useSelector } from 'react-redux';
 
 export default function EnergyCostCard() {
@@ -18,7 +17,7 @@ export default function EnergyCostCard() {
     >
       <CardContent>
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <DialogTitle>Input Energy Costs</DialogTitle>
+          <DialogTitle>Local Energy Costs</DialogTitle>
           <DialogTitle>{date}</DialogTitle>
         </Box>
         <Box

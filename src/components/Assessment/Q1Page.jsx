@@ -8,13 +8,14 @@ import Container from '@mui/joy/Container';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
+import BackToReviewButton from '../BackToReviewButton.jsx/BackToReviewButton';
 
 export default function Q1() {
   const history = useHistory();
   const dispatch = useDispatch();
   const responses = useSelector((store) => store.responses);
   const [selectedValue, setSelectedValue] = useState(
-    responses.Rush_of_air || false
+    responses.Rush_of_air || 'false'
   );
 
   const handleExit = () => {
@@ -27,7 +28,6 @@ export default function Q1() {
   };
 
   const recordResponse = () => {
-    console.log(selectedValue);
     dispatch({
       type: 'SET_RESPONSE',
       payload: (responses['Rush_of_air'] = selectedValue),
@@ -43,6 +43,9 @@ export default function Q1() {
       >
         Exit Assessment
       </Button>
+      <BackToReviewButton
+        payload={(responses['Rush_of_air'] = selectedValue)}
+      />
       <Typography
         level='h1'
         sx={{ position: 'absolute', top: '10%', left: '43vw' }}
@@ -91,8 +94,14 @@ export default function Q1() {
         </Grid>
         <Grid
           xs={12}
-          sx={{ display: 'flex', justifyContent: 'right' }}
+          sx={{ display: 'flex', justifyContent: 'space-between' }}
         >
+          <Button
+            onClick={() => history.push('/assessment/energy-cost')}
+            sx={{ width: '25%' }}
+          >
+            Previous
+          </Button>
           <Button
             onClick={recordResponse}
             sx={{ width: '25%' }}
