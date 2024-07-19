@@ -6,30 +6,45 @@ import Box from '@mui/joy/Box';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
-// import IconButton from '@mui/joy/IconButton';
 import Button from '@mui/joy/Button';
+import DialogTitle from '@mui/joy/DialogTitle';
+import DialogContent from '@mui/joy/DialogContent';
+import DialogActions from '@mui/joy/DialogActions';
+import Modal from '@mui/joy/Modal';
+import ModalDialog from '@mui/joy/ModalDialog';
+import DeleteForever from '@mui/icons-material/DeleteForever';
+import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
+import Divider from '@mui/joy/Divider';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
-function HomePage() {
-  const reports = useSelector((store) => store.reports);
-  console.log('reports', reports);
+function AdminHomePage() {
+  const reports = useSelector((store) => store.reports.reportReducer);
+  const reportsReady = reports.filter((report) => !report.approved);
   const facilities = useSelector((store) => store.facilities);
-  console.log('facilities', facilities);
+  // console.log('check facilities', facilities);
   const carbonTotal = useSelector((store) => store.carbon);
   const energyCost = useSelector((store) => store.cost);
-  console.log('cost', energyCost);
+  // console.log('check cost', energyCost);
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_USER_REPORTS' });
-    dispatch({ type: 'FETCH_USER_FACILITIES' });
+    dispatch({ type: 'FETCH_REPORTS' });
+    dispatch({ type: 'FETCH_FACILITIES' });
     dispatch({ type: 'FETCH_CARBON' });
     dispatch({ type: 'FETCH_COST' });
   }, []);
 
+  const [open, setOpen] = React.useState(false);
+
   const deleteFacility = (facilityId) => {
-    console.log('delete facility was clicked, check id', facilityId);
     dispatch({ type: 'DELETE_FACILITY', payload: facilityId });
+    setOpen(false);
+  };
+
+  const navReportPage = () => {
+    history.push('/admin-reports');
   };
 
   return (
@@ -52,13 +67,13 @@ function HomePage() {
               ))}
               <Typography>Total energy cost: </Typography>
               {energyCost.map((cost) => (
-                <p>${cost.sum}/year</p>
+                <p>${cost.sum} /year</p>
               ))}
             </CardContent>
           </Card>
         </Box>
-        <h3>My assessments</h3>
-        <Button>View all assessments</Button>
+        <h3>Assessments Pending Review</h3>
+        <Button onClick={navReportPage}>View all assessments</Button>
         <Sheet sx={{ height: 200, overflow: 'auto' }}>
           <Table borderAxis='bothBetween' color='neutral' size='md' stickyFooter={false} stickyHeader variant='plain'>
             <thead>
@@ -69,17 +84,17 @@ function HomePage() {
               </tr>
             </thead>
             <tbody>
-              {reports.map((report) => (
+              {reportsReady.map((report) => (
                 <tr key={report.id}>
                   <td>{DateTime.fromISO(report.date_submitted).toFormat('MMMM dd, yyyy')}</td>
                   <td>{report.name}</td>
-                  {report.approved ? <td>View Report</td> : <td>In Review</td>}
+                  {report.approved ? <td>View Report</td> : <td>Review Report</td>}
                 </tr>
               ))}
             </tbody>
           </Table>
         </Sheet>
-        <h3>My facilities </h3>
+        <h3>Recently Added Facilities</h3>
         <Button>View all Facilities</Button>
         <Sheet sx={{ height: 200, overflow: 'auto' }}>
           <Table borderAxis='bothBetween' color='neutral' size='md' stickyFooter={false} stickyHeader variant='plain'>
@@ -88,7 +103,7 @@ function HomePage() {
                 <th style={{ width: '25%' }}>Facility</th>
                 <th>Address</th>
                 <th>State</th>
-                <th>Delete Facility</th> {/* Add an alert confirming delete */}
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -98,7 +113,34 @@ function HomePage() {
                   <td>{facility.address}</td>
                   <td>{facility.state}</td>
                   <td>
-                    <Button onClick={() => deleteFacility(facility.id)}>Delete</Button>
+                    <Button
+                      variant='outlined'
+                      color='danger'
+                      endDecorator={<DeleteForever />}
+                      onClick={() => setOpen(true)}
+                    >
+                      Delete
+                    </Button>
+                    <Modal open={open} onClose={() => setOpen(false)}>
+                      <ModalDialog variant='outlined' role='alertdialog'>
+                        <DialogTitle>
+                          <WarningRoundedIcon />
+                          Confirmation
+                        </DialogTitle>
+                        <Divider />
+                        <DialogContent>
+                          Are you sure you want to delete this facility? This will delete all corresponding reports.
+                        </DialogContent>
+                        <DialogActions>
+                          <Button variant='solid' color='danger' onClick={() => deleteFacility(facility.id)}>
+                            Delete Facility
+                          </Button>
+                          <Button variant='plain' color='neutral' onClick={() => setOpen(false)}>
+                            Cancel
+                          </Button>
+                        </DialogActions>
+                      </ModalDialog>
+                    </Modal>
                   </td>
                 </tr>
               ))}
@@ -110,4 +152,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default AdminHomePage;

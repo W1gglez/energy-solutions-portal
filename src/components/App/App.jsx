@@ -23,7 +23,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import HomePage from '../HomePage/HomePage';
+import HomePage from '../UserHomePage/HomePage';
 
 import Q1 from '../Assessment/Q1Page';
 import Q2 from '../Assessment/Q2Page';
@@ -35,6 +35,10 @@ import Q7 from '../Assessment/Q7Page';
 import AdditionalEquipment from '../Assessment/AdditionalEquipmentPage';
 import FacilityPage from '../FacilityPage/FacilityPage';
 import EnergyCost from '../Assessment/EnergyCost';
+import ReportList from '../ReportPages/ReportLists/AdminReportList';
+import AdminHomePage from '../AdminHomePage/AdminHomePage';
+import EnergyReport from '../ReportPages/EnergyReport/EnergyReport';
+import UserReportList from '../ReportPages/ReportLists/UserReportList';
 
 function App() {
   const dispatch = useDispatch();
@@ -90,10 +94,23 @@ function App() {
             <InfoPage />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            exact
-            path='/home-page'
-          >
+          <ProtectedRoute exact path='/report/:id'>
+            <EnergyReport />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/admin-reports'>
+            <ReportList />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/user-reports'>
+            <UserReportList />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/admin-home-page'>
+            <AdminHomePage />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/home-page'>
             <HomePage />
           </ProtectedRoute>
 

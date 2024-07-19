@@ -54,7 +54,6 @@ router.post ('/', rejectUnauthenticated, (req, res) => {
 
 
 // PUT route to update facility information
-
 router.put('/:id', rejectUnauthenticated, (req, res) => {
     const facilityId = req.params.id;
     const facility = req.body;

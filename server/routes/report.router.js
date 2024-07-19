@@ -5,7 +5,7 @@ const router = express.Router();
 
 // GET all restaurant reports (Admin Page)
 router.get('/all', rejectUnauthenticated, (req, res) => {
-  const queryText = `SELECT * FROM "reports";`;
+  const queryText = `SELECT "reports".*, "facility"."name" FROM "reports" JOIN "facility" ON "reports"."facility_id" = "facility"."id";`;
   pool
     .query(queryText)
     .then((result) => res.send(result.rows))
@@ -128,6 +128,8 @@ SELECT
   "reports".*,
   "facility"."name",
   "facility"."user_id",
+  "facility"."address",
+  "user"."username",
   equipment_agg.equipment,
   recommendations_agg.recommendations,
   energy_cost_agg.energy_cost
@@ -287,6 +289,23 @@ router.delete('/:id', rejectUnauthenticated, async (req, res) => {
     res.sendStatus(200);
   } catch (err) {
     console.error(`Error processing DELETE  report /${req.params.id}:`, err);
+    res.sendStatus(500);
+  }
+});
+
+// put to mark report as approved
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+  console.log('in report put, check req.body.approvedAt', req.body.approvedAt);
+  console.log('in report put, check req.params.id', req.params.id);
+  try {
+    const queryText = `
+       UPDATE "reports"
+   SET "approved" = true, "approvedBy" = $1, "approvedAt" = $2
+   WHERE "id"=$3;`;
+    pool.query(queryText, [req.user.id, req.body.approvedAt, req.params.id]);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log('error marking report as approved', error);
     res.sendStatus(500);
   }
 });
