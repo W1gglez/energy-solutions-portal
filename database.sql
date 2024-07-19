@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS "reports" (
 	"current_carbon_footprint" decimal not null,
 	"approved" boolean default false,
 	"notes" varchar,
-	"approvedBy" int references "user"."id",
+	"approvedBy" int references "user",
 	"approvedAt" date
 );
 
