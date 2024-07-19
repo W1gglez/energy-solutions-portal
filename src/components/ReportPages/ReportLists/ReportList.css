@@ -5,3 +5,16 @@
   padding-bottom: 20px;
   justify-content: center;
 }
+
+.report-header {
+  font-size: 1rem;
+  color: #333;
+  text-align: center;
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+}
+
+h1 {
+  margin-bottom: 0px;
+}

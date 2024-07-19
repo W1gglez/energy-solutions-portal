@@ -12,29 +12,41 @@ export default function EnergyReport() {
   const params = useParams();
   const user = useSelector((store) => store.user);
   const reportDetails = useSelector((store) => store.reports.reportDetails);
-  // console.log('check reportDetails', reportDetails);
+  console.log('check reportDetails', reportDetails);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_REPORT_DETAILS', payload: params.id });
   }, []);
 
   const approveReport = (reportId) => {
-    console.log('approve report clicked check id', reportId);
     const timeApproved = DateTime.now().setLocale('zh').toLocaleString();
-    console.log('check timeApproved', timeApproved);
     dispatch({ type: 'APPROVE_REPORT', payload: { reportId, approvedAt: timeApproved } });
   };
 
   return (
     <>
+      {user.admin ? (
+        <Box className='container' sx={{ minHeight: 75, display: 'flex', justifyContent: 'center' }}>
+          {!reportDetails.approved ? (
+            <Button onClick={() => approveReport(reportDetails.id)}>Approve</Button>
+          ) : (
+            <p>
+              Approved by: {reportDetails.username} on {DateTime.now().toLocaleString(reportDetails.approvedAt)}
+            </p>
+          )}
+        </Box>
+      ) : (
+        <Box className='container' sx={{ minHeight: 75, display: 'flex', justifyContent: 'center' }}>
+          {reportDetails.approved ? (
+            <p>
+              Approved by: {reportDetails.username} on {DateTime.now().toLocaleString(reportDetails.approvedAt)}
+            </p>
+          ) : (
+            <p>Pending Approval by RJ Energy</p>
+          )}
+        </Box>
+      )}
       <div className='container'>
-        {user.admin && !reportDetails.approved ? (
-          <Button onClick={() => approveReport(reportDetails.id)}>Approve</Button>
-        ) : (
-          <p>
-            Approved by: {reportDetails.username} on {DateTime.now().toLocaleString(reportDetails.approvedAt)}
-          </p>
-        )}
         <Box
           className='card-container'
           sx={{ minHeight: 75, display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 3 }}

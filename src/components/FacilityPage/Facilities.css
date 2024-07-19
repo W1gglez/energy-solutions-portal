@@ -1,11 +1,19 @@
 .table-responsive {
-    max-width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
-.centered {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.facility-header {
+  font-size: 1rem;
+  color: #333;
+  text-align: center;
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin-bottom: 0;
 }

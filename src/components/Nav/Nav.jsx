@@ -54,16 +54,10 @@ function Nav() {
     <>
       {user.id && user.admin ? (
         <div className='nav'>
-          <IconButton
-            sx={{ marginLeft: 2 }}
-            onClick={() => setOpen(true)}
-          >
+          <IconButton sx={{ marginLeft: 2 }} onClick={() => setOpen(true)}>
             <MenuIcon />
           </IconButton>
-          <Drawer
-            open={open}
-            onClose={() => setOpen(false)}
-          >
+          <Drawer open={open} onClose={() => setOpen(false)}>
             <Box
               sx={{
                 display: 'flex',
@@ -81,10 +75,7 @@ function Nav() {
                 fontWeight='lg'
                 sx={{ cursor: 'pointer' }}
               ></Typography>
-              <ModalClose
-                id='close-icon'
-                sx={{ position: 'initial' }}
-              />
+              <ModalClose id='close-icon' sx={{ position: 'initial' }} />
             </Box>
             <List
               size='lg'
@@ -95,18 +86,13 @@ function Nav() {
                 '& > div': { justifyContent: 'center' },
               }}
             >
-              <ListItemButton
-                onClick={navHome}
-                sx={{ fontWeight: 'lg' }}
-              >
+              <ListItemButton onClick={navHome} sx={{ fontWeight: 'lg' }}>
                 Home
               </ListItemButton>
-              <ListItemButton onClick={navFacilities}>
-                View All Facilities
-              </ListItemButton>
-              <ListItemButton onClick={navReports}>
-                View All Reports
-              </ListItemButton>
+              <ListItemButton onClick={navFacilities}>View All Facilities</ListItemButton>
+              <ListItemButton onClick={navReports}>View All Reports</ListItemButton>
+              <Divider />
+              <ListItemButton onClick={newReport}>Start New Report</ListItemButton>
               <Divider />
               <ListItemButton
                 onClick={() => {
@@ -118,22 +104,17 @@ function Nav() {
               </ListItemButton>
             </List>
           </Drawer>
-          <Link to='/'>
+          <Link to='/admin-home-page'>
             <h2 className='nav-title'>Energy Solutions Portal</h2>
           </Link>
+          <FaciliytSelect open={openFacilitySelect} setOpen={setOpenFacilitySelect} />
         </div>
       ) : (
         <div className='nav'>
-          <IconButton
-            sx={{ marginLeft: 2 }}
-            onClick={() => setOpen(true)}
-          >
+          <IconButton sx={{ marginLeft: 2 }} onClick={() => setOpen(true)}>
             <MenuIcon />
           </IconButton>
-          <Drawer
-            open={open}
-            onClose={() => setOpen(false)}
-          >
+          <Drawer open={open} onClose={() => setOpen(false)}>
             <Box
               sx={{
                 display: 'flex',
@@ -151,10 +132,7 @@ function Nav() {
                 fontWeight='lg'
                 sx={{ cursor: 'pointer' }}
               ></Typography>
-              <ModalClose
-                id='close-icon'
-                sx={{ position: 'initial' }}
-              />
+              <ModalClose id='close-icon' sx={{ position: 'initial' }} />
             </Box>
             <List
               size='lg'
@@ -165,31 +143,28 @@ function Nav() {
                 '& > div': { justifyContent: 'center' },
               }}
             >
-              <ListItemButton
-                onClick={navHome}
-                sx={{ fontWeight: 'lg' }}
-              >
+              <ListItemButton onClick={navHome} sx={{ fontWeight: 'lg' }}>
                 Home
               </ListItemButton>
-              <ListItemButton onClick={navFacilities}>
-                My Facilities
-              </ListItemButton>
+              <ListItemButton onClick={navFacilities}>My Facilities</ListItemButton>
               <ListItemButton onClick={navReports}>My Reports</ListItemButton>
               <Divider />
               <ListItemButton onClick={newReport}>New Report</ListItemButton>
               <Divider />
-              <ListItemButton onClick={() => dispatch({ type: 'LOGOUT' })}>
+              <ListItemButton
+                onClick={() => {
+                  dispatch({ type: 'LOGOUT' });
+                  setOpen(false);
+                }}
+              >
                 Log Out
               </ListItemButton>
             </List>
           </Drawer>
-          <Link to='/'>
+          <Link to='/home-page'>
             <h2 className='nav-title'>Energy Solutions Portal</h2>
           </Link>
-          <FaciliytSelect
-            open={openFacilitySelect}
-            setOpen={setOpenFacilitySelect}
-          />
+          <FaciliytSelect open={openFacilitySelect} setOpen={setOpenFacilitySelect} />
         </div>
       )}
       {/* {!user.id && (

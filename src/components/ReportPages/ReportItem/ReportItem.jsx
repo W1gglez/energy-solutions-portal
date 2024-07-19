@@ -33,7 +33,7 @@ export default function ReportItem({ report }) {
             <CardContent orientation='horizontal'>
               <div>
                 <Typography level='body-xs'>Report Status:</Typography>
-                <Typography fontSize='lg' fontWeight='lg'>
+                <Typography fontSize='md' fontWeight='md'>
                   {report.approved ? <td>Approved</td> : <td>Needs Review</td>}
                 </Typography>
               </div>
@@ -65,7 +65,7 @@ export default function ReportItem({ report }) {
             <CardContent orientation='horizontal'>
               <div>
                 <Typography level='body-xs'>Report Status:</Typography>
-                <Typography fontSize='lg' fontWeight='lg'>
+                <Typography fontSize='md' fontWeight='md'>
                   {report.approved ? <td>Approved</td> : <td>Pending Review</td>}
                 </Typography>
               </div>
