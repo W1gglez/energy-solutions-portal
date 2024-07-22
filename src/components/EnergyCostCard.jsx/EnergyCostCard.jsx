@@ -23,13 +23,12 @@ export default function EnergyCostCard() {
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'space-between',
+            justifyContent: 'space-evenly',
             flexWrap: 'wrap',
           }}
         >
           <Typography>Electric: ${energyCost.electric}</Typography>
           <Typography>Natural Gas: ${energyCost.natural_gas}</Typography>
-          <Typography>Liquid Propane: ${energyCost.liquid_propane}</Typography>
         </Box>
         <Box
           sx={{
@@ -38,11 +37,14 @@ export default function EnergyCostCard() {
             flexWrap: 'wrap',
           }}
         >
+          {energyCost.liquid_propane && (
+            <Typography>
+              Liquid Propane: ${energyCost.liquid_propane}
+            </Typography>
+          )}
+
           {energyCost.gas_propane && (
             <Typography>Gas Propane: ${energyCost.gas_propane}</Typography>
-          )}
-          {energyCost.heating_oil && (
-            <Typography>Heating Oil: ${energyCost.heating_oil}</Typography>
           )}
         </Box>
       </CardContent>

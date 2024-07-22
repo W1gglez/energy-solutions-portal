@@ -9,22 +9,11 @@ import Grid from '@mui/joy/Grid';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import ModalDialog from '@mui/joy/ModalDialog';
-
-import { useParams } from 'react-router-dom';
-import { EnergySavingsLeafSharp } from '@mui/icons-material';
+import { DialogContent, Link } from '@mui/joy';
 
 function EnergyCostForm() {
-  const [energyCost, setEnergyCost] = useState({
-    // electric: '',
-    // natural_gas: '',
-    // liquid_propane: '',
-    // gas_propane: '',
-    // heating_oil: '',
-  });
-  const decimal = new Intl.NumberFormat('en-US', {
-    minimumFractionDigits: 3,
-    maximumFractionDigits: 3,
-  });
+  const [energyCost, setEnergyCost] = useState({});
+
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -61,7 +50,15 @@ function EnergyCostForm() {
         onClose={handleClose}
       >
         <ModalDialog>
-          <DialogTitle>Monthly Energy Costs (in dollars)</DialogTitle>
+          <DialogTitle>Monthly Energy Costs ($/kWh)</DialogTitle>
+          <DialogContent>
+            <Link
+              href='https://www.nrg.com/resources/energy-tools/energy-conversion-calculator.html'
+              target='_blank'
+            >
+              Energy Conversion Calculator
+            </Link>
+          </DialogContent>
           <Box
             component='form'
             onSubmit={handleSubmit}
@@ -82,7 +79,7 @@ function EnergyCostForm() {
                     slotProps={{ input: { step: '.001' } }}
                     required
                     id='electric'
-                    placeholder='Electric'
+                    placeholder='Electric ($/kWh)'
                     name='electric'
                     type='number'
                     value={energyCost.electric || null}
@@ -101,7 +98,7 @@ function EnergyCostForm() {
                     slotProps={{ input: { step: '.001' } }}
                     required
                     id='natural_gas'
-                    placeholder='Natural Gas'
+                    placeholder='Natural Gas  ($/kWh)'
                     name='natural_gas'
                     type='number'
                     value={energyCost.natural_gas || null}
@@ -119,7 +116,7 @@ function EnergyCostForm() {
                     startDecorator={'$'}
                     slotProps={{ input: { step: '.001' } }}
                     id='liquid_propane'
-                    placeholder='Liquid Propane'
+                    placeholder='Liquid Propane  ($/kWh)'
                     name='liquid_propane'
                     type='number'
                     value={energyCost.liquid_propane || null}
@@ -137,7 +134,7 @@ function EnergyCostForm() {
                     startDecorator={'$'}
                     slotProps={{ input: { step: '.001' } }}
                     id='gas_propane'
-                    placeholder='Gas Propane'
+                    placeholder='Gas Propane ($/kWh)'
                     name='gas_propane'
                     type='number'
                     value={energyCost.gas_propane || null}
