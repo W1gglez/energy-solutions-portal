@@ -90,7 +90,6 @@ function FacilityForm() {
       sx={{ justifyContent: 'center' }}
     >
       <Button
-        variant='outlined'
         onClick={handleOpen}
         style={{ margin: '40px' }}
       >
