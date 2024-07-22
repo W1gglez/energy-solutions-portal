@@ -59,8 +59,8 @@ CREATE TABLE IF NOT EXISTS "energy_cost" (
 	"report_id" int references "reports" ON DELETE CASCADE,
 	"electric" decimal not null,
 	"natural_gas" decimal not null,
-	"liquid_propane" decimal not null,
-	"gas_propane" decimal not null
+	"liquid_propane" decimal,
+	"gas_propane" decimal
 );
 
 CREATE TABLE IF NOT EXISTS "equipment" (

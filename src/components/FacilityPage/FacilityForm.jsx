@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-	Modal,
-	Typography,
-	TextField,
-	Button,
-	Input,
-	Select,
-	FormControl,
-	FormLabel,
-	Option,
-	ModalDialog,
-	Grid,
-	Box,
+  Modal,
+  Typography,
+  Button,
+  Input,
+  Select,
+  FormControl,
+  FormLabel,
+  Option,
+  ModalDialog,
+  Grid,
+  Box,
 } from '@mui/joy';
 
 function FacilityForm() {
@@ -61,7 +60,6 @@ function FacilityForm() {
 		};
 		try {
 			dispatch({ type: 'ADD_FACILITY', payload: submissionData });
-			alert('Facility Information Submitted');
 			setFacilityInfo({
 				facilityName: '',
 				facilityAddress: '',
@@ -77,7 +75,6 @@ function FacilityForm() {
 			setOpen(false);
 		} catch (error) {
 			console.error('Error updating Facility', error);
-			alert('Error updating Facility');
 		}
 	};
 

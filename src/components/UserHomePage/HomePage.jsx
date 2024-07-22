@@ -34,7 +34,7 @@ function HomePage() {
     dispatch({ type: 'FETCH_USER_FACILITIES' });
     dispatch({ type: 'FETCH_CARBON' });
     dispatch({ type: 'FETCH_COST' });
-  }, []);
+  }, [dispatch]);
 
   const [open, setOpen] = useState(false);
   const [openFacilitySelect, setOpenFacilitySelect] = useState(false);
