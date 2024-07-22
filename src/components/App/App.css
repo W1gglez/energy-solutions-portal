@@ -7,7 +7,8 @@ body,
 body {
   font-family: 'Inter', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0px;
-  /* background-image: url('https://cdn-ilanfff.nitrocdn.com/qnROijrskPhTxZaAXOajFoIgCdsTQIVP/assets/images/optimized/rjenergysolutions.com/wp-content/uploads/2020/07/black-textile-41949-1.jpg'); */
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 img {
@@ -110,4 +111,9 @@ Form Treatment
 input {
   margin: 5px;
   margin-bottom: 10px;
+}
+
+.Button {
+  background-color: #008242;
+  color: white;
 }
