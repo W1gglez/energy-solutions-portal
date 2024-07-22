@@ -164,8 +164,7 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
     .then((result) => {
       const reportId = result.rows[0].id;
       const { equipment, responses, energyCosts } = req.body;
-      const { electric, natural_gas, liquid_propane, gas_propane } =
-        energyCosts;
+      const { electric, natural_gas, liquid_propane, gas_propane } = energyCosts;
       const query = `Insert INTO energy_cost (
       "report_id",
       "electric",
@@ -174,44 +173,31 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
       "gas_propane"
       ) VALUES ($1, $2, $3, $4, $5)`;
       pool
-        .query(query, [
-          reportId,
-          electric,
-          natural_gas || null,
-          liquid_propane || null,
-          gas_propane || null,
-        ])
+        .query(query, [reportId, electric, natural_gas || null, liquid_propane || null, gas_propane || null])
         .then()
         .catch((err) => {
           console.error('Error POSTing energy costs', err);
           res.sendStatus(500);
         });
 
-      const {
-        Rush_of_air,
-        entry_heater,
-        hot_water,
-        lights,
-        restroom_leaks,
-        thermostat,
-        water_heater,
-      } = responses;
-
-      
-
+      const { Rush_of_air, entry_heater, hot_water, lights, restroom_leaks, thermostat, water_heater } = responses;
 
       const recommendations = [];
       if (Rush_of_air !== false) {
         recommendations.push('Check the filters on the make-up air unit and have the system balanced.');
       }
       if (entry_heater.isRunning !== false) {
-       recommendations.push('Install a programmable thermostat so the heater only runs during operation periods and only when the outdoor temperature is below 30 degrees.');
+        recommendations.push(
+          'Install a programmable thermostat so the heater only runs during operation periods and only when the outdoor temperature is below 30 degrees.'
+        );
       }
       if (thermostat.isProgrammable === false) {
         recommendations.push('Install a programmable thermostat');
       }
       if (thermostat.isProgrammed === false) {
-        recommendations.push('Program the thermostat to turn down the heat at night and when the building is unoccupied.');
+        recommendations.push(
+          'Program the thermostat to turn down the heat at night and when the building is unoccupied.'
+        );
       }
       if (water_heater.age > 10) {
         recommendations.push('Replace the water heater with a high-efficiency model.');
@@ -232,9 +218,9 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
         recommendations.push('Install a hot water circulating system to ensure hot water is available at all times.');
       }
       if (restroom_leaks !== false) {
-        recommendations.push('Fix restroom leaks immediately.')
+        recommendations.push('Fix restroom leaks immediately.');
       }
-     
+
       recommendations.forEach((item) => {
         const query = `INSERT INTO "recommendations" ("report_id", "recommendations") VALUES ($1, $2);`;
         pool
@@ -328,7 +314,7 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
     });
 });
 
-// DELETE report??
+// DELETE report
 router.delete('/:id', rejectUnauthenticated, async (req, res) => {
   try {
     const query = `DELETE FROM reports WHERE id=$1`;
@@ -342,8 +328,6 @@ router.delete('/:id', rejectUnauthenticated, async (req, res) => {
 
 // put to mark report as approved
 router.put('/:id', rejectUnauthenticated, (req, res) => {
-  console.log('in report put, check req.body.approvedAt', req.body.approvedAt);
-  console.log('in report put, check req.params.id', req.params.id);
   try {
     const queryText = `
        UPDATE "reports"
@@ -353,6 +337,22 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
     res.sendStatus(200);
   } catch (error) {
     console.log('error marking report as approved', error);
+    res.sendStatus(500);
+  }
+});
+
+// put to update report notes
+router.put('/notes/:id', rejectUnauthenticated, (req, res) => {
+  console.log('in notes put, check req.body', req.body);
+  try {
+    const queryText = `
+    UPDATE "reports"
+    SET "notes"=$1
+    WHERE "id"=$2;`;
+    pool.query(queryText, [req.body.notes, req.params.id]);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log('error updating report notes', error);
     res.sendStatus(500);
   }
 });
