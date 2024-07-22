@@ -21,6 +21,7 @@ export default function FaciliytSelect({ open, setOpen }) {
   const handleSubmit = () => {
     dispatch({ type: 'SET_RESPONSES', payload: { ...responses, facilityId } });
     history.push('/assessment/energy-cost');
+    setOpen(false);
   };
 
   return (

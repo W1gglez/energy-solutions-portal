@@ -1,4 +1,4 @@
-import Container from '@mui/joy/Container';
+import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Grid from '@mui/joy/Grid';
 import Typography from '@mui/joy/Typography';
@@ -30,23 +30,31 @@ export default function Q6() {
   };
 
   return (
-    <Container sx={{ height: '78vh', alignContent: 'center' }}>
-      <Button
-        onClick={handleExit}
-        sx={{ position: 'absolute', top: '10%', left: '8%' }}
+    <Box
+      sx={{
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        alignContent: 'center',
+      }}
+    >
+      <Grid
+        xs={12}
+        className='report-header'
+        sx={{ py: 2, mb: 2 }}
       >
-        Exit Assessment
-      </Button>
-      <Typography
-        level='h1'
-        sx={{ position: 'absolute', top: '10%', left: '33%' }}
+        <Typography level='h1'>Heating & Cooling</Typography>
+      </Grid>
+      <Grid
+        xs={12}
+        sx={{ display: 'flex', justifyContent: 'flex-start', mx: 6 }}
       >
-        Heating and Cooling Systems
-      </Typography>
+        <Button onClick={handleExit}>Exit Assessment</Button>
+      </Grid>
       <Grid
         container
         spacing={1}
-        sx={{ justifyContent: 'center', alignItems: 'center' }}
+        sx={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}
       >
         <EquipmentForm
           open={open}
@@ -79,24 +87,24 @@ export default function Q6() {
         >
           <Button onClick={() => setOpen(true)}>Add HVAC System Details</Button>
         </Grid>
-        <Grid
-          xs={12}
-          sx={{ display: 'flex', justifyContent: 'space-between' }}
-        >
-          <Button
-            onClick={() => history.push('/assessment/q5')}
-            sx={{ width: '25%' }}
-          >
-            Previous
-          </Button>
-          <Button
-            onClick={recordResponse}
-            sx={{ width: '25%' }}
-          >
-            Next
-          </Button>
-        </Grid>
       </Grid>
-    </Container>
+      <Grid
+        xs={12}
+        sx={{ display: 'flex', justifyContent: 'space-between', mx: 6 }}
+      >
+        <Button
+          onClick={() => history.push('/assessment/q5')}
+          sx={{ width: '25%' }}
+        >
+          Previous
+        </Button>
+        <Button
+          onClick={recordResponse}
+          sx={{ width: '25%' }}
+        >
+          Next
+        </Button>
+      </Grid>
+    </Box>
   );
 }

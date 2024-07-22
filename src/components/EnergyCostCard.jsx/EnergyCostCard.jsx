@@ -13,7 +13,7 @@ export default function EnergyCostCard() {
     <Card
       orientation='horizontal'
       variant='outlined'
-      sx={{ width: '45vw' }}
+      sx={{ minWidth: '45dvw', flex: 0 }}
     >
       <CardContent>
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>

@@ -17,12 +17,7 @@ export default function BackToReviewButton({ payload }) {
 
   return (
     responses.inReview === true && (
-      <Button
-        onClick={updateResponse}
-        sx={{ position: 'absolute', top: '10%', right: '8%' }}
-      >
-        Back to Review
-      </Button>
+      <Button onClick={updateResponse}>Back to Review</Button>
     )
   );
 }

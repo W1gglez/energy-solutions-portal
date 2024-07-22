@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS "user" (
 	"id" serial primary key,
 	 "username" varChar(80) not null UNIQUE,
 	"password" varChar(100) not null,
-	"admin" boolean default false,
+	"admin" boolean default false
 );
 
 CREATE TABLE IF NOT EXISTS "facility" (
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS "energy_cost" (
 	"electric" decimal not null,
 	"natural_gas" decimal not null,
 	"liquid_propane" decimal not null,
-	"gas_propane" decimal not null,
+	"gas_propane" decimal not null
 );
 
 CREATE TABLE IF NOT EXISTS "equipment" (

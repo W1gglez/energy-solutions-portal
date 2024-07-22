@@ -1,14 +1,12 @@
 import React from 'react';
 import EnergyCostForm from '../EnergyCostsPage/EnergyCostForm.jsx';
-import EnergyCostReport from '../EnergyCostsPage/EnergyCostReport.jsx';
-import AdminEnergyCostReport from '../EnergyCostsPage/AdminEnergyCostReport.jsx';
-import Container from '@mui/joy/Container';
 import Typography from '@mui/joy/Typography';
 import Button from '@mui/joy/Button';
 import Grid from '@mui/joy/Grid';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min.js';
 import { useDispatch, useSelector } from 'react-redux';
 import EnergyCostCard from '../EnergyCostCard.jsx/EnergyCostCard.jsx';
+import { Box } from '@mui/joy';
 
 //reports are commented out for testing purposes, will be uncommented when the reports are needed
 function EnergyCost() {
@@ -26,31 +24,37 @@ function EnergyCost() {
     dispatch({ type: 'CLEAR_EQUIPMENT' });
   };
   return (
-    <Container sx={{ height: '78vh', alignContent: 'center' }}>
-      <Button
-        onClick={handleExit}
-        sx={{ position: 'absolute', top: '10%', left: '8%' }}
+    <Box
+      sx={{
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        alignContent: 'center',
+      }}
+    >
+      <Grid
+        xs={12}
+        className='report-header'
+        sx={{ py: 2, mb: 2 }}
       >
-        Exit Assessment
-      </Button>
-      <Typography
-        level='h1'
-        sx={{ position: 'absolute', top: '10%', left: '43%' }}
+        <Typography level='h1'>Energy Cost</Typography>
+      </Grid>
+      <Grid
+        xs={12}
+        sx={{ display: 'flex', justifyContent: 'flex-start', ml: 6 }}
       >
-        Energy Cost
-      </Typography>
-      {/* <AdminEnergyCostReport /> */}
-      {/* <EnergyCostReport /> */}
+        <Button onClick={handleExit}>Exit Assessment</Button>
+      </Grid>
       <Grid
         xs={12}
         container
-        sx={{ my: 8, justifyContent: 'center' }}
+        sx={{ flex: 1, alignContent: 'center', justifyContent: 'center' }}
       >
         {energyCost.electric ? <EnergyCostCard /> : <EnergyCostForm />}
       </Grid>
       <Grid
         xs={12}
-        sx={{ display: 'flex', justifyContent: 'flex-end' }}
+        sx={{ display: 'flex', justifyContent: 'flex-end', mr: 6 }}
       >
         <Button
           onClick={recordResponse}
@@ -59,7 +63,7 @@ function EnergyCost() {
           Next
         </Button>
       </Grid>
-    </Container>
+    </Box>
   );
 }
 

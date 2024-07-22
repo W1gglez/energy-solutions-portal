@@ -3,14 +3,13 @@ import Radio from '@mui/joy/Radio';
 import RadioGroup from '@mui/joy/RadioGroup';
 import Grid from '@mui/joy/Grid';
 import Typography from '@mui/joy/Typography';
-import Container from '@mui/joy/Container';
+import Box from '@mui/joy/Box';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 
 import EquipmentForm from './EqupmentForm';
 import EquipmentCard from '../EquipmentCard/EquipmentCard';
-import { Maximize } from '@mui/icons-material';
 import BackToReviewButton from '../BackToReviewButton.jsx/BackToReviewButton';
 
 export default function Q7() {
@@ -42,26 +41,34 @@ export default function Q7() {
   };
 
   return (
-    <Container sx={{ height: '78vh', alignContent: 'center' }}>
-      <Button
-        onClick={handleExit}
-        sx={{ position: 'absolute', top: '10%', left: '8%' }}
+    <Box
+      sx={{
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        alignContent: 'center',
+      }}
+    >
+      <Grid
+        xs={12}
+        className='report-header'
+        sx={{ py: 2, mb: 2 }}
       >
-        Exit Assessment
-      </Button>
-      <BackToReviewButton
-        payload={(responses['lights'] = { isLED, motionSensor })}
-      />
-      <Typography
-        level='h1'
-        sx={{ position: 'absolute', top: '10%', left: '47vw' }}
+        <Typography level='h1'>Lights</Typography>
+      </Grid>
+      <Grid
+        xs={12}
+        sx={{ display: 'flex', justifyContent: 'space-between', mx: 6 }}
       >
-        Lights
-      </Typography>
+        <Button onClick={handleExit}>Exit Assessment</Button>
+        <BackToReviewButton
+          payload={(responses['lights'] = { isLED, motionSensor })}
+        />
+      </Grid>
       <Grid
         container
         spacing={8}
-        sx={{ justifyContent: 'center', alignItems: 'center' }}
+        sx={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}
       >
         <Grid xs={4}>
           <Typography
@@ -181,27 +188,28 @@ export default function Q7() {
         >
           <Button onClick={() => setOpen(true)}>Add Light Details</Button>
         </Grid>
-        <Grid
-          xs={12}
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Button
-            onClick={() => history.push('/assessment/q6')}
-            sx={{ width: '25%' }}
-          >
-            Previous
-          </Button>
-          <Button
-            onClick={recordResponse}
-            sx={{ width: '25%' }}
-          >
-            Next
-          </Button>
-        </Grid>
       </Grid>
-    </Container>
+      <Grid
+        xs={12}
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          mx: 6,
+        }}
+      >
+        <Button
+          onClick={() => history.push('/assessment/q6')}
+          sx={{ width: '25%' }}
+        >
+          Previous
+        </Button>
+        <Button
+          onClick={recordResponse}
+          sx={{ width: '25%' }}
+        >
+          Next
+        </Button>
+      </Grid>
+    </Box>
   );
 }
