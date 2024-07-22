@@ -54,18 +54,21 @@ export default function AssessmentReview() {
   };
 
   return (
-    <Container
+    <Box
       sx={{
+        flex: 1,
         display: 'flex',
         flexDirection: 'column',
+        alignContent: 'center',
       }}
     >
-      <Typography
-        level='h1'
-        sx={{ textAlign: 'center', position: 'relative', top: 0, mb: 3 }}
+      <Grid
+        xs={12}
+        className='report-header'
+        sx={{ py: 2, mb: 2 }}
       >
-        Assessment Review
-      </Typography>
+        <Typography level='h1'>Entry Way</Typography>
+      </Grid>
       <Box
         sx={{
           justifyContent: 'center',
@@ -320,7 +323,7 @@ export default function AssessmentReview() {
       </Box>
       <Grid
         xs={12}
-        sx={{ display: 'flex', justifyContent: 'space-between' }}
+        sx={{ display: 'flex', justifyContent: 'space-between', mx: 6 }}
       >
         <Button
           onClick={() => history.push('/assessment/additional-equipment')}
@@ -335,6 +338,6 @@ export default function AssessmentReview() {
           Submit
         </Button>
       </Grid>
-    </Container>
+    </Box>
   );
 }

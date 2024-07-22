@@ -3,7 +3,7 @@ import Radio from '@mui/joy/Radio';
 import RadioGroup from '@mui/joy/RadioGroup';
 import Grid from '@mui/joy/Grid';
 import Typography from '@mui/joy/Typography';
-import Container from '@mui/joy/Container';
+import Box from '@mui/joy/Box';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
@@ -35,26 +35,34 @@ export default function Q5() {
   };
 
   return (
-    <Container sx={{ height: '78vh', alignContent: 'center' }}>
-      <Button
-        onClick={handleExit}
-        sx={{ position: 'absolute', top: '10%', left: '8%' }}
+    <Box
+      sx={{
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        alignContent: 'center',
+      }}
+    >
+      <Grid
+        xs={12}
+        className='report-header'
+        sx={{ py: 2, mb: 2 }}
       >
-        Exit Assessment
-      </Button>
-      <BackToReviewButton
-        payload={(responses['thermostat'] = { isProgrammable, isProgrammed })}
-      />
-      <Typography
-        level='h1'
-        sx={{ position: 'absolute', top: '10%', left: '43vw' }}
+        <Typography level='h1'>Thermostats</Typography>
+      </Grid>
+      <Grid
+        xs={12}
+        sx={{ display: 'flex', justifyContent: 'space-between', mx: 6 }}
       >
-        Thermostats
-      </Typography>
+        <Button onClick={handleExit}>Exit Assessment</Button>
+        <BackToReviewButton
+          payload={(responses['thermostat'] = { isProgrammable, isProgrammed })}
+        />
+      </Grid>
       <Grid
         container
         spacing={12}
-        sx={{ justifyContent: 'center', alignItems: 'center' }}
+        sx={{ flex: 1, alignContent: 'center', justifyContent: 'center' }}
       >
         <Grid xs={4.25}>
           <Typography
@@ -147,24 +155,24 @@ export default function Q5() {
             </Grid>
           </Grid>
         )}
-        <Grid
-          xs={12}
-          sx={{ display: 'flex', justifyContent: 'space-between' }}
-        >
-          <Button
-            onClick={() => history.push('/assessment/q4')}
-            sx={{ width: '25%' }}
-          >
-            Previous
-          </Button>
-          <Button
-            onClick={recordResponse}
-            sx={{ width: '25%' }}
-          >
-            Next
-          </Button>
-        </Grid>
       </Grid>
-    </Container>
+      <Grid
+        xs={12}
+        sx={{ display: 'flex', justifyContent: 'space-between', mx: 6 }}
+      >
+        <Button
+          onClick={() => history.push('/assessment/q4')}
+          sx={{ width: '25%' }}
+        >
+          Previous
+        </Button>
+        <Button
+          onClick={recordResponse}
+          sx={{ width: '25%' }}
+        >
+          Next
+        </Button>
+      </Grid>
+    </Box>
   );
 }
