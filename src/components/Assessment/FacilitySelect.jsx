@@ -8,7 +8,7 @@ import Option from '@mui/joy/Option';
 import Button from '@mui/joy/Button';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function FaciliytSelect({ open, setOpen }) {
@@ -24,6 +24,13 @@ export default function FaciliytSelect({ open, setOpen }) {
     setOpen(false);
   };
 
+  useEffect(() => {
+    dispatch({ type: 'FETCH_CATEGORIES' });
+    dispatch({ type: 'FETCH_LOCATIONS' });
+    dispatch({ type: 'FETCH_TYPES' });
+    dispatch({ type: 'FETCH_UNITS' });
+  }, []);
+  
   return (
     <Modal
       open={open}
