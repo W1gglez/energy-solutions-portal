@@ -67,7 +67,7 @@ export default function AssessmentReview() {
         className='report-header'
         sx={{ py: 2, mb: 2 }}
       >
-        <Typography level='h1'>Entry Way</Typography>
+        <Typography level='h1'>Assessment Review</Typography>
       </Grid>
       <Box
         sx={{

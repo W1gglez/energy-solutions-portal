@@ -163,7 +163,7 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
     ])
     .then((result) => {
       const reportId = result.rows[0].id;
-      const { equipment, responses, energyCosts, equipmentInv} = req.body;
+      const { equipment, responses, energyCosts } = req.body;
       const { electric, naturalGas, liquidPropane, gasPropane } =
         energyCosts;
       const query = `Insert INTO energy_cost (
@@ -172,7 +172,7 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
       "natural_gas",
       "liquid_propane",
       "gas_propane"
-      ") VALUES ($1, $2, $3, $4, $5)`;
+      ) VALUES ($1, $2, $3, $4, $5)`;
       pool
         .query(query, [
           reportId,
@@ -187,13 +187,9 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
           res.sendStatus(500);
         });
 
-     
-
-
       const {
         Rush_of_air,
         entry_heater,
-        facilityId,
         hot_water,
         lights,
         restroom_leaks,
@@ -235,7 +231,7 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
         const query = `INSERT INTO "recommendations" ("report_id", "recommendations") VALUES ($1, $2);`;
         pool
           .query(query, [reportId, item])
-          .then(() => console.log('Added recommendation:', item))
+          .then()
           .catch((err) => {
             console.error('Error POSTing equipment', err);
             res.sendStatus(500);
@@ -310,7 +306,7 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
             carbonFootprint,
             notes,
           ])
-          .then(() => console.log('Added equipment', item.description))
+          .then()
           .catch((err) => {
             console.error('Error POSTing equipment', err);
             res.sendStatus(500);
