@@ -19,7 +19,8 @@ const reportDetails = (state = {}, action) => {
       return action.payload;
     case 'CLEAR_REPORT_DETAILS':
       return {};
-
+    case 'EDIT_REPORT_DETAILS':
+      return { ...state, ...action.payload };
     default:
       return state;
   }

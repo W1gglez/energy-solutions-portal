@@ -88,6 +88,17 @@ function* approveReport(action) {
   }
 }
 
+// saga to update report notes
+function* updateNotes(action) {
+  try {
+    console.log('in update notes saga, check action.payload', action.payload);
+    yield axios.put(`/api/report/notes/${action.payload.reportId}`, action.payload);
+    yield put({ type: 'FETCH_REPORT_DETAILS', payload: action.payload.reportId });
+  } catch (error) {
+    console.log('error updating notes', error);
+  }
+}
+
 // export
 function* reportSaga() {
   yield takeLatest('FETCH_REPORTS', fetchReports);
@@ -98,6 +109,7 @@ function* reportSaga() {
   yield takeLatest('ADD_REPORT', addReport);
   yield takeLatest('DELETE_REPORT', deleteReport);
   yield takeLatest('APPROVE_REPORT', approveReport);
+  yield takeLatest('UPDATE_NOTES', updateNotes);
 }
 
 export default reportSaga;
