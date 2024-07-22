@@ -1,11 +1,11 @@
 .nav {
-  /* flex box layout */
   display: flex;
   align-items: center;
 
   background-color: #008242;
-  overflow: hidden;
-  height: 70px;
+  /* overflow: hidden; */
+  /* height: 100px; */
+  padding: 12px;
 }
 
 .nav a {
@@ -28,9 +28,6 @@
   padding: 24px 10px;
   text-decoration: none;
   font-size: 15px;
-
-  /* these last two make the logout button in
-  the nav bar look like another link */
   border: none;
   cursor: pointer;
   outline: 0;

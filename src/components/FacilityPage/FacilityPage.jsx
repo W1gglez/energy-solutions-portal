@@ -2,14 +2,14 @@ import React from 'react';
 import FacilityForm from './FacilityForm';
 import Facilities from './Facilities';
 
-import Container from '@mui/joy/Container';
+import Box from '@mui/joy/Box';
 
 function FacilityPage() {
-	return (
-    <Container sx={{ justifyContent: 'center', flex: 1 }}>
+  return (
+    <Box sx={{ justifyContent: 'center', flex: 1 }}>
       <Facilities />
       <FacilityForm />
-    </Container>
+    </Box>
   );
 }
 

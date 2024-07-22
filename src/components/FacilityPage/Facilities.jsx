@@ -15,9 +15,6 @@ function Facilities() {
   useEffect(() => {
     dispatch({ type: 'FETCH_USER_FACILITIES' });
   }, [dispatch]);
-  useEffect(() => {
-    dispatch({ type: 'FETCH_USER_FACILITIES' });
-  }, [dispatch]);
 
   const handleEditClick = (facility) => {
     setEditRowId(facility.id);

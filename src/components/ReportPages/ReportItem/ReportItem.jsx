@@ -21,37 +21,26 @@ export default function ReportItem({ report }) {
       key={report.id}
       sx={{
         display: 'flex',
+        flex: 'flex-wrap',
         justifyContent: 'center',
         alignItems: 'center',
       }}
     >
-      <Card sx={{ width: 300 }}>
+      <Card sx={{ width: 300, margin: 2 }}>
         <div>
           <Typography level='title-lg'>{report.name}</Typography>
           <Typography level='body-sm'>
-            Submitted on{' '}
-            {DateTime.fromISO(report.date_submitted).toFormat('MMMM dd, yyyy')}
+            Submitted on {DateTime.fromISO(report.date_submitted).toFormat('MMMM dd, yyyy')}
           </Typography>
         </div>
-        <AspectRatio
-          minHeight='40px'
-          maxHeight='120px'
-        >
-          <img
-            src='/rj-logo.jpg'
-            srcSet='/rj-logo.jpg 2x'
-            loading='lazy'
-            alt=''
-          />
+        <AspectRatio minHeight='40px' maxHeight='120px'>
+          <img src='/rj-logo.jpg' srcSet='/rj-logo.jpg 2x' loading='lazy' alt='' />
         </AspectRatio>
         {user.admin ? (
           <CardContent orientation='horizontal'>
             <div>
               <Typography level='body-xs'>Report Status:</Typography>
-              <Typography
-                fontSize='md'
-                fontWeight='md'
-              >
+              <Typography fontSize='md' fontWeight='md'>
                 {report.approved ? <td>Approved</td> : <td>Needs Review</td>}
               </Typography>
             </div>
@@ -83,10 +72,7 @@ export default function ReportItem({ report }) {
           <CardContent orientation='horizontal'>
             <div>
               <Typography level='body-xs'>Report Status:</Typography>
-              <Typography
-                fontSize='md'
-                fontWeight='md'
-              >
+              <Typography fontSize='md' fontWeight='md'>
                 {report.approved ? <td>Approved</td> : <td>Pending Review</td>}
               </Typography>
             </div>
