@@ -32,7 +32,11 @@ function Nav() {
   };
 
   const navFacilities = () => {
-    history.push('/facilities');
+    if (user.admin === true) {
+      history.push('/admin-facilities');
+    } else {
+      history.push('/facilities');
+    }
     setOpen(false);
   };
 
