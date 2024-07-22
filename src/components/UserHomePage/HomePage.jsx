@@ -42,6 +42,7 @@ function HomePage() {
   const deleteFacility = (facilityId) => {
     dispatch({ type: 'DELETE_FACILITY', payload: facilityId });
     setOpen(false);
+    dispatch({ type: 'FETCH_USER_FACILITIES' });
   };
 
   return (
@@ -81,14 +82,12 @@ function HomePage() {
               }}
             >
               <h3>My assessments</h3>
-              <Button onClick={() => history.push('/user-reports')}>
-                View all assessments
-              </Button>
+              <Button onClick={() => history.push('/user-reports')}>View all assessments</Button>
             </Box>
             <Divider />
             <Sheet
               sx={{
-                height: 100,
+                height: 240,
                 overflow: 'auto',
                 border: 1,
                 borderRadius: 5,
@@ -104,25 +103,17 @@ function HomePage() {
               >
                 <thead>
                   <tr>
-                    <th style={{ width: '40%' }}>Date Submitted</th>
-                    <th>Facility</th>
-                    <th>Status</th>
+                    <th style={{ width: '40%', backgroundColor: 'lightgrey' }}>Date Submitted</th>
+                    <th style={{ backgroundColor: 'lightgrey' }}>Facility</th>
+                    <th style={{ backgroundColor: 'lightgrey' }}>Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {reports.map((report) => (
                     <tr key={report.id}>
-                      <td>
-                        {DateTime.fromISO(report.date_submitted).toFormat(
-                          'MMMM dd, yyyy'
-                        )}
-                      </td>
+                      <td>{DateTime.fromISO(report.date_submitted).toFormat('MMMM dd, yyyy')}</td>
                       <td>{report.name}</td>
-                      {report.approved ? (
-                        <td>View Report</td>
-                      ) : (
-                        <td>In Review</td>
-                      )}
+                      {report.approved ? <td>View Report</td> : <td>In Review</td>}
                     </tr>
                   ))}
                 </tbody>
@@ -148,13 +139,8 @@ function HomePage() {
                 marginTop: '10px',
               }}
             >
-              <Button onClick={() => setOpenFacilitySelect(true)}>
-                Start Assessment
-              </Button>
-              <FaciliytSelect
-                open={openFacilitySelect}
-                setOpen={setOpenFacilitySelect}
-              />
+              <Button onClick={() => setOpenFacilitySelect(true)}>Start Assessment</Button>
+              <FaciliytSelect open={openFacilitySelect} setOpen={setOpenFacilitySelect} />
             </Box>
           </>
         )}
@@ -169,15 +155,13 @@ function HomePage() {
           }}
         >
           <h3>My facilities </h3>
-          <Button onClick={() => history.push('/facilities')}>
-            View all Facilities
-          </Button>
+          <Button onClick={() => history.push('/facilities')}>View all Facilities</Button>
         </Box>
         {facilities.length > 0 ? (
           <>
             <Sheet
               sx={{
-                height: 100,
+                height: 240,
                 overflow: 'auto',
                 border: 1,
                 borderRadius: 5,
@@ -193,10 +177,11 @@ function HomePage() {
               >
                 <thead>
                   <tr>
-                    <th style={{ width: '25%' }}>Facility</th>
-                    <th>Address</th>
-                    <th>State</th>
-                    <th></th>
+                    <th style={{ width: '25%', backgroundColor: 'lightgrey' }}>Facility</th>
+                    <th style={{ backgroundColor: 'lightgrey' }}>Address</th>
+                    <th style={{ backgroundColor: 'lightgrey' }}>City</th>
+                    <th style={{ backgroundColor: 'lightgrey' }}>State</th>
+                    <th style={{ backgroundColor: 'lightgrey' }}></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -214,36 +199,21 @@ function HomePage() {
                         >
                           Delete
                         </Button>
-                        <Modal
-                          open={open}
-                          onClose={() => setOpen(false)}
-                        >
-                          <ModalDialog
-                            variant='outlined'
-                            role='alertdialog'
-                          >
+                        <Modal open={open} onClose={() => setOpen(false)}>
+                          <ModalDialog variant='outlined' role='alertdialog'>
                             <DialogTitle>
                               <WarningRoundedIcon />
                               Confirmation
                             </DialogTitle>
                             <Divider />
                             <DialogContent>
-                              Are you sure you want to delete this facility?
-                              This will delete all corresponding reports.
+                              Are you sure you want to delete this facility? This will delete all corresponding reports.
                             </DialogContent>
                             <DialogActions>
-                              <Button
-                                variant='solid'
-                                color='danger'
-                                onClick={() => deleteFacility(facility.id)}
-                              >
+                              <Button variant='solid' color='danger' onClick={() => deleteFacility(facility.id)}>
                                 Delete Facility
                               </Button>
-                              <Button
-                                variant='plain'
-                                color='neutral'
-                                onClick={() => setOpen(false)}
-                              >
+                              <Button variant='plain' color='neutral' onClick={() => setOpen(false)}>
                                 Cancel
                               </Button>
                             </DialogActions>
@@ -265,9 +235,7 @@ function HomePage() {
               marginTop: '10px',
             }}
           >
-            <Button onClick={() => history.push('/facilities')}>
-              Add Facility
-            </Button>
+            <Button onClick={() => history.push('/facilities')}>Add Facility</Button>
           </Box>
         )}
       </section>

@@ -33,6 +33,7 @@ function AdminHomePage() {
 
   const deleteFacility = (facilityId) => {
     dispatch({ type: 'DELETE_FACILITY', payload: facilityId });
+    dispatch({ type: 'FETCH_FACILITIES' });
     setOpen(false);
   };
 
@@ -44,13 +45,22 @@ function AdminHomePage() {
     <div>
       <>
         <section className='container'>
-          <h3>Assessments Pending Review</h3>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              my: '10px',
+            }}
+          >
+            <h3>Assessments Pending Review</h3>
+            <Button onClick={() => history.push('/admin-reports')}>View All Assessments</Button>
+          </Box>
           {reportsReady.length > 0 ? (
             <>
               {' '}
               <Sheet
                 sx={{
-                  height: 160,
+                  height: 240,
                   overflow: 'auto',
                   border: 1,
                   borderRadius: 5,
@@ -66,9 +76,9 @@ function AdminHomePage() {
                 >
                   <thead>
                     <tr>
-                      <th style={{ width: '40%' }}>Date Submitted</th>
-                      <th>Facility</th>
-                      <th>Status</th>
+                      <th style={{ width: '40%', backgroundColor: 'lightgrey' }}>Date Submitted</th>
+                      <th style={{ backgroundColor: 'lightgrey' }}>Facility</th>
+                      <th style={{ backgroundColor: 'lightgrey' }}>Status</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -86,19 +96,25 @@ function AdminHomePage() {
                   </tbody>
                 </Table>
               </Sheet>
-              <Box sx={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '10px', marginTop: '10px' }}>
-                <Button onClick={() => history.push('/admin-reports')}>View All Assessments</Button>
-              </Box>
             </>
           ) : (
             <h6>No Pending Reports</h6>
           )}
         </section>
         <section className='container'>
-          <h3>Recently Added Facilities</h3>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              my: '10px',
+            }}
+          >
+            <h3>Recently Added Facilities</h3>
+            <Button onClick={() => history.push('/admin-facilities')}>View All Facilities</Button>
+          </Box>
           <Sheet
             sx={{
-              height: 160,
+              height: 240,
               overflow: 'auto',
               border: 1,
               borderRadius: 5,
@@ -107,10 +123,11 @@ function AdminHomePage() {
             <Table borderAxis='bothBetween' color='neutral' size='md' stickyFooter={false} stickyHeader variant='plain'>
               <thead>
                 <tr>
-                  <th style={{ width: '25%' }}>Facility</th>
-                  <th>Address</th>
-                  <th>State</th>
-                  <th></th>
+                  <th style={{ width: '25%', backgroundColor: 'lightgrey' }}>Facility</th>
+                  <th style={{ backgroundColor: 'lightgrey' }}>Address</th>
+                  <th style={{ backgroundColor: 'lightgrey' }}>City</th>
+                  <th style={{ backgroundColor: 'lightgrey' }}>State</th>
+                  <th style={{ backgroundColor: 'lightgrey' }}></th>
                 </tr>
               </thead>
               <tbody>
@@ -118,6 +135,7 @@ function AdminHomePage() {
                   <tr key={facility.id}>
                     <td>{facility.name}</td>
                     <td>{facility.address}</td>
+                    <td>{facility.city}</td>
                     <td>{facility.state}</td>
                     <td>
                       <Button
@@ -154,9 +172,6 @@ function AdminHomePage() {
               </tbody>
             </Table>
           </Sheet>
-          <Box sx={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '10px', marginTop: '10px' }}>
-            <Button onClick={() => history.push('/facilities')}>View All Facilities</Button>
-          </Box>
         </section>
       </>
     </div>
