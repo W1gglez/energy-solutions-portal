@@ -10,6 +10,7 @@ import { useState } from 'react';
 import EquipmentForm from './EqupmentForm';
 import EquipmentCard from '../EquipmentCard/EquipmentCard';
 import BackToReviewButton from '../BackToReviewButton.jsx/BackToReviewButton';
+import ExitAssessmentButton from '../ExitAssesmentButton/ExitAssessmentButton';
 
 export default function Q2() {
   const history = useHistory();
@@ -65,7 +66,7 @@ export default function Q2() {
         xs={12}
         sx={{ display: 'flex', justifyContent: 'space-between', mx: 6 }}
       >
-        <Button onClick={handleExit}>Exit Assessment</Button>
+        <ExitAssessmentButton />
         <BackToReviewButton
           payload={
             (responses['entry_heater'] = {

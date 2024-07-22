@@ -10,6 +10,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import BackToReviewButton from '../BackToReviewButton.jsx/BackToReviewButton';
+import ExitAssessmentButton from '../ExitAssesmentButton/ExitAssessmentButton';
 
 export default function Q3() {
   const history = useHistory();
@@ -62,7 +63,7 @@ export default function Q3() {
         xs={12}
         sx={{ display: 'flex', justifyContent: 'space-between', mx: 6 }}
       >
-        <Button onClick={handleExit}>Exit Assessment</Button>
+        <ExitAssessmentButton />
         <BackToReviewButton
           payload={
             ((responses['hot_water'] = lengthOfTime),
