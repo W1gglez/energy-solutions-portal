@@ -206,7 +206,7 @@ export default function EnergyReport() {
               width: 800,
               height: 200,
               flexDirection: 'column',
-              overflow: 'hidden',
+              overflow: 'scroll',
               transition: 'transform 0.3s, border 0.3s',
               '&:hover': {
                 borderColor: theme.vars.palette.primary.outlinedHoverBorder,

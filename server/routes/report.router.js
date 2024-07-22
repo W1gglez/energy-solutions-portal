@@ -201,10 +201,10 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
 
 
       const recommendations = [];
-      if (Rush_of_air === true) {
+      if (Rush_of_air !== false) {
         recommendations.push('Check the filters on the make-up air unit and have the system balanced.');
       }
-      if (entry_heater.isRunning === true) {
+      if (entry_heater.isRunning !== false) {
        recommendations.push('Install a programmable thermostat so the heater only runs during operation periods and only when the outdoor temperature is below 30 degrees.');
       }
       if (thermostat.isProgrammable === false) {
@@ -222,10 +222,10 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
       if (water_heater.tempSetting < 120) {
         recommendations.push('Raise the water heater temperature to a minimum of 120 degrees.');
       }
-      if (lights.isLED === false) {
+      if (lights.isLED !== true) {
         recommendations.push('Update lightbulbs to LED bulbs instead of incandescent or CFL bulbs.');
       }
-      if (lights.motionSensor === false) {
+      if (lights.motionSensor !== true) {
         recommendations.push('Set up Motion Sensors to automatically turn off lights unless someone is in the room.');
       }
       if (hot_water > 10) {
