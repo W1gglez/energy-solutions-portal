@@ -164,7 +164,7 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
     .then((result) => {
       const reportId = result.rows[0].id;
       const { equipment, responses, energyCosts } = req.body;
-      const { electric, naturalGas, liquidPropane, gasPropane } =
+      const { electric, natural_gas, liquid_propane, gas_propane } =
         energyCosts;
       const query = `Insert INTO energy_cost (
       "report_id",
@@ -177,9 +177,9 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
         .query(query, [
           reportId,
           electric,
-          naturalGas,
-          liquidPropane || null,
-          gasPropane || null,
+          natural_gas || null,
+          liquid_propane || null,
+          gas_propane || null,
         ])
         .then()
         .catch((err) => {
@@ -197,31 +197,39 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
         water_heater,
       } = responses;
 
+      
+
+
       const recommendations = [];
       if (Rush_of_air === true) {
         recommendations.push('Check the filters on the make-up air unit and have the system balanced.');
       }
-      if (entry_heater.isEntryHeater && entry_heater.isRunning === true) {
-       recommendations.push('Install a programmable thermostat so it only runs during operation periods and only when the outdoor temperature is below 30 degrees. ');
+      if (entry_heater.isRunning === true) {
+       recommendations.push('Install a programmable thermostat so the heater only runs during operation periods and only when the outdoor temperature is below 30 degrees.');
       }
-      if (thermostat && thermostat.isProgrammable === false) {
+      if (thermostat.isProgrammable === false) {
         recommendations.push('Install a programmable thermostat');
       }
-      if (thermostat && thermostat.isProgrammed === false) {
+      if (thermostat.isProgrammed === false) {
         recommendations.push('Program the thermostat to turn down the heat at night and when the building is unoccupied.');
       }
-      if (water_heater && water_heater.age > 10) {
+      if (water_heater.age > 10) {
         recommendations.push('Replace the water heater with a high-efficiency model.');
       }
-
-      if (lights && lights.isLED === false) {
-        recommendations.push('Update lightbulbs to LED bulbs');
+      if (water_heater.tempSetting > 140) {
+        recommendations.push('Lower the water heater temperature to a maximum of 140 degrees.');
       }
-      if (lights && lights.motionSensor === false) {
-        recommendations.push('Set up Motion Sensors to automatically turn off lights unless someone is in the room');
+      if (water_heater.tempSetting < 120) {
+        recommendations.push('Raise the water heater temperature to a minimum of 120 degrees.');
+      }
+      if (lights.isLED === false) {
+        recommendations.push('Update lightbulbs to LED bulbs instead of incandescent or CFL bulbs.');
+      }
+      if (lights.motionSensor === false) {
+        recommendations.push('Set up Motion Sensors to automatically turn off lights unless someone is in the room.');
       }
       if (hot_water > 10) {
-        recommendations.push('Install a hot water circulating system.')
+        recommendations.push('Install a hot water circulating system to ensure hot water is available at all times.');
       }
       if (restroom_leaks !== false) {
         recommendations.push('Fix restroom leaks immediately.')
