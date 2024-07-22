@@ -54,10 +54,9 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
       SET "electric" = $1,
           "natural_gas" = $2,
           "liquid_propane" = $3,
-          "gas_propane" = $4,
-          "heating_oil" = $5
-      WHERE "id" = $6`;
-    const values = [facility.electric, facility.natural_gas, facility.liquid_propane, facility.gas_propane, facility.heating_oil, costId];
+          "gas_propane" = $4
+      WHERE "id" = $5`;
+    const values = [facility.electric, facility.natural_gas, facility.liquid_propane, facility.gas_propane, costId];
     pool
       .query(queryText, values)
       .then(() => {

@@ -117,8 +117,7 @@ energy_cost_agg AS (
       'electric', cost.electric,
       'natural_gas', cost.natural_gas,
       'liquid_propane', cost.liquid_propane,
-      'gas_propane', cost.gas_propane,
-      'heating_oil', cost.heating_oil
+      'gas_propane', cost.gas_propane
     ) AS energy_cost
   FROM
     "energy_cost" cost
@@ -165,7 +164,7 @@ VALUES ($1, $2, $3, $4) RETURNING id;`;
     .then((result) => {
       const reportId = result.rows[0].id;
       const { equipment, responses, energyCosts, equipmentInv} = req.body;
-      const { electric, naturalGas, liquidPropane, gasPropane, heatingOil } =
+      const { electric, naturalGas, liquidPropane, gasPropane } =
         energyCosts;
       const query = `Insert INTO energy_cost (
       "report_id",
