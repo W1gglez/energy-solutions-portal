@@ -100,7 +100,7 @@ function FacilityForm() {
           <Box component='form' onSubmit={handleSubmit} noValidate>
             <Grid container spacing={2}>
               <Grid item xs={10}>
-                <FormControl fullWidth>
+                <FormControl fullwidth>
                   <FormLabel>Facility Name</FormLabel>
                   <Input
                     placeholder='Facility Name'
@@ -112,7 +112,7 @@ function FacilityForm() {
                 </FormControl>
               </Grid>
               <Grid item xs={6}>
-                <FormControl fullWidth>
+                <FormControl fullwidth>
                   <FormLabel>Facility Address</FormLabel>
                   <Input
                     placeholder='Facility Address'
@@ -124,7 +124,7 @@ function FacilityForm() {
                 </FormControl>
               </Grid>
               <Grid item xs={6}>
-                <FormControl fullWidth>
+                <FormControl fullwidth>
                   <FormLabel>Facility City</FormLabel>
                   <Input
                     placeholder='Facility City'
@@ -136,7 +136,7 @@ function FacilityForm() {
                 </FormControl>
               </Grid>
               <Grid item xs={4}>
-                <FormControl fullWidth>
+                <FormControl fullwidth>
                   <FormLabel>State</FormLabel>
                   <Input
                     placeholder='State'
@@ -148,7 +148,7 @@ function FacilityForm() {
                 </FormControl>
               </Grid>
               <Grid item xs={4}>
-                <FormControl fullWidth>
+                <FormControl fullwidth>
                   <FormLabel>Zip</FormLabel>
                   <Input
                     placeholder='Zip'
@@ -160,7 +160,7 @@ function FacilityForm() {
                 </FormControl>
               </Grid>
               <Grid item xs={4}>
-                <FormControl fullWidth>
+                <FormControl fullwidth>
                   <FormLabel>Years in Business</FormLabel>
                   <Input
                     placeholder='Years in Business'
@@ -173,7 +173,7 @@ function FacilityForm() {
                 </FormControl>
               </Grid>
               <Grid item xs={6}>
-                <FormControl fullWidth>
+                <FormControl fullwidth>
                   <FormLabel>Building Age</FormLabel>
                   <Input
                     placeholder='Building Age'
@@ -186,7 +186,7 @@ function FacilityForm() {
                 </FormControl>
               </Grid>
               <Grid item xs={6}>
-                <FormControl fullWidth>
+                <FormControl fullwidth>
                   <FormLabel>Hours of Operation per week</FormLabel>
                   <Input
                     placeholder='Hours of Operation per week'
@@ -199,7 +199,7 @@ function FacilityForm() {
                 </FormControl>
               </Grid>
               <Grid item xs={6}>
-                <FormControl fullWidth>
+                <FormControl fullwidth>
                   <FormLabel>Number of Guests per week</FormLabel>
                   <Input
                     placeholder='Number of Guests per week'
@@ -212,7 +212,7 @@ function FacilityForm() {
                 </FormControl>
               </Grid>
               <Grid item xs={6}>
-                <FormControl fullWidth>
+                <FormControl fullwidth>
                   <FormLabel>Sit Down Restaurant</FormLabel>
                   <Select
                     value={facilityInfo.facilitySitDownRestaurant}
@@ -226,10 +226,10 @@ function FacilityForm() {
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
-                <Button type='submit' fullWidth sx={{ mt: 3, mb: 2 }}>
+                <Button type='submit' fullwidth sx={{ mt: 3, mb: 2 }}>
                   Submit
                 </Button>
-                <Button color='warning' fullWidth onClick={handleClose} sx={{ mb: 2 }}>
+                <Button color='warning' fullwidth onClick={handleClose} sx={{ mb: 2 }}>
                   Cancel
                 </Button>
               </Grid>

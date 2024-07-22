@@ -17,6 +17,7 @@ import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import Divider from '@mui/joy/Divider';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import FaciliytSelect from '../Assessment/FacilitySelect';
+import Container from '@mui/joy/Container';
 
 function HomePage() {
   const reports = useSelector((store) => store.reports);
@@ -46,7 +47,7 @@ function HomePage() {
   };
 
   return (
-    <Box
+    <Container
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -56,7 +57,7 @@ function HomePage() {
       }}
     >
       {energyCost[0]?.sum !== null && (
-        <Box
+        <Container
           sx={{
             display: 'flex',
             justifyContent: 'center',
@@ -88,12 +89,12 @@ function HomePage() {
               </Grid>
             </CardContent>
           </Card>
-        </Box>
+        </Container>
       )}
       <section className='container'>
         {reports.reportReducer?.length > 0 ? (
           <>
-            <Box
+            <Container
               sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -104,11 +105,11 @@ function HomePage() {
               <Button onClick={() => history.push('/user-reports')}>
                 View all assessments
               </Button>
-            </Box>
+            </Container>
             <Divider />
             <Sheet
               sx={{
-                height: 240,
+                maxHeight: 240,
                 overflow: 'auto',
                 border: 1,
                 borderRadius: 5,
@@ -153,7 +154,7 @@ function HomePage() {
           </>
         ) : (
           <>
-            <Box
+            <Container
               sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -161,9 +162,9 @@ function HomePage() {
               }}
             >
               <h3>My assessments</h3>{' '}
-            </Box>
+            </Container>
             <Divider />
-            <Box
+            <Container
               sx={{
                 display: 'flex',
                 justifyContent: 'center',
@@ -177,12 +178,12 @@ function HomePage() {
                 open={openFacilitySelect}
                 setOpen={setOpenFacilitySelect}
               />
-            </Box>
+            </Container>
           </>
         )}
       </section>
       <section className='container'>
-        <Box
+        <Container
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -194,12 +195,12 @@ function HomePage() {
           <Button onClick={() => history.push('/facilities')}>
             View all Facilities
           </Button>
-        </Box>
+        </Container>
         {facilities.length > 0 ? (
           <>
             <Sheet
               sx={{
-                height: 240,
+                maxHeight: 240,
                 overflow: 'auto',
                 border: 1,
                 borderRadius: 5,
@@ -282,7 +283,7 @@ function HomePage() {
             </Sheet>
           </>
         ) : (
-          <Box
+          <Container
             sx={{
               display: 'flex',
               justifyContent: 'center',
@@ -293,10 +294,10 @@ function HomePage() {
             <Button onClick={() => history.push('/facilities')}>
               Add Facility
             </Button>
-          </Box>
+          </Container>
         )}
       </section>
-    </Box>
+    </Container>
   );
 }
 
