@@ -45,12 +45,12 @@ export default function AssessmentReview() {
       current_carbon_footprint: calculateCarbonFootprint(), //represented in (ton/yr)
       date_submitted,
       equipment: equipmentInv,
-      // recommendations,
+      responses,
       energyCosts,
     };
     console.table(payload);
-    // dispatch({ type: 'ADD_REPORT', payload: {} });
-    // history.push('/');
+    dispatch({ type: 'ADD_REPORT', payload: payload });
+    history.push('/');
   };
 
   return (

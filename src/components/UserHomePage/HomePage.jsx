@@ -71,7 +71,7 @@ function HomePage() {
         </Box>
       )}
       <section className='container'>
-        {reports.length > 0 ? (
+        {reports.reportReducer?.length > 0 ? (
           <>
             <Box
               sx={{
@@ -110,7 +110,7 @@ function HomePage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {reports.map((report) => (
+                  {reports.reportReducer?.map((report) => (
                     <tr key={report.id}>
                       <td>
                         {DateTime.fromISO(report.date_submitted).toFormat(

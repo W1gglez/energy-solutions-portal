@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS "facility" (
 CREATE TABLE IF NOT EXISTS "reports" (
 	"id" serial primary key,
 	"facility_id" int references "facility" ON DELETE CASCADE,
-	"date_submitted" DATE not null,
+	"date_submitted" TIMESTAMPTZ DEFAULT NOW(),
 	"current_monthly_cost" decimal not null,
 	"current_carbon_footprint" decimal not null,
 	"approved" boolean default false,
