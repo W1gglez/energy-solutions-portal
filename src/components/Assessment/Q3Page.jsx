@@ -75,7 +75,7 @@ export default function Q3() {
         spacing={12}
         sx={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}
       >
-        <Grid xs={8}>
+        <Grid xs={6.5}>
           <Typography
             level='h4'
             sx={{ textAlign: 'center' }}
@@ -88,7 +88,6 @@ export default function Q3() {
           xs={1.5}
           sx={{ pl: 0 }}
         >
-          <FormLabel>Time:</FormLabel>
           <Input
             value={lengthOfTime}
             type='number'
