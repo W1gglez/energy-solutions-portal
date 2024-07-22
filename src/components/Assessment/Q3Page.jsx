@@ -154,12 +154,22 @@ export default function Q3() {
         >
           Previous
         </Button>
-        <Button
-          onClick={recordResponse}
-          sx={{ width: '25%' }}
-        >
-          Next
-        </Button>
+        {responses.hot_water ? (
+          <Button
+            onClick={recordResponse}
+            sx={{ width: '25%' }}
+          >
+            Next
+          </Button>
+        ) : (
+          <Button
+            onClick={recordResponse}
+            sx={{ width: '25%' }}
+            disabled
+          >
+            Next
+          </Button>
+        )}
       </Grid>
     </Box>
   );

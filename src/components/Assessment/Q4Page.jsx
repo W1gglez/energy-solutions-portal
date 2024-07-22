@@ -164,12 +164,22 @@ export default function Q4() {
         >
           Previous
         </Button>
-        <Button
-          onClick={recordResponse}
-          sx={{ width: '25%' }}
-        >
-          Next
-        </Button>
+        {responses.water_heater.age && responses.water_heater.tempSetting ? (
+          <Button
+            onClick={recordResponse}
+            sx={{ width: '25%' }}
+          >
+            Next
+          </Button>
+        ) : (
+          <Button
+            onClick={recordResponse}
+            sx={{ width: '25%' }}
+            disabled
+          >
+            Next
+          </Button>
+        )}
       </Grid>
     </Box>
   );
