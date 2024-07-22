@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import EquipmentForm from './EqupmentForm';
 import EquipmentCard from '../EquipmentCard/EquipmentCard';
+import ExitAssessmentButton from '../ExitAssesmentButton/ExitAssessmentButton';
 
 export default function AdditionalEquipment() {
   const history = useHistory();
@@ -51,7 +52,7 @@ export default function AdditionalEquipment() {
         xs={12}
         sx={{ display: 'flex', justifyContent: 'flex-start', mx: 6 }}
       >
-        <Button onClick={handleExit}>Exit Assessment</Button>
+        <ExitAssessmentButton />
       </Grid>
       <Grid
         container

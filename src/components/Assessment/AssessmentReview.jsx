@@ -331,12 +331,22 @@ export default function AssessmentReview() {
         >
           Previous
         </Button>
-        <Button
-          onClick={submitAssessment}
-          sx={{ width: '25%' }}
-        >
-          Submit
-        </Button>
+        {equipmentInv.length === 0 ? (
+          <Button
+            onClick={submitAssessment}
+            sx={{ width: '25%' }}
+            disabled
+          >
+            Submit
+          </Button>
+        ) : (
+          <Button
+            onClick={submitAssessment}
+            sx={{ width: '25%' }}
+          >
+            Submit
+          </Button>
+        )}
       </Grid>
     </Box>
   );

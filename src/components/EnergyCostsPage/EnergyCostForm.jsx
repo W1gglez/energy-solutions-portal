@@ -53,6 +53,7 @@ function EnergyCostForm() {
           <DialogTitle>Monthly Energy Costs ($/kWh)</DialogTitle>
           <DialogContent>
             <Link
+              sx={{ color: '#008242' }}
               href='https://www.nrg.com/resources/energy-tools/energy-conversion-calculator.html'
               target='_blank'
             >
