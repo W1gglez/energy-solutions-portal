@@ -2,26 +2,35 @@ import React from 'react';
 
 import { useHistory } from 'react-router-dom';
 import RegisterForm from '../RegisterForm/RegisterForm';
+import { Button, Box } from '@mui/joy';
+import './RegisterPage.css';
 
 function RegisterPage() {
   const history = useHistory();
 
   return (
-    <div>
+    <Box
+    sx={
+      {
+        alignContent: 'center',
+        flex: 1,
+      }
+    }
+    >
       <RegisterForm />
 
       <center>
-        <button
+        <Button
           type="button"
-          className="btn btn_asLink"
+          className="Button"
           onClick={() => {
             history.push('/login');
           }}
         >
           Login
-        </button>
+        </Button>
       </center>
-    </div>
+    </Box>
   );
 }
 

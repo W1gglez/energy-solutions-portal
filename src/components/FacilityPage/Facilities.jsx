@@ -12,7 +12,7 @@ function Facilities() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_FACILITIES' });
+    dispatch({ type: 'FETCH_USER_FACILITIES' });
   }, [dispatch]);
 
   const handleEditClick = (facility) => {
@@ -33,7 +33,7 @@ function Facilities() {
   };
 
   const handleDeleteClick = (facility) => {
-    dispatch({ type: 'DELETE_FACILITY', payload: facility.id });
+    dispatch({ type: 'DELETE_USER_FACILITY', payload: facility.id });
   };
 
   const handleChange = (e) => {
