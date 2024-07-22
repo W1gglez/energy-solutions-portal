@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Sheet, Table } from '@mui/joy';
+import { Grid, Sheet, Table } from '@mui/joy';
 import { DateTime } from 'luxon';
 import Box from '@mui/joy/Box';
 import Card from '@mui/joy/Card';
@@ -58,24 +58,34 @@ function HomePage() {
       {energyCost[0]?.sum !== null && (
         <Box
           sx={{
-            width: '100%',
-            maxWidth: 500,
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
-            gap: 2,
+            display: 'flex',
+            justifyContent: 'center',
+            textAlign: 'center',
           }}
         >
-          <Card variant='outlined'>
+          <Card
+            variant='outlined'
+            sx={{ width: '400px' }}
+          >
             <CardContent>
-              <Typography level='title-md'>Total carbon footprint: </Typography>
-              {carbonTotal.map((carbon) => (
-                <p>{carbon.sum} tons/year</p>
-              ))}
-              <Typography>Total energy cost: </Typography>
-              {energyCost.map((cost) => {
-                let sum = Number(cost.sum).toFixed(2);
-                return <p>${sum} /year</p>;
-              })}
+              <DialogTitle>Assessment Totals</DialogTitle>
+              <Grid container>
+                <Grid xs>
+                  <Typography level='title-md'>
+                    Total carbon footprint:{' '}
+                  </Typography>
+                  {carbonTotal.map((carbon) => (
+                    <p>{carbon.sum} tons/year</p>
+                  ))}
+                </Grid>
+                <Grid xs>
+                  <Typography>Total energy cost: </Typography>
+                  {energyCost.map((cost) => {
+                    let sum = Number(cost.sum).toFixed(2);
+                    return <p>${sum} /year</p>;
+                  })}
+                </Grid>
+              </Grid>
             </CardContent>
           </Card>
         </Box>
