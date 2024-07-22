@@ -60,7 +60,7 @@ function AdminHomePage() {
               {' '}
               <Sheet
                 sx={{
-                  height: 240,
+                  maxHeight: 240,
                   overflow: 'auto',
                   border: 1,
                   borderRadius: 5,
@@ -114,7 +114,7 @@ function AdminHomePage() {
           </Box>
           <Sheet
             sx={{
-              height: 240,
+              maxHeight: 240,
               overflow: 'auto',
               border: 1,
               borderRadius: 5,
