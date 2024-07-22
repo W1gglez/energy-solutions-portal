@@ -202,9 +202,9 @@ export default function EnergyReport() {
             variant='outlined'
             sx={(theme) => ({
               width: 800,
-              height: 200,
+              maxHeight: 200,
               flexDirection: 'column',
-              overflow: 'scroll',
+              overflow: 'auto',
               transition: 'transform 0.3s, border 0.3s',
               '&:hover': {
                 borderColor: theme.vars.palette.primary.outlinedHoverBorder,

@@ -47,6 +47,17 @@ function* deleteFacility(action) {
   }
 }
 
+// saga to delete a facility
+function* deleteUserFacility(action) {
+  try {
+    console.log('in deleteFacility, check action.payload', action.payload);
+    yield axios.delete(`/api/facility/${action.payload}`);
+    yield put({ type: 'FETCH_USER_FACILITIES' });
+  } catch (error) {
+    console.log('error deleting facility', error);
+  }
+}
+
 //saga to update a facility
 function* updateFacility(action) {
   try {
@@ -63,6 +74,7 @@ function* facilitySaga() {
   yield takeLatest('FETCH_USER_FACILITIES', fetchUserFacilities);
   yield takeLatest('ADD_FACILITY', addFacility);
   yield takeLatest('DELETE_FACILITY', deleteFacility);
+  yield takeLatest('DELETE_USER_FACILITY', deleteUserFacility);
   yield takeLatest('UPDATE_FACILITY', updateFacility);
 }
 
