@@ -53,8 +53,10 @@ function AdminHomePage() {
               my: '10px',
             }}
           >
-            <h3>Assessments Pending Review</h3>
-            <Button onClick={() => history.push('/admin-reports')}>View All Assessments</Button>
+            <h3>Reports Pending Review</h3>
+            <Button size='sm' onClick={() => history.push('/admin-reports')}>
+              View All Reports
+            </Button>
           </Box>
           {reportsReady.length > 0 ? (
             <>
@@ -94,7 +96,7 @@ function AdminHomePage() {
                           {report.city}, {report.state}
                         </td>
                         <td>
-                          <Button variant='outlined' color='primary' onClick={() => navReport(report.id)}>
+                          <Button size='sm' variant='outlined' color='primary' onClick={() => navReport(report.id)}>
                             Review Report
                           </Button>
                         </td>

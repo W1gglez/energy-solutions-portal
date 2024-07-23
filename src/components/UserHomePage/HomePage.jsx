@@ -17,6 +17,9 @@ import Divider from '@mui/joy/Divider';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import FaciliytSelect from '../Assessment/FacilitySelect';
 import Container from '@mui/joy/Container';
+import IconButton from '@mui/joy/IconButton';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
 
 function HomePage() {
   const reports = useSelector((store) => store.reports);
@@ -43,6 +46,10 @@ function HomePage() {
     dispatch({ type: 'FETCH_USER_FACILITIES' });
   };
 
+  const navReport = (reportId) => {
+    history.push(`/report/${reportId}`);
+  };
+
   return (
     <Container
       sx={{
@@ -61,21 +68,27 @@ function HomePage() {
             textAlign: 'center',
           }}
         >
-          <Card variant='outlined' sx={{ width: '400px' }}>
+          <Card variant='outlined' sx={{ width: '400px', marginTop: 4 }}>
+            <h5>Report Totals</h5>
             <CardContent>
-              <DialogTitle>Assessment Totals</DialogTitle>
               <Grid container>
                 <Grid xs>
-                  <Typography level='title-md'>Total carbon footprint: </Typography>
+                  <IconButton>
+                    <EnergySavingsLeafIcon />
+                  </IconButton>
+                  <Typography level='title-sm'>Total Carbon Footprint: </Typography>
                   {carbonTotal.map((carbon) => (
-                    <p>{carbon.sum} tons/year</p>
+                    <Typography level='title-md'>{carbon.sum} tons/year</Typography>
                   ))}
                 </Grid>
                 <Grid xs>
-                  <Typography>Total energy cost: </Typography>
+                  <IconButton>
+                    <AttachMoneyIcon />
+                  </IconButton>
+                  <Typography level='title-sm'>Total Energy Cost: </Typography>
                   {energyCost.map((cost) => {
                     let sum = Number(cost.sum).toFixed(2);
-                    return <p>${sum} /year</p>;
+                    return <Typography level='title-md'>${sum} /year</Typography>;
                   })}
                 </Grid>
               </Grid>
@@ -93,8 +106,10 @@ function HomePage() {
                 my: '10px',
               }}
             >
-              <h3>My assessments</h3>
-              <Button onClick={() => history.push('/user-reports')}>View all assessments</Button>
+              <h3>My Reports</h3>
+              <Button size='sm' onClick={() => history.push('/user-reports')}>
+                View all Reports
+              </Button>
             </Container>
             <Divider />
             <Sheet
@@ -129,7 +144,15 @@ function HomePage() {
                       <td>
                         {report.city}, {report.state}
                       </td>
-                      {report.approved ? <td>View Report</td> : <td>In Review</td>}
+                      {report.approved ? (
+                        <td>
+                          <Button variant='outlined' color='primary' onClick={() => navReport(report.id)}>
+                            View Report
+                          </Button>
+                        </td>
+                      ) : (
+                        <td>In Review</td>
+                      )}
                     </tr>
                   ))}
                 </tbody>
@@ -145,7 +168,7 @@ function HomePage() {
                 my: '10px',
               }}
             >
-              <h3>My assessments</h3>{' '}
+              <h3>My Reports</h3>{' '}
             </Container>
             <Divider />
             <Container
@@ -155,7 +178,7 @@ function HomePage() {
                 marginTop: '10px',
               }}
             >
-              <Button onClick={() => setOpenFacilitySelect(true)}>Start Assessment</Button>
+              <Button onClick={() => setOpenFacilitySelect(true)}>Start Report</Button>
               <FaciliytSelect open={openFacilitySelect} setOpen={setOpenFacilitySelect} />
             </Container>
           </>
@@ -170,8 +193,10 @@ function HomePage() {
             my: '10px',
           }}
         >
-          <h3>My facilities </h3>
-          <Button onClick={() => history.push('/facilities')}>View all Facilities</Button>
+          <h3>My Facilities </h3>
+          <Button size='sm' onClick={() => history.push('/facilities')}>
+            View all Facilities
+          </Button>
         </Container>
         {facilities.length > 0 ? (
           <>
