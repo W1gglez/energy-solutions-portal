@@ -179,7 +179,9 @@ export default function EnergyReport() {
           sx={{ justifyContent: 'space-between', mx: 7, my: 2 }}
         >
           <Typography level='h3'>Equipment</Typography>
-          <Button onClick={() => setOpen(true)}>Add Equiment</Button>
+          {user.admin === true && (
+            <Button onClick={() => setOpen(true)}>Add Equiment</Button>
+          )}
           <EquipmentForm
             open={open}
             setOpen={setOpen}

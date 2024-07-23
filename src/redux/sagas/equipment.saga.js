@@ -25,9 +25,22 @@ function* updateEquipment(action) {
   }
 }
 
+function* removeEquipment(action) {
+  try {
+    yield axios.delete(`/api/equipment/${action.payload.id}`);
+    yield put({
+      type: 'FETCH_REPORT_DETAILS',
+      payload: action.payload.reportId,
+    });
+  } catch (err) {
+    console.log('error removing equipment', err);
+  }
+}
+
 function* equipmentSaga() {
   yield takeLatest('ADD_EQUIPMENT', addEquipment);
   yield takeLatest('UPDATE_EQUIPMENT', updateEquipment);
+  yield takeLatest('REMOVE_EQUIPMENT', removeEquipment);
 }
 
 export default equipmentSaga;
