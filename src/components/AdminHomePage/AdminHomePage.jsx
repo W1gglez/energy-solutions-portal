@@ -13,6 +13,7 @@ import DeleteForever from '@mui/icons-material/DeleteForever';
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import Divider from '@mui/joy/Divider';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import './AdminHomePage.css';
 
 function AdminHomePage() {
   const reports = useSelector((store) => store.reports.reportReducer);
@@ -76,9 +77,12 @@ function AdminHomePage() {
                 >
                   <thead>
                     <tr>
-                      <th style={{ width: '40%', backgroundColor: 'lightgrey' }}>Date Submitted</th>
-                      <th style={{ backgroundColor: 'lightgrey' }}>Facility</th>
-                      <th style={{ backgroundColor: 'lightgrey' }}>Status</th>
+                      <th style={{ width: '25%', backgroundColor: 'lightgrey', textAlign: 'center' }}>
+                        Date Submitted
+                      </th>
+                      <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>Facility</th>
+                      <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>Location</th>
+                      <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>Status</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -86,6 +90,9 @@ function AdminHomePage() {
                       <tr key={report.id}>
                         <td>{DateTime.fromISO(report.date_submitted).toFormat('MMMM dd, yyyy')}</td>
                         <td>{report.name}</td>
+                        <td>
+                          {report.city}, {report.state}
+                        </td>
                         <td>
                           <Button variant='outlined' color='primary' onClick={() => navReport(report.id)}>
                             Review Report
@@ -123,11 +130,11 @@ function AdminHomePage() {
             <Table borderAxis='bothBetween' color='neutral' size='md' stickyFooter={false} stickyHeader variant='plain'>
               <thead>
                 <tr>
-                  <th style={{ width: '25%', backgroundColor: 'lightgrey' }}>Facility</th>
-                  <th style={{ backgroundColor: 'lightgrey' }}>Address</th>
-                  <th style={{ backgroundColor: 'lightgrey' }}>City</th>
-                  <th style={{ backgroundColor: 'lightgrey' }}>State</th>
-                  <th style={{ backgroundColor: 'lightgrey' }}></th>
+                  <th style={{ width: '25%', backgroundColor: 'lightgrey', textAlign: 'center' }}>Facility</th>
+                  <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>Address</th>
+                  <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>City</th>
+                  <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>State</th>
+                  <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}></th>
                 </tr>
               </thead>
               <tbody>

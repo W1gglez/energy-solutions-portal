@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Sheet, Table } from '@mui/joy';
 import { DateTime } from 'luxon';
-import Box from '@mui/joy/Box';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
@@ -21,11 +20,9 @@ import Container from '@mui/joy/Container';
 
 function HomePage() {
   const reports = useSelector((store) => store.reports);
-  console.log('reports', reports);
   const facilities = useSelector((store) => store.facilities);
   const carbonTotal = useSelector((store) => store.carbon);
   const energyCost = useSelector((store) => store.cost);
-  console.log('cost', energyCost);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -64,17 +61,12 @@ function HomePage() {
             textAlign: 'center',
           }}
         >
-          <Card
-            variant='outlined'
-            sx={{ width: '400px' }}
-          >
+          <Card variant='outlined' sx={{ width: '400px' }}>
             <CardContent>
               <DialogTitle>Assessment Totals</DialogTitle>
               <Grid container>
                 <Grid xs>
-                  <Typography level='title-md'>
-                    Total carbon footprint:{' '}
-                  </Typography>
+                  <Typography level='title-md'>Total carbon footprint: </Typography>
                   {carbonTotal.map((carbon) => (
                     <p>{carbon.sum} tons/year</p>
                   ))}
@@ -102,9 +94,7 @@ function HomePage() {
               }}
             >
               <h3>My assessments</h3>
-              <Button onClick={() => history.push('/user-reports')}>
-                View all assessments
-              </Button>
+              <Button onClick={() => history.push('/user-reports')}>View all assessments</Button>
             </Container>
             <Divider />
             <Sheet
@@ -125,27 +115,21 @@ function HomePage() {
               >
                 <thead>
                   <tr>
-                    <th style={{ width: '40%', backgroundColor: 'lightgrey' }}>
-                      Date Submitted
-                    </th>
-                    <th style={{ backgroundColor: 'lightgrey' }}>Facility</th>
-                    <th style={{ backgroundColor: 'lightgrey' }}>Status</th>
+                    <th style={{ width: '40%', backgroundColor: 'lightgrey', textAlign: 'center' }}>Date Submitted</th>
+                    <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>Facility</th>
+                    <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>Location</th>
+                    <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {reports.reportReducer?.map((report) => (
                     <tr key={report.id}>
-                      <td>
-                        {DateTime.fromISO(report.date_submitted).toFormat(
-                          'MMMM dd, yyyy'
-                        )}
-                      </td>
+                      <td>{DateTime.fromISO(report.date_submitted).toFormat('MMMM dd, yyyy')}</td>
                       <td>{report.name}</td>
-                      {report.approved ? (
-                        <td>View Report</td>
-                      ) : (
-                        <td>In Review</td>
-                      )}
+                      <td>
+                        {report.city}, {report.state}
+                      </td>
+                      {report.approved ? <td>View Report</td> : <td>In Review</td>}
                     </tr>
                   ))}
                 </tbody>
@@ -171,13 +155,8 @@ function HomePage() {
                 marginTop: '10px',
               }}
             >
-              <Button onClick={() => setOpenFacilitySelect(true)}>
-                Start Assessment
-              </Button>
-              <FaciliytSelect
-                open={openFacilitySelect}
-                setOpen={setOpenFacilitySelect}
-              />
+              <Button onClick={() => setOpenFacilitySelect(true)}>Start Assessment</Button>
+              <FaciliytSelect open={openFacilitySelect} setOpen={setOpenFacilitySelect} />
             </Container>
           </>
         )}
@@ -192,9 +171,7 @@ function HomePage() {
           }}
         >
           <h3>My facilities </h3>
-          <Button onClick={() => history.push('/facilities')}>
-            View all Facilities
-          </Button>
+          <Button onClick={() => history.push('/facilities')}>View all Facilities</Button>
         </Container>
         {facilities.length > 0 ? (
           <>
@@ -216,13 +193,11 @@ function HomePage() {
               >
                 <thead>
                   <tr>
-                    <th style={{ width: '25%', backgroundColor: 'lightgrey' }}>
-                      Facility
-                    </th>
-                    <th style={{ backgroundColor: 'lightgrey' }}>Address</th>
-                    <th style={{ backgroundColor: 'lightgrey' }}>City</th>
-                    <th style={{ backgroundColor: 'lightgrey' }}>State</th>
-                    <th style={{ backgroundColor: 'lightgrey' }}></th>
+                    <th style={{ width: '25%', backgroundColor: 'lightgrey', textAlign: 'center' }}>Facility</th>
+                    <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>Address</th>
+                    <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>City</th>
+                    <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>State</th>
+                    <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -230,6 +205,7 @@ function HomePage() {
                     <tr key={facility.id}>
                       <td>{facility.name}</td>
                       <td>{facility.address}</td>
+                      <td>{facility.city}</td>
                       <td>{facility.state}</td>
                       <td>
                         <Button
@@ -240,36 +216,21 @@ function HomePage() {
                         >
                           Delete
                         </Button>
-                        <Modal
-                          open={open}
-                          onClose={() => setOpen(false)}
-                        >
-                          <ModalDialog
-                            variant='outlined'
-                            role='alertdialog'
-                          >
+                        <Modal open={open} onClose={() => setOpen(false)}>
+                          <ModalDialog variant='outlined' role='alertdialog'>
                             <DialogTitle>
                               <WarningRoundedIcon />
                               Confirmation
                             </DialogTitle>
                             <Divider />
                             <DialogContent>
-                              Are you sure you want to delete this facility?
-                              This will delete all corresponding reports.
+                              Are you sure you want to delete this facility? This will delete all corresponding reports.
                             </DialogContent>
                             <DialogActions>
-                              <Button
-                                variant='solid'
-                                color='danger'
-                                onClick={() => deleteFacility(facility.id)}
-                              >
+                              <Button variant='solid' color='danger' onClick={() => deleteFacility(facility.id)}>
                                 Delete Facility
                               </Button>
-                              <Button
-                                variant='plain'
-                                color='neutral'
-                                onClick={() => setOpen(false)}
-                              >
+                              <Button variant='plain' color='neutral' onClick={() => setOpen(false)}>
                                 Cancel
                               </Button>
                             </DialogActions>
@@ -291,9 +252,7 @@ function HomePage() {
               marginTop: '10px',
             }}
           >
-            <Button onClick={() => history.push('/facilities')}>
-              Add Facility
-            </Button>
+            <Button onClick={() => history.push('/facilities')}>Add Facility</Button>
           </Container>
         )}
       </section>
