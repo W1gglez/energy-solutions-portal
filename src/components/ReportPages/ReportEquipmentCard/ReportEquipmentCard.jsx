@@ -5,13 +5,20 @@ import Typography from '@mui/joy/Typography';
 import Grid from '@mui/joy/Grid';
 import EquipmentForm from '../../Assessment/EqupmentForm';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { IconButton } from '@mui/joy';
+import { Delete } from '@mui/icons-material';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function ReportEquipmentCard({ e }) {
   const user = useSelector((store) => store.user);
   const categories = useSelector((store) => store.categories);
   const types = useSelector((store) => store.equipmentTypes);
   const locations = useSelector((store) => store.locations);
+
+  const dispatch = useDispatch();
+
+  const reportId = useParams().id;
 
   const [open, setOpen] = useState(false);
 
@@ -27,6 +34,17 @@ export default function ReportEquipmentCard({ e }) {
     }
   };
 
+  const handleClick = (e) => {
+    if (e.target.name === 'deleteButton') {
+      e.preventDefault();
+      e.stopPropagation();
+    } else {
+      if (user.admin === true) {
+        setOpen(true);
+      }
+    }
+  };
+
   return (
     <Card
       orientation='horizontal'
@@ -39,20 +57,34 @@ export default function ReportEquipmentCard({ e }) {
         unit={determineUnit()}
       />
       <CardContent
-        onClick={
-          user.admin === true
-            ? () => {
-                setOpen(true);
-              }
-            : undefined
-        }
+        onClick={() => {
+          if (user.admin === true) {
+            setOpen(true);
+          }
+        }}
       >
         <Grid
           container
-          sx={{ justifyContent: 'space-between' }}
+          sx={{ justifyContent: 'space-between', alignItems: 'center' }}
         >
-          <DialogTitle>{e.description ?? types[e.typeId - 1].type}</DialogTitle>
+          <DialogTitle sx={{ textJustify: 'flex-start' }}>
+            {e.description ?? types[e.typeId - 1].type}
+          </DialogTitle>
           <DialogTitle>Qty: {e.qty}</DialogTitle>
+          {user.admin === true && (
+            <IconButton
+              sx={{ color: 'grey' }}
+              onClick={(event) => {
+                event.stopPropagation();
+                dispatch({
+                  type: 'REMOVE_EQUIPMENT',
+                  payload: { id: e.id, reportId },
+                });
+              }}
+            >
+              <Delete name='deleteButton' />
+            </IconButton>
+          )}
         </Grid>
 
         <Grid

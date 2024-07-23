@@ -2,7 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('/', (req, res) => {
   const {
     reportId,
     description,
@@ -78,7 +78,7 @@ router.post('/', async (req, res) => {
     });
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', (req, res) => {
   const {
     reportId,
     description,
@@ -158,6 +158,15 @@ WHERE
     });
 });
 
-router.delete('/:id', async (req, res) => {});
+router.delete('/:id', async (req, res) => {
+  const query = `DELETE FROM equipment WHERE id=$1;`;
+  const id = req.params.id;
+  try {
+    await pool.query(query, [id]);
+    res.sendStatus(200);
+  } catch (err) {
+    console.error(`Error DELETEing equipment ${id}:`, err);
+  }
+});
 
 module.exports = router;
