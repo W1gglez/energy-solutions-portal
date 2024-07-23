@@ -5,7 +5,7 @@ const router = express.Router();
 
 // GET all restaurant reports (Admin Page)
 router.get('/all', rejectUnauthenticated, (req, res) => {
-  const queryText = `SELECT "reports".*, "facility"."name" FROM "reports" JOIN "facility" ON "reports"."facility_id" = "facility"."id";`;
+  const queryText = `SELECT "reports".*, "facility"."name", "facility"."city", "facility"."state" FROM "reports" JOIN "facility" ON "reports"."facility_id" = "facility"."id";`;
   pool
     .query(queryText)
     .then((result) => res.send(result.rows))
@@ -18,7 +18,7 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
 // GET all reports for a single user
 router.get('/', rejectUnauthenticated, (req, res) => {
   const userId = req.user.id;
-  const queryText = `SELECT reports.*, "facility"."name" FROM "reports" JOIN "facility" ON "reports"."facility_id" = "facility"."id" WHERE "user_id"=$1;`;
+  const queryText = `SELECT reports.*, "facility"."name", "facility"."city", "facility"."state" FROM "reports" JOIN "facility" ON "reports"."facility_id" = "facility"."id" WHERE "user_id"=$1;`;
   pool
     .query(queryText, [userId])
     .then((result) => res.send(result.rows))

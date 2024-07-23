@@ -49,8 +49,8 @@ export default function EnergyReport() {
     <Box sx={{ flex: 1 }}>
       <h1 className='energy-report-header'>{reportDetails.name} Energy Report</h1>
       <Grid container sx={{ justifyContent: 'space-between', mx: 6, mt: 3 }}>
-        <Button onClick={navReports} sx={{ width: '15vw' }}>
-          Back
+        <Button onClick={navReports} sx={{ width: '12vw' }}>
+          Back to all Reports
         </Button>
         {user.admin ? (
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
