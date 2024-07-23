@@ -1,9 +1,10 @@
 .container-card {
   margin: 8px;
+  width: 800px;
 }
 
 .text-area {
-  width: 400px;
+  width: 575px;
 }
 
 .energy-report-header {
