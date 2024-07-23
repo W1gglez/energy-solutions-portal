@@ -5,7 +5,7 @@ const router = express.Router();
 
 // GET all restaurant reports (Admin Page)
 router.get('/all', rejectUnauthenticated, (req, res) => {
-  const queryText = `SELECT "reports".*, "facility"."name", "facility"."city", "facility"."state" FROM "reports" JOIN "facility" ON "reports"."facility_id" = "facility"."id";`;
+  const queryText = `SELECT "reports".*, "facility"."name", "facility"."city", "facility"."state" FROM "reports" JOIN "facility" ON "reports"."facility_id" = "facility"."id" ORDER BY "reports".id;`;
   pool
     .query(queryText)
     .then((result) => res.send(result.rows))
@@ -71,31 +71,30 @@ router.get('/details/:id', rejectUnauthenticated, (req, res) => {
     e."report_id",
     array_agg(
       json_build_object(
+        'id', e.id,
         'description', e.description,
-        'type', et.type,
+        'typeId', e.type_id,
         'brand', e.brand,
-        'model_number', e.model_number,
-        'serial_number', e."serial-number",
-        'quantity', e.quantity,
-        'location', el.location,
-        'category', ec.category,
+        'modelNumber', e.model_number,
+        'serialNumber', e."serial-number",
+        'qty', e.quantity,
+        'locationId', e.location_id,
+        'categoryId', e.category_id,
         'amps', e.amps,
         'volts', e."volts",
+        'watts', e.watts,
         'kW', e."kW",
         'btu', e.btu,
-        'hours_used_day', e."hours_used/day",
+        'hoursPerDay', e."hours_used/day",
         'energy_usage', e.energy_usage,
         'cost_per_day', e.cost_per_day,
         'cost_per_month', e.cost_per_month,
         'carbon_footprint', e.carbon_footprint,
         'notes', e.notes
-      )
+      ) ORDER BY e.id
     ) AS equipment
   FROM
     "equipment" e
-  JOIN "energy_category" ec ON ec."id" = e."category_id"
-  JOIN "equipment_location" el ON el."id" = e."location_id"
-  JOIN "equipment_type" et ON et."id" = e."type_id"
   GROUP BY e."report_id"
 ),
 recommendations_agg AS (
