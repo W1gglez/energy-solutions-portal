@@ -120,7 +120,7 @@ export default function EnergyReport() {
             variant='outlined'
             sx={(theme) => ({
               width: 300,
-              height: 200, // Set the fixed height here
+              height: 200,
               flexDirection: 'column',
               overflow: 'hidden',
               transition: 'transform 0.3s, border 0.3s',
@@ -144,6 +144,7 @@ export default function EnergyReport() {
             </Box>
           </Card>
         </Box>
+
         <Box
           className='card-container'
           sx={{
@@ -158,65 +159,7 @@ export default function EnergyReport() {
             className='container-card'
             variant='outlined'
             sx={(theme) => ({
-              width: 800,
-              height: 120,
-              flexDirection: 'column',
-              overflow: 'scroll',
-              transition: 'transform 0.3s, border 0.3s',
-              '&:hover': {
-                borderColor: theme.vars.palette.primary.outlinedHoverBorder,
-                transform: 'translateY(-2px)',
-              },
-            })}
-          >
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                alignContent: 'center',
-              }}
-            >
-              <Typography level='title-lg'>Report Notes</Typography>
-              <IconButton onClick={() => setEditToggle(!editToggle)}>
-                <EditIcon />
-              </IconButton>
-            </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Typography level='body-sm'>{reportDetails.notes}</Typography>
-            </Box>
-          </Card>
-        </Box>
-        {editToggle ? (
-          <form onSubmit={submitNotes}>
-            <textarea
-              className='text-area'
-              rows='5'
-              placeholder='edit notes'
-              value={reportDetails?.notes}
-              onChange={(event) => dispatch({ type: 'EDIT_REPORT_DETAILS', payload: { notes: event.target.value } })}
-            ></textarea>
-            <Button color='success' type='submit'>
-              Submit
-            </Button>
-          </form>
-        ) : (
-          ''
-        )}
-        <Box
-          className='card-container'
-          sx={{
-            minHeight: 75,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: 3,
-          }}
-        >
-          <Card
-            className='container-card'
-            variant='outlined'
-            sx={(theme) => ({
-              width: 800,
+              maxWidth: 800,
               maxHeight: 200,
               flexDirection: 'column',
               overflow: 'auto',
@@ -246,6 +189,71 @@ export default function EnergyReport() {
                   ))}
                 </Typography>
               </div>
+            </Box>
+          </Card>
+        </Box>
+        <Box
+          className='card-container'
+          sx={{
+            minHeight: 75,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: 3,
+          }}
+        >
+          <Card
+            className='container-card'
+            variant='outlined'
+            sx={(theme) => ({
+              maxWidth: 800,
+              maxHeight: 200,
+              flexDirection: 'column',
+              overflow: 'scroll',
+              transition: 'transform 0.3s, border 0.3s',
+              '&:hover': {
+                borderColor: theme.vars.palette.primary.outlinedHoverBorder,
+                transform: 'translateY(-2px)',
+              },
+            })}
+          >
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                alignContent: 'center',
+              }}
+            >
+              <Typography level='title-lg'>Report Notes</Typography>
+              {user.admin ? (
+                <IconButton onClick={() => setEditToggle(!editToggle)}>
+                  <EditIcon />
+                </IconButton>
+              ) : (
+                ''
+              )}
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              {editToggle ? (
+                <form onSubmit={submitNotes}>
+                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <textarea
+                      className='text-area'
+                      rows='3'
+                      placeholder='Edit Notes'
+                      value={reportDetails?.notes}
+                      onChange={(event) =>
+                        dispatch({ type: 'EDIT_REPORT_DETAILS', payload: { notes: event.target.value } })
+                      }
+                    ></textarea>
+                  </Box>
+                  <Button color='success' type='submit'>
+                    Submit
+                  </Button>
+                </form>
+              ) : (
+                <Typography level='body-sm'>{reportDetails.notes}</Typography>
+              )}
             </Box>
           </Card>
         </Box>
