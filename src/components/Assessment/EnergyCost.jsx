@@ -4,7 +4,7 @@ import Typography from '@mui/joy/Typography';
 import Button from '@mui/joy/Button';
 import Grid from '@mui/joy/Grid';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min.js';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import EnergyCostCard from '../EnergyCostCard.jsx/EnergyCostCard.jsx';
 import { Box } from '@mui/joy';
 import ExitAssessmentButton from '../ExitAssesmentButton/ExitAssessmentButton.jsx';
@@ -12,7 +12,6 @@ import ExitAssessmentButton from '../ExitAssesmentButton/ExitAssessmentButton.js
 //reports are commented out for testing purposes, will be uncommented when the reports are needed
 function EnergyCost() {
   const history = useHistory();
-  const dispatch = useDispatch();
   const energyCost = useSelector((store) => store.energyCost);
 
   const recordResponse = () => {

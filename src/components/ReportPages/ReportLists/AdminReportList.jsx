@@ -14,15 +14,24 @@ export default function ReportList() {
     dispatch({ type: 'FETCH_REPORTS' });
   }, []);
   return (
-    <>
-      <Box className='report-header' height={40} display='flex' alignItems='center' p={5}>
+    <Box sx={{ flex: 1 }}>
+      <Box
+        className='report-header'
+        height={40}
+        display='flex'
+        alignItems='center'
+        p={5}
+      >
         <h1>All Reports</h1>
       </Box>
       <section className='report-container'>
         {reports.map((report) => (
-          <ReportItem key={report.id} report={report} />
+          <ReportItem
+            key={report.id}
+            report={report}
+          />
         ))}
       </section>
-    </>
+    </Box>
   );
 }
