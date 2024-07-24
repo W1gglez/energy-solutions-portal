@@ -38,6 +38,12 @@ export default function AssessmentReview() {
     }, 0);
   }
 
+  function clearState() {
+    dispatch({ type: 'CLEAR_RESPONSES' });
+    dispatch({ type: 'CLEAR_EQUIPMENT' });
+    dispatch({ type: 'CLEAR_ENERGY_COST' });
+  }
+
   const submitAssessment = () => {
     const payload = {
       facility_id: responses.facilityId,
@@ -50,6 +56,7 @@ export default function AssessmentReview() {
     };
     console.table(payload);
     dispatch({ type: 'ADD_REPORT', payload: payload });
+    clearState();
     history.push('/');
   };
 

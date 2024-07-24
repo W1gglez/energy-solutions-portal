@@ -11,7 +11,6 @@ export default function ExitAssessmentButton() {
     dispatch({ type: 'CLEAR_RESPONSES' });
     dispatch({ type: 'CLEAR_EQUIPMENT' });
     dispatch({ type: 'CLEAR_ENERGY_COST' });
-    dispatch({ type: 'CLEAR_EQUIPMENT' });
   };
 
   return <Button 
