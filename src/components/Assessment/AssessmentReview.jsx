@@ -20,24 +20,6 @@ export default function AssessmentReview() {
   const energyCosts = useSelector((store) => store.energyCost);
   const date_submitted = new Date().toLocaleDateString();
 
-  function calculateMonthlyCost() {
-    return equipmentInv.reduce((sum, item) => {
-      // Convert costPerMonth from string to number
-      const cost = parseFloat(item.costPerMonth);
-      // Add the cost to the accumulator
-      return sum + cost;
-    }, 0);
-  }
-
-  function calculateCarbonFootprint() {
-    return equipmentInv.reduce((sum, item) => {
-      // Convert costPerMonth from string to number
-      const value = parseFloat(item.carbonFootprint);
-      // Add the cost to the accumulator
-      return sum + value;
-    }, 0);
-  }
-
   function clearState() {
     dispatch({ type: 'CLEAR_RESPONSES' });
     dispatch({ type: 'CLEAR_EQUIPMENT' });
@@ -47,8 +29,6 @@ export default function AssessmentReview() {
   const submitAssessment = () => {
     const payload = {
       facility_id: responses.facilityId,
-      current_monthly_cost: calculateMonthlyCost(),
-      current_carbon_footprint: calculateCarbonFootprint(), //represented in (ton/yr)
       date_submitted,
       equipment: equipmentInv,
       responses,
