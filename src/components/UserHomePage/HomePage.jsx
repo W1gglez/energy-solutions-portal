@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Sheet, Table } from '@mui/joy';
 import { DateTime } from 'luxon';
-import Box from '@mui/joy/Box';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
@@ -18,14 +17,15 @@ import Divider from '@mui/joy/Divider';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import FaciliytSelect from '../Assessment/FacilitySelect';
 import Container from '@mui/joy/Container';
+import IconButton from '@mui/joy/IconButton';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
 
 function HomePage() {
   const reports = useSelector((store) => store.reports);
-  console.log('reports', reports);
   const facilities = useSelector((store) => store.facilities);
   const carbonTotal = useSelector((store) => store.carbon);
   const energyCost = useSelector((store) => store.cost);
-  console.log('cost', energyCost);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -46,6 +46,10 @@ function HomePage() {
     dispatch({ type: 'FETCH_USER_FACILITIES' });
   };
 
+  const navReport = (reportId) => {
+    history.push(`/report/${reportId}`);
+  };
+
   return (
     <Container
       sx={{
@@ -64,26 +68,27 @@ function HomePage() {
             textAlign: 'center',
           }}
         >
-          <Card
-            variant='outlined'
-            sx={{ width: '400px' }}
-          >
+          <Card variant='outlined' sx={{ width: '400px', marginTop: 4 }}>
+            <h5>Report Totals</h5>
             <CardContent>
-              <DialogTitle>Assessment Totals</DialogTitle>
               <Grid container>
                 <Grid xs>
-                  <Typography level='title-md'>
-                    Total carbon footprint:{' '}
-                  </Typography>
+                  <IconButton>
+                    <EnergySavingsLeafIcon />
+                  </IconButton>
+                  <Typography level='title-sm'>Total Carbon Footprint: </Typography>
                   {carbonTotal.map((carbon) => (
-                    <p>{carbon.sum} tons/year</p>
+                    <Typography level='title-md'>{carbon.sum} tons/year</Typography>
                   ))}
                 </Grid>
                 <Grid xs>
-                  <Typography>Total energy cost: </Typography>
+                  <IconButton>
+                    <AttachMoneyIcon />
+                  </IconButton>
+                  <Typography level='title-sm'>Total Energy Cost: </Typography>
                   {energyCost.map((cost) => {
                     let sum = Number(cost.sum).toFixed(2);
-                    return <p>${sum} /year</p>;
+                    return <Typography level='title-md'>${sum} /year</Typography>;
                   })}
                 </Grid>
               </Grid>
@@ -101,17 +106,17 @@ function HomePage() {
                 my: '10px',
               }}
             >
-              <h3>My assessments</h3>
-              <Button 
-            onClick={() => history.push('/admin-reports')}
-            sx={{
+
+              <h3>My Reports</h3>
+              <Button size='sm' onClick={() => history.push('/user-reports')}
+                sx={{
               backgroundColor: '#008242',
               '&:hover': {
                 backgroundColor: '#00341a',
               },
-            }}
-            >
-                View all assessments
+            }}>
+                View all Reports
+
               </Button>
             </Container>
             <Divider />
@@ -133,24 +138,33 @@ function HomePage() {
               >
                 <thead>
                   <tr>
-                    <th style={{ width: '40%', backgroundColor: '#e5f2ec' }}>
-                      Date Submitted
-                    </th>
-                    <th style={{ backgroundColor: '#e5f2ec' }}>Facility</th>
-                    <th style={{ backgroundColor: '#e5f2ec' }}>Status</th>
+
+                    <th style={{ width: '40%', backgroundColor: '#e5f2ec', textAlign: 'center' }}>Date Submitted</th>
+                    <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>Facility</th>
+                    <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>Location</th>
+                    <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {reports.reportReducer?.map((report) => (
                     <tr key={report.id}>
-                      <td>
-                        {DateTime.fromISO(report.date_submitted).toFormat(
-                          'MMMM dd, yyyy'
-                        )}
-                      </td>
+                      <td>{DateTime.fromISO(report.date_submitted).toFormat('MMMM dd, yyyy')}</td>
                       <td>{report.name}</td>
+                      <td>
+                        {report.city}, {report.state}
+                      </td>
                       {report.approved ? (
-                        <td>View Report</td>
+                        <td>
+                          <Button variant='outlined' color='primary' onClick={() => navReport(report.id)}
+                        sx={{
+              backgroundColor: '#008242',
+              '&:hover': {
+                backgroundColor: '#00341a',
+              },
+            }}>
+                            View Report
+                          </Button>
+                        </td>
                       ) : (
                         <td>In Review</td>
                       )}
@@ -169,7 +183,7 @@ function HomePage() {
                 my: '10px',
               }}
             >
-              <h3>My assessments</h3>{' '}
+              <h3>My Reports</h3>{' '}
             </Container>
             <Divider />
             <Container
@@ -179,13 +193,14 @@ function HomePage() {
                 marginTop: '10px',
               }}
             >
-              <Button onClick={() => setOpenFacilitySelect(true)}>
-                Start Assessment
-              </Button>
-              <FaciliytSelect
-                open={openFacilitySelect}
-                setOpen={setOpenFacilitySelect}
-              />
+              <Button onClick={() => setOpenFacilitySelect(true)}
+                sx={{
+              backgroundColor: '#008242',
+              '&:hover': {
+                backgroundColor: '#00341a',
+              },
+            }}>Start Report</Button>
+              <FaciliytSelect open={openFacilitySelect} setOpen={setOpenFacilitySelect} />
             </Container>
           </>
         )}
@@ -199,16 +214,16 @@ function HomePage() {
             my: '10px',
           }}
         >
-          <h3>My facilities </h3>
-          <Button 
-          onClick={() => history.push('/facilities')}
-          sx={{
-            backgroundColor: '#008242',
-            '&:hover': {
-              backgroundColor: '#00341a',
-            },
-          }}
-          >
+
+          <h3>My Facilities </h3>
+          <Button size='sm' onClick={() => history.push('/facilities')}
+            sx={{
+              backgroundColor: '#008242',
+              '&:hover': {
+                backgroundColor: '#00341a',
+              },
+            }}>
+
             View all Facilities
           </Button>
         </Container>
@@ -232,13 +247,12 @@ function HomePage() {
               >
                 <thead>
                   <tr>
-                    <th style={{ width: '25%', backgroundColor: '#e5f2ec' }}>
-                      Facility
-                    </th>
-                    <th style={{ backgroundColor: '#e5f2ec' }}>Address</th>
-                    <th style={{ backgroundColor: '#e5f2ec' }}>City</th>
-                    <th style={{ backgroundColor: '#e5f2ec' }}>State</th>
-                    <th style={{ backgroundColor: '#e5f2ec' }}></th>
+
+                    <th style={{ width: '25%', backgroundColor: '#e5f2ec', textAlign: 'center' }}>Facility</th>
+                    <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>Address</th>
+                    <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>City</th>
+                    <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>State</th>
+                    <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -246,6 +260,7 @@ function HomePage() {
                     <tr key={facility.id}>
                       <td>{facility.name}</td>
                       <td>{facility.address}</td>
+                      <td>{facility.city}</td>
                       <td>{facility.state}</td>
                       <td>
                         <Button
@@ -256,36 +271,21 @@ function HomePage() {
                         >
                           Delete
                         </Button>
-                        <Modal
-                          open={open}
-                          onClose={() => setOpen(false)}
-                        >
-                          <ModalDialog
-                            variant='outlined'
-                            role='alertdialog'
-                          >
+                        <Modal open={open} onClose={() => setOpen(false)}>
+                          <ModalDialog variant='outlined' role='alertdialog'>
                             <DialogTitle>
                               <WarningRoundedIcon />
                               Confirmation
                             </DialogTitle>
                             <Divider />
                             <DialogContent>
-                              Are you sure you want to delete this facility?
-                              This will delete all corresponding reports.
+                              Are you sure you want to delete this facility? This will delete all corresponding reports.
                             </DialogContent>
                             <DialogActions>
-                              <Button
-                                variant='solid'
-                                color='danger'
-                                onClick={() => deleteFacility(facility.id)}
-                              >
+                              <Button variant='solid' color='danger' onClick={() => deleteFacility(facility.id)}>
                                 Delete Facility
                               </Button>
-                              <Button
-                                variant='plain'
-                                color='neutral'
-                                onClick={() => setOpen(false)}
-                              >
+                              <Button variant='plain' color='neutral' onClick={() => setOpen(false)}>
                                 Cancel
                               </Button>
                             </DialogActions>
@@ -307,9 +307,13 @@ function HomePage() {
               marginTop: '10px',
             }}
           >
-            <Button onClick={() => history.push('/facilities')}>
-              Add Facility
-            </Button>
+            <Button onClick={() => history.push('/facilities')}
+              sx={{
+              backgroundColor: '#008242',
+              '&:hover': {
+                backgroundColor: '#00341a',
+              },
+            }}>Add Facility</Button>
           </Container>
         )}
       </section>

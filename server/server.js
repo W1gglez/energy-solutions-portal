@@ -16,6 +16,7 @@ const energyUnitRouter = require('./routes/energy-units.router');
 const energyCatRouter = require('./routes/energy-category.router');
 const energyCostRouter = require('./routes/energy-cost.router');
 const equipTypeRouter = require('./routes/equip-types.router');
+const equipmentRouter = require('./routes/equipment.router');
 
 // Express Middleware
 app.use(express.json());
@@ -38,6 +39,7 @@ app.use('/api/energy-units', energyUnitRouter);
 app.use('/api/energy-categorys', energyCatRouter);
 app.use('/api/energy-cost', energyCostRouter);
 app.use('/api/equip-type', equipTypeRouter);
+app.use('/api/equipment', equipmentRouter);
 
 // Listen Server & Port
 app.listen(PORT, () => {

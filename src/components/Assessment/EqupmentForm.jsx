@@ -12,34 +12,39 @@ import Textarea from '@mui/joy/Textarea';
 import Button from '@mui/joy/Button';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function EquipmentForm(props) {
   const { type, location, category, unit, e, i, open, setOpen } = props;
 
   const dispatch = useDispatch();
+  const url = useLocation();
+  const reportDetails = useSelector((store) => store.reports.reportDetails);
 
   const categories = useSelector((store) => store.categories);
   const types = useSelector((store) => store.equipmentTypes);
   const locations = useSelector((store) => store.locations);
   const energyUnits = useSelector((store) => store.energyUnits);
-  const energyCost = useSelector((store) => store.energyCost);
+  const energyCost = url.pathname.includes('/report/')
+    ? reportDetails.energy_cost
+    : useSelector((store) => store.energyCost);
 
   const [equipment, setEquipment] = useState({
-    description: e?.description || null,
+    description: e?.description || undefined,
     typeId: e?.typeId || type || 0,
-    brand: e?.brand || null,
-    modelNumber: e?.modelNumber || null,
-    serialNumber: e?.serialNumber || null,
+    brand: e?.brand || undefined,
+    modelNumber: e?.modelNumber || undefined,
+    serialNumber: e?.serialNumber || undefined,
     qty: e?.qty || 1,
     locationId: e?.locationId || location || 0,
     categoryId: e?.categoryId || category || 0,
-    amps: e?.amps || null,
-    volts: e?.volts || null,
-    watts: e?.watts || null,
-    kW: e?.kW || null,
-    btu: e?.btu || null,
-    hoursPerDay: e?.hoursPerDay || null,
-    notes: e?.notes || null,
+    amps: e?.amps || undefined,
+    volts: e?.volts || undefined,
+    watts: e?.watts || undefined,
+    kW: e?.kW || undefined,
+    btu: e?.btu || undefined,
+    hoursPerDay: e?.hoursPerDay || undefined,
+    notes: e?.notes || undefined,
   });
 
   const [selectedOption, setSelectedOption] = useState(unit ?? 1);
@@ -61,7 +66,6 @@ export default function EquipmentForm(props) {
 
   function calculateCostPerDay(energyUsage) {
     const { categoryId, qty } = equipment;
-    console.log(energyCost, categoryId, qty, energyUsage);
     const { electric, natural_gas, liquid_propane, gas_propane } = energyCost;
     let costPerDay;
     switch (categoryId) {
@@ -111,40 +115,68 @@ export default function EquipmentForm(props) {
     return carbonFootprint.toFixed(3);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
     const energyUsage = calculateEnergyUsage();
-    console.log(energyUsage);
+    // console.log(energyUsage);
     const costPerDay = calculateCostPerDay(energyUsage);
-    console.log(costPerDay);
+    // console.log(costPerDay);
 
     const costPerMonth = costPerDay * 30.5;
     const carbonFootprint = calculateCarbonFootprint(costPerDay);
+    console.log(typeof e);
     {
-      typeof i !== 'undefined'
-        ? dispatch({
-            type: 'UPDATE_EQUIPMENT',
-            payload: {
-              i,
-              equipment: {
+      if (url.pathname.includes('/report/')) {
+        typeof e !== 'undefined'
+          ? dispatch({
+              type: 'UPDATE_EQUIPMENT',
+              payload: {
+                ...equipment,
+                reportId: reportDetails.id,
+                id: e.id,
+                energyUsage,
+                costPerDay,
+                costPerMonth,
+                carbonFootprint,
+              },
+            })
+          : dispatch({
+              type: 'ADD_EQUIPMENT',
+              payload: {
+                ...equipment,
+                reportId: reportDetails.id,
+                energyUsage,
+                costPerDay,
+                costPerMonth,
+                carbonFootprint,
+              },
+            });
+      } else {
+        typeof i !== 'undefined'
+          ? dispatch({
+              type: 'UPDATE_EQUIPMENT_INV',
+              payload: {
+                i,
+                equipment: {
+                  ...equipment,
+                  energyUsage,
+                  costPerDay,
+                  costPerMonth,
+                  carbonFootprint,
+                },
+              },
+            })
+          : dispatch({
+              type: 'ADD_EQUIPMENT_INV',
+              payload: {
                 ...equipment,
                 energyUsage,
                 costPerDay,
                 costPerMonth,
                 carbonFootprint,
               },
-            },
-          })
-        : dispatch({
-            type: 'ADD_EQUIPMENT',
-            payload: {
-              ...equipment,
-              energyUsage,
-              costPerDay,
-              costPerMonth,
-              carbonFootprint,
-            },
-          });
+            });
+      }
     }
     handleClose();
   };

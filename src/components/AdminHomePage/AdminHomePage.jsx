@@ -13,6 +13,7 @@ import DeleteForever from '@mui/icons-material/DeleteForever';
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import Divider from '@mui/joy/Divider';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import './AdminHomePage.css';
 
 function AdminHomePage() {
   const reports = useSelector((store) => store.reports.reportReducer);
@@ -52,17 +53,17 @@ function AdminHomePage() {
               my: '10px',
             }}
           >
-            <h3>Assessments Pending Review</h3>
-            <Button 
-            onClick={() => history.push('/admin-reports')}
-            sx={{
+
+            <h3>Reports Pending Review</h3>
+            <Button size='sm' onClick={() => history.push('/admin-reports')}
+               sx={{
               backgroundColor: '#008242',
               '&:hover': {
                 backgroundColor: '#00341a',
               },
-            }}
-            >
-              View All Assessments</Button>
+            }}>
+              View All Reports
+            </Button>
           </Box>
           {reportsReady.length > 0 ? (
             <>
@@ -85,9 +86,14 @@ function AdminHomePage() {
                 >
                   <thead>
                     <tr>
-                      <th style={{ width: '40%', backgroundColor: '#e5f2ec' }}>Date Submitted</th>
-                      <th style={{ backgroundColor: '#e5f2ec' }}>Facility</th>
-                      <th style={{ backgroundColor: '#e5f2ec' }}>Status</th>
+
+                      <th style={{ width: '25%', backgroundColor: '#e5f2ec', textAlign: 'center' }}>
+                        Date Submitted
+                      </th>
+                      <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>Facility</th>
+                      <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>Location</th>
+                      <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>Status</th>
+
                     </tr>
                   </thead>
                   <tbody>
@@ -96,18 +102,19 @@ function AdminHomePage() {
                         <td>{DateTime.fromISO(report.date_submitted).toFormat('MMMM dd, yyyy')}</td>
                         <td>{report.name}</td>
                         <td>
-                          <Button 
-                          variant='outlined' 
-                          color='primary' 
-                          onClick={() => navReport(report.id)}
-                          sx={{
+
+                          {report.city}, {report.state}
+                        </td>
+                        <td>
+                          <Button size='sm' variant='outlined' color='primary' onClick={() => navReport(report.id)}
+                            sx={{
                             borderColor: '#008242',
                             color: '#008242',
                             '&:hover': {
                               backgroundColor: '#00341a',
                             },
-                          }}
-                          >
+                          }}>
+
                             Review Report
                           </Button>
                         </td>
@@ -151,11 +158,13 @@ function AdminHomePage() {
             <Table borderAxis='bothBetween' color='neutral' size='md' stickyFooter={false} stickyHeader variant='plain'>
               <thead>
                 <tr>
-                  <th style={{ width: '25%', backgroundColor: '#e5f2ec' }}>Facility</th>
-                  <th style={{ backgroundColor: '#e5f2ec' }}>Address</th>
-                  <th style={{ backgroundColor: '#e5f2ec' }}>City</th>
-                  <th style={{ backgroundColor: '#e5f2ec' }}>State</th>
-                  <th style={{ backgroundColor: '#e5f2ec' }}></th>
+
+                  <th style={{ width: '25%', backgroundColor: '#e5f2ec', textAlign: 'center' }}>Facility</th>
+                  <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>Address</th>
+                  <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>City</th>
+                  <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>State</th>
+                  <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}></th>
+
                 </tr>
               </thead>
               <tbody>
