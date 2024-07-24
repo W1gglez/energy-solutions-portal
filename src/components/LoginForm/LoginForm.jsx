@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {useSelector} from 'react-redux';
-import { Button } from '@mui/joy';
+import { useSelector } from 'react-redux';
+import { Button, Grid, Input, Typography } from '@mui/joy';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector((store) => store.errors);
+  const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -24,7 +25,9 @@ function LoginForm() {
     } else {
       dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }
-    history.push('/home-page');
+    user.admin === true
+      ? history.push('/admin-home-page')
+      : history.push('/home-page');
   }; // end login
 
   return (
@@ -32,7 +35,7 @@ function LoginForm() {
       className='formPanel'
       onSubmit={login}
     >
-      <h2>Login</h2>
+      <Typography level='h3'>Login</Typography>
       {errors.loginMessage && (
         <h3
           className='alert'
@@ -41,30 +44,48 @@ function LoginForm() {
           {errors.loginMessage}
         </h3>
       )}
-      <div>
-        <label htmlFor='username'>
-          Username:
-          <input
-            type='text'
-            name='username'
-            required
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor='password'>
-          Password:
-          <input
-            type='password'
-            name='password'
-            required
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-      </div>
+      <Grid
+        container
+        spacing={1}
+        sx={{ m: 2 }}
+      >
+        <Grid
+          container
+          xs={12}
+        >
+          <label
+            htmlFor='username'
+            style={{ flex: 1 }}
+          >
+            Username:
+            <Input
+              type='text'
+              name='username'
+              required
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
+            />
+          </label>
+        </Grid>
+        <Grid
+          container
+          xs={12}
+        >
+          <label
+            htmlFor='password'
+            style={{ flex: 1 }}
+          >
+            Password:
+            <Input
+              type='password'
+              name='password'
+              required
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </label>
+        </Grid>
+      </Grid>
       <div>
         <Button
           className='Button'

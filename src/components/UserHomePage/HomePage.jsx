@@ -60,42 +60,6 @@ function HomePage() {
         flex: 1,
       }}
     >
-      {energyCost[0]?.sum !== null && (
-        <Container
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            textAlign: 'center',
-          }}
-        >
-          <Card variant='outlined' sx={{ width: '400px', marginTop: 4 }}>
-            <h5>Report Totals</h5>
-            <CardContent>
-              <Grid container>
-                <Grid xs>
-                  <IconButton>
-                    <EnergySavingsLeafIcon />
-                  </IconButton>
-                  <Typography level='title-sm'>Total Carbon Footprint: </Typography>
-                  {carbonTotal.map((carbon) => (
-                    <Typography level='title-md'>{carbon.sum} tons/year</Typography>
-                  ))}
-                </Grid>
-                <Grid xs>
-                  <IconButton>
-                    <AttachMoneyIcon />
-                  </IconButton>
-                  <Typography level='title-sm'>Total Energy Cost: </Typography>
-                  {energyCost.map((cost) => {
-                    let sum = Number(cost.sum).toFixed(2);
-                    return <Typography level='title-md'>${sum} /year</Typography>;
-                  })}
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
-        </Container>
-      )}
       <section className='container'>
         {reports.reportReducer?.length > 0 ? (
           <>
@@ -106,17 +70,18 @@ function HomePage() {
                 my: '10px',
               }}
             >
-
               <h3>My Reports</h3>
-              <Button size='sm' onClick={() => history.push('/user-reports')}
+              <Button
+                size='sm'
+                onClick={() => history.push('/user-reports')}
                 sx={{
-              backgroundColor: '#008242',
-              '&:hover': {
-                backgroundColor: '#00341a',
-              },
-            }}>
+                  backgroundColor: '#008242',
+                  '&:hover': {
+                    backgroundColor: '#00341a',
+                  },
+                }}
+              >
                 View all Reports
-
               </Button>
             </Container>
             <Divider />
@@ -138,25 +103,60 @@ function HomePage() {
               >
                 <thead>
                   <tr>
-
-                    <th style={{ width: '40%', backgroundColor: '#e5f2ec', textAlign: 'center' }}>Date Submitted</th>
-                    <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>Facility</th>
-                    <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>Location</th>
-                    <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>Status</th>
+                    <th
+                      style={{
+                        width: '40%',
+                        backgroundColor: '#e5f2ec',
+                        textAlign: 'center',
+                      }}
+                    >
+                      Date Submitted
+                    </th>
+                    <th
+                      style={{
+                        backgroundColor: '#e5f2ec',
+                        textAlign: 'center',
+                      }}
+                    >
+                      Facility
+                    </th>
+                    <th
+                      style={{
+                        backgroundColor: '#e5f2ec',
+                        textAlign: 'center',
+                      }}
+                    >
+                      Location
+                    </th>
+                    <th
+                      style={{
+                        backgroundColor: '#e5f2ec',
+                        textAlign: 'center',
+                      }}
+                    >
+                      Status
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {reports.reportReducer?.map((report) => (
                     <tr key={report.id}>
-                      <td>{DateTime.fromISO(report.date_submitted).toFormat('MMMM dd, yyyy')}</td>
+                      <td>
+                        {DateTime.fromISO(report.date_submitted).toFormat(
+                          'MMMM dd, yyyy'
+                        )}
+                      </td>
                       <td>{report.name}</td>
                       <td>
                         {report.city}, {report.state}
                       </td>
                       {report.approved ? (
                         <td>
-                          <Button variant='outlined' color='primary' onClick={() => navReport(report.id)}
-                        >
+                          <Button
+                            variant='outlined'
+                            color='primary'
+                            onClick={() => navReport(report.id)}
+                          >
                             View Report
                           </Button>
                         </td>
@@ -188,14 +188,21 @@ function HomePage() {
                 marginTop: '10px',
               }}
             >
-              <Button onClick={() => setOpenFacilitySelect(true)}
+              <Button
+                onClick={() => setOpenFacilitySelect(true)}
                 sx={{
-              backgroundColor: '#008242',
-              '&:hover': {
-                backgroundColor: '#00341a',
-              },
-            }}>Start Report</Button>
-              <FaciliytSelect open={openFacilitySelect} setOpen={setOpenFacilitySelect} />
+                  backgroundColor: '#008242',
+                  '&:hover': {
+                    backgroundColor: '#00341a',
+                  },
+                }}
+              >
+                Start Report
+              </Button>
+              <FaciliytSelect
+                open={openFacilitySelect}
+                setOpen={setOpenFacilitySelect}
+              />
             </Container>
           </>
         )}
@@ -209,16 +216,17 @@ function HomePage() {
             my: '10px',
           }}
         >
-
           <h3>My Facilities </h3>
-          <Button size='sm' onClick={() => history.push('/facilities')}
+          <Button
+            size='sm'
+            onClick={() => history.push('/facilities')}
             sx={{
               backgroundColor: '#008242',
               '&:hover': {
                 backgroundColor: '#00341a',
               },
-            }}>
-
+            }}
+          >
             View all Facilities
           </Button>
         </Container>
@@ -242,12 +250,45 @@ function HomePage() {
               >
                 <thead>
                   <tr>
-
-                    <th style={{ width: '25%', backgroundColor: '#e5f2ec', textAlign: 'center' }}>Facility</th>
-                    <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>Address</th>
-                    <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>City</th>
-                    <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>State</th>
-                    <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}></th>
+                    <th
+                      style={{
+                        width: '25%',
+                        backgroundColor: '#e5f2ec',
+                        textAlign: 'center',
+                      }}
+                    >
+                      Facility
+                    </th>
+                    <th
+                      style={{
+                        backgroundColor: '#e5f2ec',
+                        textAlign: 'center',
+                      }}
+                    >
+                      Address
+                    </th>
+                    <th
+                      style={{
+                        backgroundColor: '#e5f2ec',
+                        textAlign: 'center',
+                      }}
+                    >
+                      City
+                    </th>
+                    <th
+                      style={{
+                        backgroundColor: '#e5f2ec',
+                        textAlign: 'center',
+                      }}
+                    >
+                      State
+                    </th>
+                    <th
+                      style={{
+                        backgroundColor: '#e5f2ec',
+                        textAlign: 'center',
+                      }}
+                    ></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -266,21 +307,36 @@ function HomePage() {
                         >
                           Delete
                         </Button>
-                        <Modal open={open} onClose={() => setOpen(false)}>
-                          <ModalDialog variant='outlined' role='alertdialog'>
+                        <Modal
+                          open={open}
+                          onClose={() => setOpen(false)}
+                        >
+                          <ModalDialog
+                            variant='outlined'
+                            role='alertdialog'
+                          >
                             <DialogTitle>
                               <WarningRoundedIcon />
                               Confirmation
                             </DialogTitle>
                             <Divider />
                             <DialogContent>
-                              Are you sure you want to delete this facility? This will delete all corresponding reports.
+                              Are you sure you want to delete this facility?
+                              This will delete all corresponding reports.
                             </DialogContent>
                             <DialogActions>
-                              <Button variant='solid' color='danger' onClick={() => deleteFacility(facility.id)}>
+                              <Button
+                                variant='solid'
+                                color='danger'
+                                onClick={() => deleteFacility(facility.id)}
+                              >
                                 Delete Facility
                               </Button>
-                              <Button variant='plain' color='neutral' onClick={() => setOpen(false)}>
+                              <Button
+                                variant='plain'
+                                color='neutral'
+                                onClick={() => setOpen(false)}
+                              >
                                 Cancel
                               </Button>
                             </DialogActions>
@@ -302,13 +358,17 @@ function HomePage() {
               marginTop: '10px',
             }}
           >
-            <Button onClick={() => history.push('/facilities')}
+            <Button
+              onClick={() => history.push('/facilities')}
               sx={{
-              backgroundColor: '#008242',
-              '&:hover': {
-                backgroundColor: '#00341a',
-              },
-            }}>Add Facility</Button>
+                backgroundColor: '#008242',
+                '&:hover': {
+                  backgroundColor: '#00341a',
+                },
+              }}
+            >
+              Add Facility
+            </Button>
           </Container>
         )}
       </section>

@@ -199,9 +199,11 @@ function App() {
             path='/login'
           >
             {user.id ? (
-              // If the user is already logged in,
-              // redirect to the /
-              <Redirect to='/home-page' />
+              user.admin === true ? (
+                <Redirect to='/admin-home-page' />
+              ) : (
+                <Redirect to='/home-page' />
+              )
             ) : (
               // Otherwise, show the login page
               <LoginPage />
@@ -213,9 +215,11 @@ function App() {
             path='/registration'
           >
             {user.id ? (
-              // If the user is already logged in,
-              // redirect them to the /user page
-              <Redirect to='/home-page' />
+              user.admin === true ? (
+                <Redirect to='/admin-home-page' />
+              ) : (
+                <Redirect to='/home-page' />
+              )
             ) : (
               // Otherwise, show the registration page
               <RegisterPage />

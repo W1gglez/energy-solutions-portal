@@ -26,8 +26,6 @@ CREATE TABLE IF NOT EXISTS "reports" (
 	"id" serial primary key,
 	"facility_id" int references "facility" ON DELETE CASCADE,
 	"date_submitted" TIMESTAMPTZ DEFAULT NOW(),
-	"current_monthly_cost" decimal not null,
-	"current_carbon_footprint" decimal not null,
 	"approved" boolean default false,
 	"notes" varchar,
 	"approvedBy" int references "user",
@@ -152,4 +150,6 @@ INSERT INTO energy_units (unit) VALUES
 ('BTUs');
 
 
-
+  
+ Alter table reports drop column current_carbon_footprint; 
+ ALTER TABLE reports DROP COLUMN current_monthly_cost;

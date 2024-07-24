@@ -22,29 +22,28 @@ export default function EnergyReport() {
 
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    dispatch({ type: 'FETCH_REPORT_DETAILS', payload: params.id });
+  }, []);
 
-	useEffect(() => {
-		dispatch({ type: 'FETCH_REPORT_DETAILS', payload: params.id });
-	}, []);
+  const approveReport = (reportId) => {
+    const timeApproved = DateTime.now().setLocale('zh').toLocaleString();
+    dispatch({
+      type: 'APPROVE_REPORT',
+      payload: { reportId, approvedAt: timeApproved },
+    });
+  };
 
-	const approveReport = (reportId) => {
-		const timeApproved = DateTime.now().setLocale('zh').toLocaleString();
-		dispatch({
-			type: 'APPROVE_REPORT',
-			payload: { reportId, approvedAt: timeApproved },
-		});
-	};
+  const navReports = () => {
+    if (user.admin === true) {
+      history.push('/admin-reports');
+    } else {
+      history.push('/user-reports');
+    }
+  };
 
-	const navReports = () => {
-		if (user.admin === true) {
-			history.push('/admin-reports');
-		} else {
-			history.push('/user-reports');
-		}
-	};
+  const [editToggle, setEditToggle] = useState(false);
 
-	const [editToggle, setEditToggle] = useState(false);
-  
   const submitNotes = () => {
     dispatch({
       type: 'UPDATE_NOTES',
@@ -64,26 +63,28 @@ export default function EnergyReport() {
       >
         <Button
           onClick={navReports}
-          	sx={{
-						backgroundColor: '#008242',
-						width: '12vw',
-						'&:hover': {
-							backgroundColor: '#00341a',
-						},
-					}}
+          sx={{
+            backgroundColor: '#008242',
+            width: '12vw',
+            '&:hover': {
+              backgroundColor: '#00341a',
+            },
+          }}
         >
           Back to all Reports
         </Button>
         {user.admin ? (
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             {!reportDetails.approved ? (
-              <Button onClick={() => approveReport(reportDetails.id)}
-                	sx={{
-						backgroundColor: '#008242',
-						'&:hover': {
-							backgroundColor: '#00341a',
-						},
-					}}>
+              <Button
+                onClick={() => approveReport(reportDetails.id)}
+                sx={{
+                  backgroundColor: '#008242',
+                  '&:hover': {
+                    backgroundColor: '#00341a',
+                  },
+                }}
+              >
                 Approve
               </Button>
             ) : (
@@ -175,7 +176,13 @@ export default function EnergyReport() {
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Typography level='body-sm'>
-                {reportDetails.current_carbon_footprint} Tons/year
+                {reportDetails?.equipment
+                  ?.reduce(
+                    (sum, item) => sum + Number(item.carbon_footprint),
+                    0
+                  )
+                  .toFixed(3)}{' '}
+                Tons/year
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -183,7 +190,13 @@ export default function EnergyReport() {
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Typography level='body-sm'>
-                ${(reportDetails.current_monthly_cost * 12).toFixed(2)}
+                $
+                {(
+                  reportDetails?.equipment?.reduce(
+                    (sum, item) => sum + Number(item.cost_per_month),
+                    0
+                  ) * 12
+                ).toFixed(2)}
               </Typography>
             </Box>
           </Card>
@@ -194,13 +207,17 @@ export default function EnergyReport() {
         >
           <Typography level='h3'>Equipment</Typography>
           {user.admin === true && (
-            <Button onClick={() => setOpen(true)}
-	          sx={{
-						backgroundColor: '#008242',
-						'&:hover': {
-							backgroundColor: '#00341a',
-						},
-					}}>Add Equiment</Button>
+            <Button
+              onClick={() => setOpen(true)}
+              sx={{
+                backgroundColor: '#008242',
+                '&:hover': {
+                  backgroundColor: '#00341a',
+                },
+              }}
+            >
+              Add Equiment
+            </Button>
           )}
           <EquipmentForm
             open={open}
