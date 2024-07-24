@@ -15,7 +15,6 @@ import { Box } from '@mui/joy';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
@@ -58,7 +57,7 @@ function App() {
           display: 'flex',
           flexDirection: 'column',
           height: '100%',
-          minHeight: '100vh' 
+          minHeight: '100vh',
         }}
       >
         <Nav />
@@ -78,18 +77,6 @@ function App() {
           >
             <AboutPage />
           </Route>
-
-          {/* For protected routes, the view could show one of several things on the same route.
-            Visiting localhost:5173/user will show the UserPage if the user is logged in.
-            If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
-            Even though it seems like they are different pages, the user is always on localhost:5173/user */}
-          <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
-            exact
-            path='/user'
-          >
-            <UserPage />
-          </ProtectedRoute>
 
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
@@ -213,7 +200,7 @@ function App() {
           >
             {user.id ? (
               // If the user is already logged in,
-              // redirect to the /user page
+              // redirect to the /
               <Redirect to='/home-page' />
             ) : (
               // Otherwise, show the login page
