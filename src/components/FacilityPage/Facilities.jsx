@@ -50,7 +50,8 @@ function Facilities() {
       </Box>
       <Box display='flex' flexWrap='wrap' justifyContent='center'>
         {facilities.map((facility) => (
-          <Box key={facility.id} m={2}>
+          <Box key={facility.id} m={2} overflow={'hidden'}
+            height={'400px'}>
             <ReactCardFlip isFlipped={editRowId === facility.id} flipDirection='horizontal'>
               <Card sx={{ border: 'solid green', width: '250px' }}>
                 <CardContent sx={{ px: 4 }}>
