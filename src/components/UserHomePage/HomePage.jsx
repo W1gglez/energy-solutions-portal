@@ -156,12 +156,7 @@ function HomePage() {
                       {report.approved ? (
                         <td>
                           <Button variant='outlined' color='primary' onClick={() => navReport(report.id)}
-                        sx={{
-              backgroundColor: '#008242',
-              '&:hover': {
-                backgroundColor: '#00341a',
-              },
-            }}>
+                        >
                             View Report
                           </Button>
                         </td>
