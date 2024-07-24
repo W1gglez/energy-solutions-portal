@@ -327,23 +327,38 @@ export default function AssessmentReview() {
       >
         <Button
           onClick={() => history.push('/assessment/additional-equipment')}
-          sx={{ width: '25%' }}
-        >
+          sx={{
+            backgroundColor: '#008242',
+            width: '25%',
+            '&:hover': {
+              backgroundColor: '#00341a',
+            },
+          }}        >
           Previous
         </Button>
         {equipmentInv.length === 0 ? (
           <Button
             onClick={submitAssessment}
-            sx={{ width: '25%' }}
-            disabled
+            sx={{
+              backgroundColor: '#008242',
+              width: '25%',
+              '&:hover': {
+                backgroundColor: '#00341a',
+              },
+            }}            disabled
           >
             Submit
           </Button>
         ) : (
           <Button
             onClick={submitAssessment}
-            sx={{ width: '25%' }}
-          >
+            sx={{
+              backgroundColor: '#008242',
+              width: '25%',
+              '&:hover': {
+                backgroundColor: '#00341a',
+              },
+            }}          >
             Submit
           </Button>
         )}

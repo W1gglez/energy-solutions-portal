@@ -58,7 +58,17 @@ function LoginForm() {
         </label>
       </div>
       <div>
-        <Button className = 'Button' type="submit" name="submit" value="Log In" >
+        <Button 
+        className = 'Button' 
+        sx={{
+          backgroundColor: '#008242',
+          '&:hover': {
+            backgroundColor: '#00341a',
+          },
+        }}
+        type="submit" 
+        name="submit" 
+        value="Log In" >
         Log In
         </Button>
       </div>

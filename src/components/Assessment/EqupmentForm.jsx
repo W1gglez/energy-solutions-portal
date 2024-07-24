@@ -467,6 +467,7 @@ export default function EquipmentForm(props) {
                 <FormLabel>Daily Use*</FormLabel>
                 <Input
                   type='number'
+                  required
                   value={equipment.hoursPerDay}
                   slotProps={{ input: { min: 0, max: 24 } }}
                   placeholder='Hours used per day'
@@ -503,12 +504,23 @@ export default function EquipmentForm(props) {
           >
             <Button
               type='submit'
-              sx={{ width: '25vw' }}
-            >
+              sx={{
+                backgroundColor: '#008242',
+                width: '25%',
+                '&:hover': {
+                  backgroundColor: '#00341a',
+                },
+              }}            >
               Submit
             </Button>
             <Button
-              sx={{ width: '25vw' }}
+              sx={{
+                backgroundColor: '#008242',
+                width: '25%',
+                '&:hover': {
+                  backgroundColor: '#00341a',
+                },
+              }}
               onClick={handleClose}
             >
               Cancel

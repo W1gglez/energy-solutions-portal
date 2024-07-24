@@ -151,21 +151,39 @@ export default function Q3() {
       >
         <Button
           onClick={() => history.push('/assessment/q2')}
-          sx={{ width: '25%' }}
+          sx={{
+            backgroundColor: '#008242',
+            width: '25%',
+            '&:hover': {
+              backgroundColor: '#00341a',
+            },
+          }}
         >
           Previous
         </Button>
         {responses.hot_water ? (
           <Button
             onClick={recordResponse}
-            sx={{ width: '25%' }}
+            sx={{
+              backgroundColor: '#008242',
+              width: '25%',
+              '&:hover': {
+                backgroundColor: '#00341a',
+              },
+            }}
           >
             Next
           </Button>
         ) : (
           <Button
             onClick={recordResponse}
-            sx={{ width: '25%' }}
+            sx={{
+              backgroundColor: '#008242',
+              width: '25%',
+              '&:hover': {
+                backgroundColor: '#00341a',
+              },
+            }}
             disabled
           >
             Next

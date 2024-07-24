@@ -103,7 +103,7 @@ function FacilityForm() {
     >
       <Button
         onClick={handleOpen}
-        style={{ margin: '40px' }}
+        style={{ margin: '40px', backgroundColor: '#008242' }}
       >
         Enter New Facility
       </Button>
@@ -290,13 +290,19 @@ function FacilityForm() {
                   <Button
                     type='submit'
                     fullWidth
+                    sx={{
+                      backgroundColor: '#008242',
+                      '&:hover': {
+                        backgroundColor: '#00341a',
+                      },
+                    }}
                   >
                     Submit
                   </Button>
                 </Grid>
                 <Grid xs>
                   <Button
-                    color='warning'
+                    color='danger'
                     fullWidth
                     onClick={handleClose}
                   >

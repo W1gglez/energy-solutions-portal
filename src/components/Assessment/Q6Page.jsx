@@ -86,7 +86,14 @@ export default function Q6() {
           xs={8}
           sx={{ textAlign: 'center', py: 4 }}
         >
-          <Button onClick={() => setOpen(true)}>Add HVAC System Details</Button>
+          <Button onClick={() => setOpen(true)}
+            sx={{
+              backgroundColor: '#008242',
+              '&:hover': {
+                backgroundColor: '#00341a',
+              },
+            }}
+            >Add HVAC System Details</Button>
         </Grid>
       </Grid>
       <Grid
@@ -95,14 +102,24 @@ export default function Q6() {
       >
         <Button
           onClick={() => history.push('/assessment/q5')}
-          sx={{ width: '25%' }}
-        >
+          sx={{
+            backgroundColor: '#008242',
+            width: '25%',
+            '&:hover': {
+              backgroundColor: '#00341a',
+            },
+          }}        >
           Previous
         </Button>
         <Button
           onClick={recordResponse}
-          sx={{ width: '25%' }}
-        >
+          sx={{
+            backgroundColor: '#008242',
+            width: '25%',
+            '&:hover': {
+              backgroundColor: '#00341a',
+            },
+          }}        >
           Next
         </Button>
       </Grid>

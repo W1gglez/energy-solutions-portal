@@ -55,14 +55,26 @@ function EnergyCost() {
         {energyCost.electric ? (
           <Button
             onClick={recordResponse}
-            sx={{ width: '25%' }}
+            sx={{
+              backgroundColor: '#008242',
+              width: '25%',
+              '&:hover': {
+                backgroundColor: '#00341a',
+              },
+            }}
           >
             Next
           </Button>
         ) : (
           <Button
             onClick={recordResponse}
-            sx={{ width: '25%' }}
+            sx={{
+              backgroundColor: '#008242',
+              width: '25%',
+              '&:hover': {
+                backgroundColor: '#00341a',
+              },
+            }}
             disabled
           >
             Next

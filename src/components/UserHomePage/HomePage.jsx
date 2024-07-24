@@ -102,7 +102,15 @@ function HomePage() {
               }}
             >
               <h3>My assessments</h3>
-              <Button onClick={() => history.push('/user-reports')}>
+              <Button 
+            onClick={() => history.push('/admin-reports')}
+            sx={{
+              backgroundColor: '#008242',
+              '&:hover': {
+                backgroundColor: '#00341a',
+              },
+            }}
+            >
                 View all assessments
               </Button>
             </Container>
@@ -125,11 +133,11 @@ function HomePage() {
               >
                 <thead>
                   <tr>
-                    <th style={{ width: '40%', backgroundColor: 'lightgrey' }}>
+                    <th style={{ width: '40%', backgroundColor: '#e5f2ec' }}>
                       Date Submitted
                     </th>
-                    <th style={{ backgroundColor: 'lightgrey' }}>Facility</th>
-                    <th style={{ backgroundColor: 'lightgrey' }}>Status</th>
+                    <th style={{ backgroundColor: '#e5f2ec' }}>Facility</th>
+                    <th style={{ backgroundColor: '#e5f2ec' }}>Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -192,7 +200,15 @@ function HomePage() {
           }}
         >
           <h3>My facilities </h3>
-          <Button onClick={() => history.push('/facilities')}>
+          <Button 
+          onClick={() => history.push('/facilities')}
+          sx={{
+            backgroundColor: '#008242',
+            '&:hover': {
+              backgroundColor: '#00341a',
+            },
+          }}
+          >
             View all Facilities
           </Button>
         </Container>
@@ -216,13 +232,13 @@ function HomePage() {
               >
                 <thead>
                   <tr>
-                    <th style={{ width: '25%', backgroundColor: 'lightgrey' }}>
+                    <th style={{ width: '25%', backgroundColor: '#e5f2ec' }}>
                       Facility
                     </th>
-                    <th style={{ backgroundColor: 'lightgrey' }}>Address</th>
-                    <th style={{ backgroundColor: 'lightgrey' }}>City</th>
-                    <th style={{ backgroundColor: 'lightgrey' }}>State</th>
-                    <th style={{ backgroundColor: 'lightgrey' }}></th>
+                    <th style={{ backgroundColor: '#e5f2ec' }}>Address</th>
+                    <th style={{ backgroundColor: '#e5f2ec' }}>City</th>
+                    <th style={{ backgroundColor: '#e5f2ec' }}>State</th>
+                    <th style={{ backgroundColor: '#e5f2ec' }}></th>
                   </tr>
                 </thead>
                 <tbody>

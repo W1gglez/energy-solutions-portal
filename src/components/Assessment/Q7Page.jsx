@@ -187,7 +187,13 @@ export default function Q7() {
           xs={8}
           sx={{ textAlign: 'center', py: 4 }}
         >
-          <Button onClick={() => setOpen(true)}>Add Light Details</Button>
+          <Button onClick={() => setOpen(true)}
+            sx={{
+              backgroundColor: '#008242',
+              '&:hover': {
+                backgroundColor: '#00341a',
+              },
+            }}>Add Light Details</Button>
         </Grid>
       </Grid>
       <Grid
@@ -200,14 +206,24 @@ export default function Q7() {
       >
         <Button
           onClick={() => history.push('/assessment/q6')}
-          sx={{ width: '25%' }}
-        >
+          sx={{
+            backgroundColor: '#008242',
+            width: '25%',
+            '&:hover': {
+              backgroundColor: '#00341a',
+            },
+          }}        >
           Previous
         </Button>
         <Button
           onClick={recordResponse}
-          sx={{ width: '25%' }}
-        >
+          sx={{
+            backgroundColor: '#008242',
+            width: '25%',
+            '&:hover': {
+              backgroundColor: '#00341a',
+            },
+          }}        >
           Next
         </Button>
       </Grid>

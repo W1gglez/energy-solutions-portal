@@ -83,7 +83,7 @@ function AdminFacilities() {
                 <CardActions>
                   <Tooltip title='Edit Facility Information'>
                     <Button size='lg' color='primary' onClick={() => handleEditClick(facility)}>
-                      <i className='bi bi-pencil-square' style={{ fontSize: '4vh' }}></i>
+                      <i className='bi bi-pencil-square' style={{ fontSize: '4vh', color: '#008242'}}></i>
                     </Button>
                   </Tooltip>
                   <Tooltip title='Delete'>
