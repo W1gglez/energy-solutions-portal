@@ -22,6 +22,12 @@ function RegisterPage() {
       <center>
         <Button
           type="button"
+          sx={{
+            backgroundColor: '#008242',
+            '&:hover': {
+              backgroundColor: '#00341a',
+            },
+          }}
           className="Button"
           onClick={() => {
             history.push('/login');

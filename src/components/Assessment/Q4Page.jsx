@@ -149,7 +149,14 @@ export default function Q4() {
             xs={12}
             sx={{ justifyContent: 'center' }}
           >
-            <Button onClick={() => setOpen(true)}>
+            <Button onClick={() => setOpen(true)}
+              sx={{
+                backgroundColor: '#008242',
+                '&:hover': {
+                  backgroundColor: '#00341a',
+                },
+              }}
+              >
               Add Water Heater Details
             </Button>
           </Grid>
@@ -161,21 +168,39 @@ export default function Q4() {
       >
         <Button
           onClick={() => history.push('/assessment/q3')}
-          sx={{ width: '25%' }}
+          sx={{
+            backgroundColor: '#008242',
+            width: '25%',
+            '&:hover': {
+              backgroundColor: '#00341a',
+            },
+          }}
         >
           Previous
         </Button>
         {responses.water_heater.age && responses.water_heater.tempSetting ? (
           <Button
             onClick={recordResponse}
-            sx={{ width: '25%' }}
-          >
+            sx={{
+              backgroundColor: '#008242',
+              width: '25%',
+              '&:hover': {
+                backgroundColor: '#00341a',
+              },
+            }}
+                      >
             Next
           </Button>
         ) : (
           <Button
             onClick={recordResponse}
-            sx={{ width: '25%' }}
+            sx={{
+              backgroundColor: '#008242',
+              width: '25%',
+              '&:hover': {
+                backgroundColor: '#00341a',
+              },
+            }}
             disabled
           >
             Next

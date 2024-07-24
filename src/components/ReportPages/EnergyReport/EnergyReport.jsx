@@ -13,6 +13,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import EquipmentForm from '../../Assessment/EqupmentForm';
 
 export default function EnergyReport() {
+
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useParams();
@@ -21,28 +22,29 @@ export default function EnergyReport() {
 
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    dispatch({ type: 'FETCH_REPORT_DETAILS', payload: params.id });
-  }, []);
 
-  const approveReport = (reportId) => {
-    const timeApproved = DateTime.now().setLocale('zh').toLocaleString();
-    dispatch({
-      type: 'APPROVE_REPORT',
-      payload: { reportId, approvedAt: timeApproved },
-    });
-  };
+	useEffect(() => {
+		dispatch({ type: 'FETCH_REPORT_DETAILS', payload: params.id });
+	}, []);
 
-  const navReports = () => {
-    if (user.admin === true) {
-      history.push('/admin-reports');
-    } else {
-      history.push('/user-reports');
-    }
-  };
+	const approveReport = (reportId) => {
+		const timeApproved = DateTime.now().setLocale('zh').toLocaleString();
+		dispatch({
+			type: 'APPROVE_REPORT',
+			payload: { reportId, approvedAt: timeApproved },
+		});
+	};
 
-  const [editToggle, setEditToggle] = useState(false);
+	const navReports = () => {
+		if (user.admin === true) {
+			history.push('/admin-reports');
+		} else {
+			history.push('/user-reports');
+		}
+	};
 
+	const [editToggle, setEditToggle] = useState(false);
+  
   const submitNotes = () => {
     dispatch({
       type: 'UPDATE_NOTES',
@@ -62,14 +64,26 @@ export default function EnergyReport() {
       >
         <Button
           onClick={navReports}
-          sx={{ width: '12vw' }}
+          	sx={{
+						backgroundColor: '#008242',
+						width: '12vw',
+						'&:hover': {
+							backgroundColor: '#00341a',
+						},
+					}}
         >
           Back to all Reports
         </Button>
         {user.admin ? (
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             {!reportDetails.approved ? (
-              <Button onClick={() => approveReport(reportDetails.id)}>
+              <Button onClick={() => approveReport(reportDetails.id)}
+                	sx={{
+						backgroundColor: '#008242',
+						'&:hover': {
+							backgroundColor: '#00341a',
+						},
+					}}>
                 Approve
               </Button>
             ) : (
@@ -180,7 +194,13 @@ export default function EnergyReport() {
         >
           <Typography level='h3'>Equipment</Typography>
           {user.admin === true && (
-            <Button onClick={() => setOpen(true)}>Add Equiment</Button>
+            <Button onClick={() => setOpen(true)}
+	          sx={{
+						backgroundColor: '#008242',
+						'&:hover': {
+							backgroundColor: '#00341a',
+						},
+					}}>Add Equiment</Button>
           )}
           <EquipmentForm
             open={open}

@@ -194,13 +194,25 @@ export default function Q2() {
       >
         <Button
           onClick={() => history.push('/assessment/q1')}
-          sx={{ width: '25%' }}
+          sx={{
+            backgroundColor: '#008242',
+            width: '25%',
+            '&:hover': {
+              backgroundColor: '#00341a',
+            },
+          }}
         >
           Previous
         </Button>
         <Button
           onClick={recordResponse}
-          sx={{ width: '25%' }}
+          sx={{
+            backgroundColor: '#008242',
+            width: '25%',
+            '&:hover': {
+              backgroundColor: '#00341a',
+            },
+          }}
         >
           Next
         </Button>

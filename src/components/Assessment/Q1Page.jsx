@@ -109,13 +109,25 @@ export default function Q1() {
       >
         <Button
           onClick={() => history.push('/assessment/energy-cost')}
-          sx={{ width: '25%' }}
+          sx={{
+            backgroundColor: '#008242',
+            width: '25%',
+            '&:hover': {
+              backgroundColor: '#00341a',
+            },
+          }}
         >
           Previous
         </Button>
         <Button
           onClick={recordResponse}
-          sx={{ width: '25%' }}
+          sx={{
+            backgroundColor: '#008242',
+            width: '25%',
+            '&:hover': {
+              backgroundColor: '#00341a',
+            },
+          }}
         >
           Next
         </Button>

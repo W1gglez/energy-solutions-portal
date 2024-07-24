@@ -12,7 +12,7 @@ function Facilities() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_USER_FACILITIES' });
+    dispatch({ type: 'FETCH_FACILITIES' });
   }, [dispatch]);
 
   const handleEditClick = (facility) => {
@@ -33,7 +33,7 @@ function Facilities() {
   };
 
   const handleDeleteClick = (facility) => {
-    dispatch({ type: 'DELETE_USER_FACILITY', payload: facility.id });
+    dispatch({ type: 'DELETE_FACILITY', payload: facility.id });
   };
 
   const handleChange = (e) => {
@@ -45,111 +45,55 @@ function Facilities() {
 
   return (
     <>
-      <Box
-        className='facility-header'
-        display='flex'
-        alignItems='center'
-        p={3}
-      >
+      <Box className='facility-header' height={40} display='flex' alignItems='center' p={5}>
         <h2>Facility Information</h2>
       </Box>
-      <Box
-        display='flex'
-        flexWrap='wrap'
-        justifyContent='center'
-      >
+      <Box display='flex' flexWrap='wrap' justifyContent='center'>
         {facilities.map((facility) => (
-          <Box
-            key={facility.id}
-            m={2}
-            overflow={'hidden'}
-            height={'400px'}
-          >
-            <ReactCardFlip
-              isFlipped={editRowId === facility.id}
-              flipDirection='horizontal'
-            >
+          <Box key={facility.id} m={2} overflow={'hidden'}
+            height={'400px'}>
+            <ReactCardFlip isFlipped={editRowId === facility.id} flipDirection='horizontal'>
               <Card sx={{ border: 'solid green', width: '250px' }}>
                 <CardContent sx={{ px: 4 }}>
-                  <Typography
-                    gutterBottom
-                    variant='h5'
-                    component='div'
-                  >
+                  <Typography gutterBottom variant='h5' component='div'>
                     {facility.name}
                   </Typography>
-                  <Typography
-                    variant='body1'
-                    color='text.primary'
-                  >
+                  <Typography variant='body1' color='text.primary'>
                     {facility.address}
                   </Typography>
-                  <Typography
-                    variant='body1'
-                    color='text.primary'
-                    mb={2}
-                  >
+                  <Typography variant='body1' color='text.primary' mb={2}>
                     {facility.city}, {facility.state}, {facility.zip}
                   </Typography>
-                  <Typography
-                    variant='body2'
-                    color='text.secondary'
-                  >
+                  <Typography variant='body2' color='text.secondary'>
                     <strong>Years in Business: </strong>
                     {facility.years_in_business}
                   </Typography>
-                  <Typography
-                    variant='body2'
-                    color='text.secondary'
-                  >
+                  <Typography variant='body2' color='text.secondary'>
                     <strong> Building Age: </strong>
                     {facility.building_age}
                   </Typography>
-                  <Typography
-                    variant='body2'
-                    color='text.secondary'
-                  >
+                  <Typography variant='body2' color='text.secondary'>
                     <strong> Hours of Operation: </strong>
                     {facility.hours_of_operation}
                   </Typography>
-                  <Typography
-                    variant='body2'
-                    color='text.secondary'
-                  >
+                  <Typography variant='body2' color='text.secondary'>
                     <strong> Number of Guests: </strong>
                     {facility.weekly_customers}
                   </Typography>
-                  <Typography
-                    variant='body2'
-                    color='text.secondary'
-                  >
+                  <Typography variant='body2' color='text.secondary'>
                     <strong> Sit Down Restaurant: </strong>
                     {facility.sit_down ? 'Yes' : 'No'}
                   </Typography>
                 </CardContent>
                 <CardActions sx={{ justifyContent: 'space-around' }}>
                   <Tooltip title='Edit Facility Information'>
-                    <Button
-                      size='lg'
-                      color='primary'
-                      onClick={() => handleEditClick(facility)}
-                    >
-                      <i
-                        className='bi bi-pencil-square'
-                        style={{ fontSize: '4vh' }}
-                      ></i>
+                    <Button size='lg' color='primary' onClick={() => handleEditClick(facility)}>
+                      <i className='bi bi-pencil-square' style={{ fontSize: '4vh', color: '#008242'}}></i>
                     </Button>
                   </Tooltip>
                   <Tooltip title='Delete'>
-                    <Button
-                      size='lg'
-                      color='error'
-                      onClick={() => handleDeleteClick(facility)}
-                    >
-                      <i
-                        className='bi bi-trash2'
-                        style={{ fontSize: '4vh' }}
-                      ></i>
+                    <Button size='lg' color='error' onClick={() => handleDeleteClick(facility)}>
+                      <i className='bi bi-trash2' style={{ fontSize: '4vh' }}></i>
                     </Button>
                   </Tooltip>
                 </CardActions>
@@ -157,11 +101,7 @@ function Facilities() {
 
               <Card>
                 <CardContent>
-                  <Typography
-                    gutterBottom
-                    variant='h5'
-                    component='div'
-                  >
+                  <Typography gutterBottom variant='h5' component='div'>
                     Edit {facility.name}
                   </Typography>
                   <TextField
@@ -249,19 +189,10 @@ function Facilities() {
                 </CardContent>
                 <CardActions>
                   <Button onClick={handleSaveClick}>
-                    <i
-                      className='bi bi-floppy'
-                      style={{ fontSize: '4vh' }}
-                    ></i>
+                    <i className='bi bi-floppy' style={{ fontSize: '4vh' }}></i>
                   </Button>
-                  <Button
-                    color='success'
-                    onClick={handleCancelClick}
-                  >
-                    <i
-                      className='bi bi-x-circle'
-                      style={{ fontSize: '4vh' }}
-                    ></i>
+                  <Button color='success' onClick={handleCancelClick}>
+                    <i className='bi bi-x-circle' style={{ fontSize: '4vh' }}></i>
                   </Button>
                 </CardActions>
               </Card>

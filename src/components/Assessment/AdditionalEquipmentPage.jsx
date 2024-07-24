@@ -85,7 +85,13 @@ export default function AdditionalEquipment() {
           xs={8}
           sx={{ textAlign: 'center', py: 4 }}
         >
-          <Button onClick={() => setOpen(true)}>Add Equipment</Button>
+          <Button onClick={() => setOpen(true)}
+            sx={{
+              backgroundColor: '#008242',
+              '&:hover': {
+                backgroundColor: '#00341a',
+              },
+            }}>Add Equipment</Button>
         </Grid>
       </Grid>
       <Grid
@@ -94,14 +100,24 @@ export default function AdditionalEquipment() {
       >
         <Button
           onClick={() => history.push('/assessment/q7')}
-          sx={{ width: '25%' }}
-        >
+          sx={{
+            backgroundColor: '#008242',
+            width: '25%',
+            '&:hover': {
+              backgroundColor: '#00341a',
+            },
+          }}        >
           Previous
         </Button>
         <Button
           onClick={recordResponse}
-          sx={{ width: '25%' }}
-        >
+          sx={{
+            backgroundColor: '#008242',
+            width: '25%',
+            '&:hover': {
+              backgroundColor: '#00341a',
+            },
+          }}        >
           Review
         </Button>
       </Grid>

@@ -14,5 +14,9 @@ export default function ExitAssessmentButton() {
     dispatch({ type: 'CLEAR_EQUIPMENT' });
   };
 
-  return <Button onClick={handleExit}>Exit Assessment</Button>;
+  return <Button 
+  onClick={handleExit}
+  sx={{ backgroundColor: '#008242', '&:hover': { backgroundColor: '#00341a' } }}
+  >
+    Exit Assessment</Button>;
 }

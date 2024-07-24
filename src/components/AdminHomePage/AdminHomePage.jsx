@@ -53,8 +53,15 @@ function AdminHomePage() {
               my: '10px',
             }}
           >
+
             <h3>Reports Pending Review</h3>
-            <Button size='sm' onClick={() => history.push('/admin-reports')}>
+            <Button size='sm' onClick={() => history.push('/admin-reports')}
+               sx={{
+              backgroundColor: '#008242',
+              '&:hover': {
+                backgroundColor: '#00341a',
+              },
+            }}>
               View All Reports
             </Button>
           </Box>
@@ -79,12 +86,14 @@ function AdminHomePage() {
                 >
                   <thead>
                     <tr>
-                      <th style={{ width: '25%', backgroundColor: 'lightgrey', textAlign: 'center' }}>
+
+                      <th style={{ width: '25%', backgroundColor: '#e5f2ec', textAlign: 'center' }}>
                         Date Submitted
                       </th>
-                      <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>Facility</th>
-                      <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>Location</th>
-                      <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>Status</th>
+                      <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>Facility</th>
+                      <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>Location</th>
+                      <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>Status</th>
+
                     </tr>
                   </thead>
                   <tbody>
@@ -93,10 +102,19 @@ function AdminHomePage() {
                         <td>{DateTime.fromISO(report.date_submitted).toFormat('MMMM dd, yyyy')}</td>
                         <td>{report.name}</td>
                         <td>
+
                           {report.city}, {report.state}
                         </td>
                         <td>
-                          <Button size='sm' variant='outlined' color='primary' onClick={() => navReport(report.id)}>
+                          <Button size='sm' variant='outlined' color='primary' onClick={() => navReport(report.id)}
+                            sx={{
+                            borderColor: '#008242',
+                            color: '#008242',
+                            '&:hover': {
+                              backgroundColor: '#00341a',
+                            },
+                          }}>
+
                             Review Report
                           </Button>
                         </td>
@@ -119,7 +137,15 @@ function AdminHomePage() {
             }}
           >
             <h3>Recently Added Facilities</h3>
-            <Button onClick={() => history.push('/admin-facilities')}>View All Facilities</Button>
+            <Button onClick={() => history.push('/admin-facilities')}
+               sx={{
+                backgroundColor: '#008242',
+                '&:hover': {
+                  backgroundColor: '#00341a',
+                },
+              }}
+              >
+                View All Facilities</Button>
           </Box>
           <Sheet
             sx={{
@@ -132,11 +158,13 @@ function AdminHomePage() {
             <Table borderAxis='bothBetween' color='neutral' size='md' stickyFooter={false} stickyHeader variant='plain'>
               <thead>
                 <tr>
-                  <th style={{ width: '25%', backgroundColor: 'lightgrey', textAlign: 'center' }}>Facility</th>
-                  <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>Address</th>
-                  <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>City</th>
-                  <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>State</th>
-                  <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}></th>
+
+                  <th style={{ width: '25%', backgroundColor: '#e5f2ec', textAlign: 'center' }}>Facility</th>
+                  <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>Address</th>
+                  <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>City</th>
+                  <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>State</th>
+                  <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}></th>
+
                 </tr>
               </thead>
               <tbody>
@@ -169,7 +197,11 @@ function AdminHomePage() {
                             <Button variant='solid' color='danger' onClick={() => deleteFacility(facility.id)}>
                               Delete Facility
                             </Button>
-                            <Button variant='plain' color='neutral' onClick={() => setOpen(false)}>
+                            <Button 
+                            variant='plain' 
+                            color='neutral' 
+                            onClick={() => setOpen(false)}
+                            >
                               Cancel
                             </Button>
                           </DialogActions>

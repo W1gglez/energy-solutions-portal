@@ -44,7 +44,15 @@ function EnergyCostForm() {
 
   return (
     <>
-      <Button onClick={handleOpen}>Add Energy Costs</Button>
+      <Button 
+      onClick={handleOpen}
+      sx={{
+        backgroundColor: '#008242',
+        '&:hover': {
+          backgroundColor: '#00341a',
+        },
+      }}
+      >Add Energy Costs</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -150,13 +158,13 @@ function EnergyCostForm() {
               >
                 <Button
                   type='submit'
-                  sx={{ px: 12 }}
+                  sx={{ px: 12, backgroundColor: '#008242' }}
                 >
                   Submit
                 </Button>
                 <Button
                   onClick={handleClose}
-                  sx={{ px: 12 }}
+                  sx={{ px: 12, backgroundColor: '#f00' }}
                 >
                   Cancel
                 </Button>

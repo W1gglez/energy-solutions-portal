@@ -106,9 +106,17 @@ function HomePage() {
                 my: '10px',
               }}
             >
+
               <h3>My Reports</h3>
-              <Button size='sm' onClick={() => history.push('/user-reports')}>
+              <Button size='sm' onClick={() => history.push('/user-reports')}
+                sx={{
+              backgroundColor: '#008242',
+              '&:hover': {
+                backgroundColor: '#00341a',
+              },
+            }}>
                 View all Reports
+
               </Button>
             </Container>
             <Divider />
@@ -130,10 +138,11 @@ function HomePage() {
               >
                 <thead>
                   <tr>
-                    <th style={{ width: '40%', backgroundColor: 'lightgrey', textAlign: 'center' }}>Date Submitted</th>
-                    <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>Facility</th>
-                    <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>Location</th>
-                    <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>Status</th>
+
+                    <th style={{ width: '40%', backgroundColor: '#e5f2ec', textAlign: 'center' }}>Date Submitted</th>
+                    <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>Facility</th>
+                    <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>Location</th>
+                    <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -146,7 +155,13 @@ function HomePage() {
                       </td>
                       {report.approved ? (
                         <td>
-                          <Button variant='outlined' color='primary' onClick={() => navReport(report.id)}>
+                          <Button variant='outlined' color='primary' onClick={() => navReport(report.id)}
+                        sx={{
+              backgroundColor: '#008242',
+              '&:hover': {
+                backgroundColor: '#00341a',
+              },
+            }}>
                             View Report
                           </Button>
                         </td>
@@ -178,7 +193,13 @@ function HomePage() {
                 marginTop: '10px',
               }}
             >
-              <Button onClick={() => setOpenFacilitySelect(true)}>Start Report</Button>
+              <Button onClick={() => setOpenFacilitySelect(true)}
+                sx={{
+              backgroundColor: '#008242',
+              '&:hover': {
+                backgroundColor: '#00341a',
+              },
+            }}>Start Report</Button>
               <FaciliytSelect open={openFacilitySelect} setOpen={setOpenFacilitySelect} />
             </Container>
           </>
@@ -193,8 +214,16 @@ function HomePage() {
             my: '10px',
           }}
         >
+
           <h3>My Facilities </h3>
-          <Button size='sm' onClick={() => history.push('/facilities')}>
+          <Button size='sm' onClick={() => history.push('/facilities')}
+            sx={{
+              backgroundColor: '#008242',
+              '&:hover': {
+                backgroundColor: '#00341a',
+              },
+            }}>
+
             View all Facilities
           </Button>
         </Container>
@@ -218,11 +247,12 @@ function HomePage() {
               >
                 <thead>
                   <tr>
-                    <th style={{ width: '25%', backgroundColor: 'lightgrey', textAlign: 'center' }}>Facility</th>
-                    <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>Address</th>
-                    <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>City</th>
-                    <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}>State</th>
-                    <th style={{ backgroundColor: 'lightgrey', textAlign: 'center' }}></th>
+
+                    <th style={{ width: '25%', backgroundColor: '#e5f2ec', textAlign: 'center' }}>Facility</th>
+                    <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>Address</th>
+                    <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>City</th>
+                    <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}>State</th>
+                    <th style={{ backgroundColor: '#e5f2ec', textAlign: 'center' }}></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -277,7 +307,13 @@ function HomePage() {
               marginTop: '10px',
             }}
           >
-            <Button onClick={() => history.push('/facilities')}>Add Facility</Button>
+            <Button onClick={() => history.push('/facilities')}
+              sx={{
+              backgroundColor: '#008242',
+              '&:hover': {
+                backgroundColor: '#00341a',
+              },
+            }}>Add Facility</Button>
           </Container>
         )}
       </section>
