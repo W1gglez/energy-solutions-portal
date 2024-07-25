@@ -28,7 +28,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     });
 });
 
-// GET report details for specific report 
+// GET report details for specific report
 router.get('/details/:id', rejectUnauthenticated, (req, res) => {
   // const userId = req.user.id;
   const reportId = req.params.id;
@@ -67,10 +67,12 @@ recommendations_agg AS (
   SELECT
     r."report_id",
     array_agg(
+    json_build_object(
       
-        r.recommendations
+        'id', r.id,
+        'recommendation', r.recommendations
       
-    ) AS recommendations
+     ) )AS recommendations
   FROM
     "recommendations" r
   GROUP BY r."report_id"
@@ -124,8 +126,7 @@ VALUES ($1, $2) RETURNING id;`;
     .then((result) => {
       const reportId = result.rows[0].id;
       const { equipment, responses, energyCosts } = req.body;
-      const { electric, natural_gas, liquid_propane, gas_propane } =
-        energyCosts;
+      const { electric, natural_gas, liquid_propane, gas_propane } = energyCosts;
       const query = `Insert INTO energy_cost (
       "report_id",
       "electric",
@@ -134,34 +135,18 @@ VALUES ($1, $2) RETURNING id;`;
       "gas_propane"
       ) VALUES ($1, $2, $3, $4, $5)`;
       pool
-        .query(query, [
-          reportId,
-          electric,
-          natural_gas || null,
-          liquid_propane || null,
-          gas_propane || null,
-        ])
+        .query(query, [reportId, electric, natural_gas || null, liquid_propane || null, gas_propane || null])
         .then()
         .catch((err) => {
           console.error('Error POSTing energy costs', err);
           res.sendStatus(500);
         });
 
-      const {
-        Rush_of_air,
-        entry_heater,
-        hot_water,
-        lights,
-        restroom_leaks,
-        thermostat,
-        water_heater,
-      } = responses;
+      const { Rush_of_air, entry_heater, hot_water, lights, restroom_leaks, thermostat, water_heater } = responses;
 
       const recommendations = [];
       if (Rush_of_air !== false) {
-        recommendations.push(
-          'Check the filters on the make-up air unit and have the system balanced.'
-        );
+        recommendations.push('Check the filters on the make-up air unit and have the system balanced.');
       }
       if (entry_heater.isRunning !== false) {
         recommendations.push(
@@ -177,34 +162,22 @@ VALUES ($1, $2) RETURNING id;`;
         );
       }
       if (water_heater.age > 10) {
-        recommendations.push(
-          'Replace the water heater with a high-efficiency model.'
-        );
+        recommendations.push('Replace the water heater with a high-efficiency model.');
       }
       if (water_heater.tempSetting > 140) {
-        recommendations.push(
-          'Lower the water heater temperature to a maximum of 140 degrees.'
-        );
+        recommendations.push('Lower the water heater temperature to a maximum of 140 degrees.');
       }
       if (water_heater.tempSetting < 120) {
-        recommendations.push(
-          'Raise the water heater temperature to a minimum of 120 degrees.'
-        );
+        recommendations.push('Raise the water heater temperature to a minimum of 120 degrees.');
       }
       if (lights.isLED !== true) {
-        recommendations.push(
-          'Update lightbulbs to LED bulbs instead of incandescent or CFL bulbs.'
-        );
+        recommendations.push('Update lightbulbs to LED bulbs instead of incandescent or CFL bulbs.');
       }
       if (lights.motionSensor !== true) {
-        recommendations.push(
-          'Set up Motion Sensors to automatically turn off lights unless someone is in the room.'
-        );
+        recommendations.push('Set up Motion Sensors to automatically turn off lights unless someone is in the room.');
       }
       if (hot_water > 10) {
-        recommendations.push(
-          'Install a hot water circulating system to ensure hot water is available at all times.'
-        );
+        recommendations.push('Install a hot water circulating system to ensure hot water is available at all times.');
       }
       if (restroom_leaks !== false) {
         recommendations.push('Fix restroom leaks immediately.');
@@ -342,6 +315,37 @@ router.put('/notes/:id', rejectUnauthenticated, (req, res) => {
     res.sendStatus(200);
   } catch (error) {
     console.log('error updating report notes', error);
+    res.sendStatus(500);
+  }
+});
+
+// delete report recommendations
+router.delete('/recommendation/:recommendationId', rejectUnauthenticated, (req, res) => {
+  const recommendationId = req.params.recommendationId;
+  console.log('in recommendations delete, check recommendationId', recommendationId);
+  try {
+    const queryText = `
+  DELETE FROM "recommendations"
+  WHERE "id"=$1;`;
+    pool.query(queryText, [recommendationId]);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log('error deleting report recommendation', error);
+    res.sendStatus(500);
+  }
+});
+
+// post to add new recommendation
+router.post('/recommendations', rejectUnauthenticated, (req, res) => {
+  console.log('in recommendations post, check req.body', req.body);
+  try {
+    const queryText = `
+    INSERT INTO "recommendations" ("report_id", "recommendations")
+    VALUES ($1, $2);`;
+    pool.query(queryText, [req.body.reportId, req.body.recommendations]);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log('error adding new recommendation', error);
     res.sendStatus(500);
   }
 });

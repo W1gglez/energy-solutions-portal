@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Box, Button, Grid } from '@mui/joy';
+import { Container, Box, Button, Grid, ListItemDecorator } from '@mui/joy';
 import Card from '@mui/joy/Card';
 import Typography from '@mui/joy/Typography';
 import { DateTime } from 'luxon';
@@ -11,6 +11,8 @@ import ReportEquipmentCard from '../ReportEquipmentCard/ReportEquipmentCard';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import EquipmentForm from '../../Assessment/EqupmentForm';
+import ClearIcon from '@mui/icons-material/Clear';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 export default function EnergyReport() {
   const dispatch = useDispatch();
@@ -41,14 +43,48 @@ export default function EnergyReport() {
     }
   };
 
-  const [editToggle, setEditToggle] = useState(false);
+  // edit notes
+  const [editNotesToggle, setEditNotesToggle] = useState(false);
 
   const submitNotes = () => {
     dispatch({
       type: 'UPDATE_NOTES',
       payload: { reportId: reportDetails.id, notes: reportDetails.notes },
     });
-    setEditToggle(!editToggle);
+    setEditNotesToggle(!editNotesToggle);
+  };
+
+  // delete recommendations
+  const [deleteRecsToggle, setDeleteRecsToggle] = useState(false);
+
+  const deleteRecommendation = (recommendationId) => {
+    console.log('in submitRecommendations, check rec id', recommendationId);
+    console.log('in submitRecommendations, check params id', params.id);
+    dispatch({ type: 'DELETE_RECOMMENDATION', payload: { recommendationId, reportId: params.id } });
+  };
+
+  // add recommendation
+  const [addRecToggle, setAddRecToggle] = useState(false);
+
+  let [newRec, setNewRec] = useState({
+    recommendations: '',
+  });
+
+  const handleNewRec = (event) => {
+    event.preventDefault();
+    setNewRec(event.target.value);
+    console.log('check new rec', newRec);
+  };
+
+  const submitRec = (event) => {
+    console.log('in submitRec, check params.id', params.id);
+    event.preventDefault();
+    console.log('check newrec', newRec.recommendations);
+    if (newRec.recommendations === '') {
+      return;
+    } else {
+      dispatch({ type: 'ADD_RECOMMENDATION', payload: { recommendations: newRec, reportId: params.id } });
+    }
   };
 
   return (
@@ -244,9 +280,37 @@ export default function EnergyReport() {
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Typography level='body-sm'>
-                {reportDetails?.recommendations?.map((recommendation, index) => (
-                  <li key={index}>{recommendation}</li>
-                ))}
+                {reportDetails?.recommendations?.map((recommendation) =>
+                  deleteRecsToggle ? (
+                    <li className='recommendation-item' key={recommendation.id}>
+                      <IconButton onClick={() => deleteRecommendation(recommendation.id)}>
+                        <ClearIcon />
+                      </IconButton>
+                      {recommendation.recommendation}
+                    </li>
+                  ) : (
+                    <li key={recommendation.id}>{recommendation.recommendation}</li>
+                  )
+                )}
+                {addRecToggle ? (
+                  <form onSubmit={submitRec}>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      <input
+                        className='form-control'
+                        id='recommendations'
+                        type='text'
+                        placeholder='New Recommendation'
+                        value={newRec.recommendations}
+                        onChange={handleNewRec}
+                      />
+                      <Button type='submit' color='success'>
+                        Submit
+                      </Button>
+                    </Box>
+                  </form>
+                ) : (
+                  ''
+                )}
               </Typography>
             </Box>
           </Card>
@@ -285,7 +349,7 @@ export default function EnergyReport() {
             >
               <Typography level='title-lg'>Report Notes</Typography>
               {user.admin ? (
-                <IconButton onClick={() => setEditToggle(!editToggle)}>
+                <IconButton onClick={() => setEditNotesToggle(!editNotesToggle)}>
                   <EditIcon />
                 </IconButton>
               ) : (
@@ -293,12 +357,13 @@ export default function EnergyReport() {
               )}
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              {editToggle ? (
+              {editNotesToggle ? (
                 <form onSubmit={submitNotes}>
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <textarea
-                      className='text-area'
-                      rows='3'
+                    <input
+                      className='form-control'
+                      id='recommendations'
+                      type='text'
                       placeholder='Edit Notes'
                       value={reportDetails?.notes}
                       onChange={(event) =>
@@ -307,11 +372,11 @@ export default function EnergyReport() {
                           payload: { notes: event.target.value },
                         })
                       }
-                    ></textarea>
+                    />
+                    <Button color='success' type='submit'>
+                      Submit
+                    </Button>
                   </Box>
-                  <Button color='success' type='submit'>
-                    Submit
-                  </Button>
                 </form>
               ) : (
                 <Typography level='body-sm'>{reportDetails.notes}</Typography>
