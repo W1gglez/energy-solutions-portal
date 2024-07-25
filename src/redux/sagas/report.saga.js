@@ -26,9 +26,7 @@ function* fetchUserReports() {
 // saga to get report details for one facility
 function* fetchReportDetails(action) {
   try {
-    const reportDetails = yield axios.get(
-      `/api/report/details/${action.payload}`
-    );
+    const reportDetails = yield axios.get(`/api/report/details/${action.payload}`);
     console.log(reportDetails);
     yield put({ type: 'SET_REPORT_DETAILS', payload: reportDetails.data[0] });
   } catch (error) {
@@ -76,16 +74,36 @@ function* approveReport(action) {
 function* updateNotes(action) {
   try {
     console.log('in update notes saga, check action.payload', action.payload);
-    yield axios.put(
-      `/api/report/notes/${action.payload.reportId}`,
-      action.payload
-    );
+    yield axios.put(`/api/report/notes/${action.payload.reportId}`, action.payload);
     yield put({
       type: 'FETCH_REPORT_DETAILS',
       payload: action.payload.reportId,
     });
   } catch (error) {
     console.log('error updating notes', error);
+  }
+}
+
+// saga to delete report recommendation
+function* deleteRecommendation(action) {
+  console.log('in delete saga, check action.payload', action.payload);
+  try {
+    console.log('in updateRecommendations saga, check action.payload', action.payload);
+    yield axios.delete(`/api/report/recommendation/${action.payload.recommendationId}`);
+    yield put({ type: 'FETCH_REPORT_DETAILS', payload: action.payload.reportId });
+  } catch (error) {
+    console.log('error deleting recommendation', error);
+  }
+}
+
+// saga to add new recommendation
+function* addRecommendation(action) {
+  try {
+    console.log('in addRecommendation, check action.payload', action.payload);
+    yield axios.post(`/api/report/recommendations`, action.payload);
+    yield put({ type: 'FETCH_REPORT_DETAILS', payload: action.payload.reportId });
+  } catch (error) {
+    console.log('error adding recommendation', error);
   }
 }
 
@@ -98,6 +116,8 @@ function* reportSaga() {
   yield takeLatest('DELETE_REPORT', deleteReport);
   yield takeLatest('APPROVE_REPORT', approveReport);
   yield takeLatest('UPDATE_NOTES', updateNotes);
+  yield takeLatest('DELETE_RECOMMENDATION', deleteRecommendation);
+  yield takeLatest('ADD_RECOMMENDATION', addRecommendation);
 }
 
 export default reportSaga;

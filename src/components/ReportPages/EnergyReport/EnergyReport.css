@@ -3,8 +3,8 @@
   width: 800px;
 }
 
-.text-area {
-  width: 575px;
+.recommendation-item {
+  list-style: none;
 }
 
 .energy-report-header {
