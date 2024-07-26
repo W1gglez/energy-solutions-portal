@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Container, Box, Button, Grid, ListItemDecorator } from '@mui/joy';
+import { Box, Button, Grid, Textarea } from '@mui/joy';
 import Card from '@mui/joy/Card';
 import Typography from '@mui/joy/Typography';
 import { DateTime } from 'luxon';
@@ -60,7 +60,10 @@ export default function EnergyReport() {
   const deleteRecommendation = (recommendationId) => {
     console.log('in submitRecommendations, check rec id', recommendationId);
     console.log('in submitRecommendations, check params id', params.id);
-    dispatch({ type: 'DELETE_RECOMMENDATION', payload: { recommendationId, reportId: params.id } });
+    dispatch({
+      type: 'DELETE_RECOMMENDATION',
+      payload: { recommendationId, reportId: params.id },
+    });
   };
 
   // add recommendation
@@ -73,24 +76,31 @@ export default function EnergyReport() {
   const handleNewRec = (event) => {
     event.preventDefault();
     setNewRec(event.target.value);
-    console.log('check new rec', newRec);
   };
 
   const submitRec = (event) => {
-    console.log('in submitRec, check params.id', params.id);
     event.preventDefault();
-    console.log('check newrec', newRec.recommendations);
     if (newRec.recommendations === '') {
       return;
     } else {
-      dispatch({ type: 'ADD_RECOMMENDATION', payload: { recommendations: newRec, reportId: params.id } });
+      dispatch({
+        type: 'ADD_RECOMMENDATION',
+        payload: { recommendations: newRec, reportId: params.id },
+      });
     }
+    setAddRecToggle(false);
+    setNewRec('');
   };
 
   return (
     <Box sx={{ flex: 1 }}>
-      <h1 className='energy-report-header'>{reportDetails.name} Energy Report</h1>
-      <Grid container sx={{ justifyContent: 'space-between', mx: 6, mt: 3 }}>
+      <h1 className='energy-report-header'>
+        {reportDetails.name} Energy Report
+      </h1>
+      <Grid
+        container
+        sx={{ justifyContent: 'space-between', mx: 6, mt: 3 }}
+      >
         <Button
           onClick={navReports}
           sx={{
@@ -119,7 +129,8 @@ export default function EnergyReport() {
               </Button>
             ) : (
               <Typography sx={{ alignContent: 'center' }}>
-                Approved by: {reportDetails.username} on {DateTime.now().toLocaleString(reportDetails.approvedAt)}
+                Approved by: {reportDetails.username} on{' '}
+                {DateTime.now().toLocaleString(reportDetails.approvedAt)}
               </Typography>
             )}
           </Box>
@@ -127,10 +138,13 @@ export default function EnergyReport() {
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             {reportDetails.approved ? (
               <Typography sx={{ alignContent: 'center' }}>
-                Approved by: {reportDetails.username} on {DateTime.now().toLocaleString(reportDetails.approvedAt)}
+                Approved by: {reportDetails.username} on{' '}
+                {DateTime.now().toLocaleString(reportDetails.approvedAt)}
               </Typography>
             ) : (
-              <Typography sx={{ alignContent: 'center' }}>Pending Approval by RJ Energy</Typography>
+              <Typography sx={{ alignContent: 'center' }}>
+                Pending Approval by RJ Energy
+              </Typography>
             )}
           </Box>
         )}
@@ -151,7 +165,7 @@ export default function EnergyReport() {
             variant='outlined'
             sx={(theme) => ({
               width: 300,
-              height: 200,
+              minHeight: 171,
               flexDirection: 'column',
               overflow: 'hidden',
               transition: 'transform 0.3s, border 0.3s',
@@ -166,13 +180,19 @@ export default function EnergyReport() {
               <div>
                 <Typography level='title-lg'>Date Submitted: </Typography>
                 <Typography level='body-sm'>
-                  {DateTime.fromISO(reportDetails.date_submitted).toFormat('MMMM dd, yyyy')}
+                  {DateTime.fromISO(reportDetails.date_submitted).toFormat(
+                    'MMMM dd, yyyy'
+                  )}
                 </Typography>
                 <Typography level='title-lg'>Location Address:</Typography>
                 <Typography level='body-sm'>{reportDetails.address}</Typography>
                 <Typography level='title-lg'>Report Status:</Typography>
                 <Typography level='body-sm'>
-                  {reportDetails.approved ? <td>Approved</td> : <td>Pending Approval</td>}
+                  {reportDetails.approved ? (
+                    <td>Approved</td>
+                  ) : (
+                    <td>Pending Approval</td>
+                  )}
                 </Typography>
               </div>
             </Box>
@@ -182,7 +202,7 @@ export default function EnergyReport() {
             variant='outlined'
             sx={(theme) => ({
               width: 300,
-              height: 200,
+              minHeight: 171,
               flexDirection: 'column',
               overflow: 'hidden',
               transition: 'transform 0.3s, border 0.3s',
@@ -198,7 +218,12 @@ export default function EnergyReport() {
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Typography level='body-sm'>
-                {reportDetails?.equipment?.reduce((sum, item) => sum + Number(item.carbon_footprint), 0).toFixed(3)}{' '}
+                {reportDetails?.equipment
+                  ?.reduce(
+                    (sum, item) => sum + Number(item.carbon_footprint),
+                    0
+                  )
+                  .toFixed(3)}{' '}
                 Tons/year
               </Typography>
             </Box>
@@ -208,14 +233,20 @@ export default function EnergyReport() {
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Typography level='body-sm'>
                 $
-                {(reportDetails?.equipment?.reduce((sum, item) => sum + Number(item.cost_per_month), 0) * 12).toFixed(
-                  2
-                )}
+                {(
+                  reportDetails?.equipment?.reduce(
+                    (sum, item) => sum + Number(item.cost_per_month),
+                    0
+                  ) * 12
+                ).toFixed(2)}
               </Typography>
             </Box>
           </Card>
         </Box>
-        <Grid container sx={{ justifyContent: 'space-between', mx: 7, my: 2 }}>
+        <Grid
+          container
+          sx={{ justifyContent: 'space-between', mx: 7, my: 2 }}
+        >
           <Typography level='h3'>Equipment</Typography>
           {user.admin === true && (
             <Button
@@ -230,11 +261,21 @@ export default function EnergyReport() {
               Add Equiment
             </Button>
           )}
-          <EquipmentForm open={open} setOpen={setOpen} />
+          <EquipmentForm
+            open={open}
+            setOpen={setOpen}
+          />
         </Grid>
-        <Grid container sx={{ justifyContent: 'center' }} spacing={2}>
+        <Grid
+          container
+          sx={{ justifyContent: 'center' }}
+          spacing={2}
+        >
           {reportDetails.equipment?.map((e) => (
-            <Grid xs={5.5} key={e.id}>
+            <Grid
+              xs={5.5}
+              key={e.id}
+            >
               <ReportEquipmentCard e={e} />
             </Grid>
           ))}
@@ -257,7 +298,6 @@ export default function EnergyReport() {
               maxWidth: 800,
               maxHeight: 200,
               flexDirection: 'column',
-              overflow: 'auto',
               transition: 'transform 0.3s, border 0.3s',
               border: '1px solid #1F1C4C',
               '&:hover': {
@@ -271,28 +311,40 @@ export default function EnergyReport() {
                 display: 'flex',
                 alignItems: 'center',
                 alignContent: 'center',
+                background: 'inherit',
               }}
             >
               <Typography level='title-lg'>Recommendations</Typography>
-              <IconButton onClick={() => setDeleteRecsToggle(!deleteRecsToggle)}>
+              <IconButton
+                onClick={() => setDeleteRecsToggle(!deleteRecsToggle)}
+              >
                 <EditIcon />
               </IconButton>
               <IconButton onClick={() => setAddRecToggle(!addRecToggle)}>
                 <AddCircleOutlineIcon />
               </IconButton>
             </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box
+              sx={{ display: 'flex', alignItems: 'center', overflow: 'auto' }}
+            >
               <Typography level='body-sm'>
                 {reportDetails?.recommendations?.map((recommendation) =>
                   deleteRecsToggle ? (
-                    <li className='recommendation-item' key={recommendation.id}>
-                      <IconButton onClick={() => deleteRecommendation(recommendation.id)}>
+                    <li
+                      className='recommendation-item'
+                      key={recommendation.id}
+                    >
+                      <IconButton
+                        onClick={() => deleteRecommendation(recommendation.id)}
+                      >
                         <ClearIcon />
                       </IconButton>
                       {recommendation.recommendation}
                     </li>
                   ) : (
-                    <li key={recommendation.id}>{recommendation.recommendation}</li>
+                    <li key={recommendation.id}>
+                      {recommendation.recommendation}
+                    </li>
                   )
                 )}
                 {addRecToggle ? (
@@ -306,7 +358,10 @@ export default function EnergyReport() {
                         value={newRec.recommendations}
                         onChange={handleNewRec}
                       />
-                      <Button type='submit' color='success'>
+                      <Button
+                        type='submit'
+                        color='success'
+                      >
                         Submit
                       </Button>
                     </Box>
@@ -333,9 +388,8 @@ export default function EnergyReport() {
             variant='outlined'
             sx={(theme) => ({
               maxWidth: 800,
-              maxHeight: 200,
+              maxHeight: 400,
               flexDirection: 'column',
-              overflow: 'auto',
               transition: 'transform 0.3s, border 0.3s',
               border: '1px solid #1F1C4C',
               '&:hover': {
@@ -352,22 +406,37 @@ export default function EnergyReport() {
               }}
             >
               <Typography level='title-lg'>Report Notes</Typography>
-              {user.admin ? (
-                <IconButton onClick={() => setEditNotesToggle(!editNotesToggle)}>
+              {user.admin && (
+                <IconButton
+                  onClick={() => setEditNotesToggle(!editNotesToggle)}
+                >
                   <EditIcon />
                 </IconButton>
-              ) : (
-                ''
               )}
             </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                overflow: 'auto',
+              }}
+            >
               {editNotesToggle ? (
                 <form onSubmit={submitNotes}>
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <input
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      flexDirection: 'column',
+                      width: '100%',
+                      gap: 1,
+                    }}
+                  >
+                    <Textarea
+                      sx={{ width: '766px' }}
                       className='form-control'
                       id='recommendations'
-                      type='text'
+                      type='input'
                       placeholder='Edit Notes'
                       value={reportDetails?.notes}
                       onChange={(event) =>
@@ -377,7 +446,10 @@ export default function EnergyReport() {
                         })
                       }
                     />
-                    <Button color='success' type='submit'>
+                    <Button
+                      color='success'
+                      type='submit'
+                    >
                       Submit
                     </Button>
                   </Box>
