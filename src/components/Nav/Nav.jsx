@@ -59,7 +59,10 @@ function Nav() {
     <>
       {user.id && user.admin ? (
         <div className='nav'>
-          <IconButton sx={{ marginLeft: 2, color: '#1F1C4C' }} onClick={() => setOpen(true)}>
+          <IconButton
+            sx={{ marginLeft: 2, color: '#1F1C4C' }}
+            onClick={() => setOpen(true)}
+          >
             <MenuIcon />
           </IconButton>
           <Drawer
@@ -131,7 +134,7 @@ function Nav() {
             </List>
           </Drawer>
           <Link to='/admin-home-page'>
-            <h2 className='nav-title'>Energy Solutions Portal</h2>
+            <h2 className='nav-title'>Energy Audit Portal</h2>
           </Link>
           <FaciliytSelect
             open={openFacilitySelect}
@@ -215,7 +218,7 @@ function Nav() {
             </List>
           </Drawer>
           <Link to='/home-page'>
-            <h2 className='nav-title'>Energy Solutions Portal</h2>
+            <h2 className='nav-title'>Energy Audit Portal</h2>
           </Link>
           <FaciliytSelect
             open={openFacilitySelect}
