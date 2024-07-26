@@ -50,10 +50,10 @@ function AdminFacilities() {
         display='flex'
         alignItems='center'
         p={5}
-        sx={{ borderBottom: '1px solid #1F1C4C', color: '#1F1C4C' }}
+        
 
       >
-        <h2 className='centered'>All Facility Information</h2>
+        <h2>All Facility Information</h2>
       </Box>
       <Box
         display='flex'
@@ -71,13 +71,12 @@ function AdminFacilities() {
               isFlipped={editRowId === facility.id}
               flipDirection='horizontal'
             >
-              <Card sx={{ border: 'solid 3px #1F1C4C', width: '250px' }}>
+              <Card sx={{ border: 'solid 1px #1F1C4C', width: '250px' }}>
                 <CardContent sx={{ px: 4 }}>
                   <Typography
                     gutterBottom
                     variant='h5'
                     component='div'
-                    color={'#1F1C4C'}
                   >
                     {facility.name}
                   </Typography>

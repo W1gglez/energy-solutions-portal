@@ -58,7 +58,7 @@ function Nav() {
     <>
       {user.id && user.admin ? (
         <div className='nav'>
-          <IconButton sx={{ marginLeft: 2 }} onClick={() => setOpen(true)}>
+          <IconButton sx={{ marginLeft: 2, color: '#1F1C4C' }} onClick={() => setOpen(true)}>
             <MenuIcon />
           </IconButton>
           <Drawer open={open} onClose={() => setOpen(false)}>
