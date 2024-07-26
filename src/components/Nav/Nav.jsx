@@ -14,6 +14,7 @@ import { Divider } from '@mui/joy';
 import { useHistory } from 'react-router-dom';
 
 import FaciliytSelect from '../Assessment/FacilitySelect';
+import { Add, Business, Home, ListAlt, Logout } from '@mui/icons-material';
 
 function Nav() {
   const dispatch = useDispatch();
@@ -61,7 +62,10 @@ function Nav() {
           <IconButton sx={{ marginLeft: 2, color: '#1F1C4C' }} onClick={() => setOpen(true)}>
             <MenuIcon />
           </IconButton>
-          <Drawer open={open} onClose={() => setOpen(false)}>
+          <Drawer
+            open={open}
+            onClose={() => setOpen(false)}
+          >
             <Box
               sx={{
                 display: 'flex',
@@ -79,31 +83,49 @@ function Nav() {
                 fontWeight='lg'
                 sx={{ cursor: 'pointer' }}
               ></Typography>
-              <ModalClose id='close-icon' sx={{ position: 'initial' }} />
+              <ModalClose
+                id='close-icon'
+                sx={{ position: 'initial' }}
+              />
             </Box>
             <List
               size='lg'
               component='nav'
               sx={{
-                flex: 'none',
                 fontSize: 'xl',
                 '& > div': { justifyContent: 'center' },
               }}
             >
-              <ListItemButton onClick={navHome} sx={{ fontWeight: 'lg' }}>
-                Home
-              </ListItemButton>
-              <ListItemButton onClick={navFacilities}>View All Facilities</ListItemButton>
-              <ListItemButton onClick={navReports}>View All Reports</ListItemButton>
-              <Divider />
-              <ListItemButton onClick={newReport}>Start New Report</ListItemButton>
+              <Box sx={{ flex: 1, '& > div': { justifyContent: 'center' } }}>
+                <ListItemButton
+                  onClick={navHome}
+                  sx={{ fontWeight: 'lg' }}
+                >
+                  <Home />
+                  Home
+                </ListItemButton>
+                <ListItemButton onClick={navFacilities}>
+                  <Business />
+                  Facilities
+                </ListItemButton>
+                <ListItemButton onClick={navReports}>
+                  <ListAlt />
+                  Reports
+                </ListItemButton>
+                <ListItemButton onClick={newReport}>
+                  <Add />
+                  New Report
+                </ListItemButton>
+              </Box>
               <Divider />
               <ListItemButton
+                sx={{ alignItems: 'flex-end' }}
                 onClick={() => {
                   dispatch({ type: 'LOGOUT' });
                   setOpen(false);
                 }}
               >
+                <Logout />
                 Log Out
               </ListItemButton>
             </List>
@@ -111,14 +133,23 @@ function Nav() {
           <Link to='/admin-home-page'>
             <h2 className='nav-title'>Energy Solutions Portal</h2>
           </Link>
-          <FaciliytSelect open={openFacilitySelect} setOpen={setOpenFacilitySelect} />
+          <FaciliytSelect
+            open={openFacilitySelect}
+            setOpen={setOpenFacilitySelect}
+          />
         </div>
       ) : (
         <div className='nav'>
-          <IconButton sx={{ marginLeft: 2 }} onClick={() => setOpen(true)}>
+          <IconButton
+            sx={{ marginLeft: 2 }}
+            onClick={() => setOpen(true)}
+          >
             <MenuIcon />
           </IconButton>
-          <Drawer open={open} onClose={() => setOpen(false)}>
+          <Drawer
+            open={open}
+            onClose={() => setOpen(false)}
+          >
             <Box
               sx={{
                 display: 'flex',
@@ -136,31 +167,49 @@ function Nav() {
                 fontWeight='lg'
                 sx={{ cursor: 'pointer' }}
               ></Typography>
-              <ModalClose id='close-icon' sx={{ position: 'initial' }} />
+              <ModalClose
+                id='close-icon'
+                sx={{ position: 'initial' }}
+              />
             </Box>
             <List
               size='lg'
               component='nav'
               sx={{
-                flex: 'none',
                 fontSize: 'xl',
                 '& > div': { justifyContent: 'center' },
               }}
             >
-              <ListItemButton onClick={navHome} sx={{ fontWeight: 'lg' }}>
-                Home
-              </ListItemButton>
-              <ListItemButton onClick={navFacilities}>My Facilities</ListItemButton>
-              <ListItemButton onClick={navReports}>My Reports</ListItemButton>
-              <Divider />
-              <ListItemButton onClick={newReport}>New Report</ListItemButton>
+              <Box sx={{ flex: 1, '& > div': { justifyContent: 'center' } }}>
+                <ListItemButton
+                  onClick={navHome}
+                  sx={{ fontWeight: 'lg' }}
+                >
+                  <Home />
+                  Home
+                </ListItemButton>
+                <ListItemButton onClick={navFacilities}>
+                  <Business />
+                  My Facilities
+                </ListItemButton>
+                <ListItemButton onClick={navReports}>
+                  <ListAlt />
+                  My Reports
+                </ListItemButton>
+                <ListItemButton onClick={newReport}>
+                  <Add />
+                  New Report
+                </ListItemButton>
+              </Box>
               <Divider />
               <ListItemButton
+                sx={{ alignItems: 'flex-end' }}
                 onClick={() => {
                   dispatch({ type: 'LOGOUT' });
                   setOpen(false);
                 }}
               >
+                <Logout />
                 Log Out
               </ListItemButton>
             </List>
@@ -168,27 +217,12 @@ function Nav() {
           <Link to='/home-page'>
             <h2 className='nav-title'>Energy Solutions Portal</h2>
           </Link>
-          <FaciliytSelect open={openFacilitySelect} setOpen={setOpenFacilitySelect} />
+          <FaciliytSelect
+            open={openFacilitySelect}
+            setOpen={setOpenFacilitySelect}
+          />
         </div>
       )}
-      {/* {!user.id && (
-        <div className='nav'>
-          <h2 className='nav-title'>Energy Solutions Portal</h2>
-
-          <Link
-            className='navLink'
-            to='/about'
-          >
-            About
-          </Link>
-          <Link
-            className='navLink'
-            to='/login'
-          >
-            Login / Register
-          </Link>
-        </div>
-      )} */}
     </>
   );
 }
