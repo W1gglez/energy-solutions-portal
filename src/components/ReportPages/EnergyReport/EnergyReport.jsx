@@ -155,6 +155,7 @@ export default function EnergyReport() {
               flexDirection: 'column',
               overflow: 'hidden',
               transition: 'transform 0.3s, border 0.3s',
+              border: '1px solid #1F1C4C',
               '&:hover': {
                 borderColor: theme.vars.palette.primary.outlinedHoverBorder,
                 transform: 'translateY(-2px)',
@@ -185,6 +186,7 @@ export default function EnergyReport() {
               flexDirection: 'column',
               overflow: 'hidden',
               transition: 'transform 0.3s, border 0.3s',
+              border: '1px solid #1F1C4C',
               '&:hover': {
                 borderColor: theme.vars.palette.primary.outlinedHoverBorder,
                 transform: 'translateY(-2px)',
@@ -257,6 +259,7 @@ export default function EnergyReport() {
               flexDirection: 'column',
               overflow: 'auto',
               transition: 'transform 0.3s, border 0.3s',
+              border: '1px solid #1F1C4C',
               '&:hover': {
                 borderColor: theme.vars.palette.primary.outlinedHoverBorder,
                 transform: 'translateY(-2px)',
@@ -332,8 +335,9 @@ export default function EnergyReport() {
               maxWidth: 800,
               maxHeight: 200,
               flexDirection: 'column',
-              overflow: 'scroll',
+              overflow: 'auto',
               transition: 'transform 0.3s, border 0.3s',
+              border: '1px solid #1F1C4C',
               '&:hover': {
                 borderColor: theme.vars.palette.primary.outlinedHoverBorder,
                 transform: 'translateY(-2px)',

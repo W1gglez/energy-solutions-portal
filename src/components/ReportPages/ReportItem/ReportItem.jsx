@@ -26,7 +26,7 @@ export default function ReportItem({ report }) {
         alignItems: 'center',
       }}
     >
-      <Card sx={{ width: 300, height: 300, margin: 2, border: 'solid', borderColor: '#008242' }}>
+      <Card sx={{ width: 300, height: 300, margin: 2, border: 'solid', borderColor: '#1F1C4C' }}>
         <div>
           <Typography level='title-lg'>{report.name}</Typography>
           <Typography level='body-sm'>

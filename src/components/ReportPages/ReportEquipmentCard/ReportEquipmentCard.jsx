@@ -49,6 +49,7 @@ export default function ReportEquipmentCard({ e }) {
     <Card
       orientation='horizontal'
       variant='outlined'
+      sx={{ border: '1px solid #1F1C4C' }}
     >
       <EquipmentForm
         open={open}

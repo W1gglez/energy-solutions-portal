@@ -58,6 +58,7 @@ function App() {
           flexDirection: 'column',
           height: '100%',
           minHeight: '100vh',
+          background: 'linear-gradient(to right bottom, white, #E7ECFA, white)'
         }}
       >
         <Nav />

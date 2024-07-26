@@ -56,16 +56,16 @@ function Facilities() {
 			>
 				<h2>Facility Information</h2>
 			</Box>
-			<Box display='flex' flexWrap='wrap' justifyContent='center'>
+			<Box display='flex' flexWrap='wrap' justifyContent='center'  >
 				{facilities.map((facility) => (
 					<Box key={facility.id} m={2} overflow={'hidden'} height={'400px'}>
 						<ReactCardFlip isFlipped={editRowId === facility.id} flipDirection='horizontal'>
-							<Card sx={{ border: 'solid 3px #1F1C4C', width: '250px' }}>
+							<Card sx={{ border: 'solid 1px #1F1C4C', width: '250px' }}>
 								<CardContent sx={{ px: 4 }}>
-									<Typography gutterBottom variant='h5' component='div' color={'#1F1C4C'}>
+									<Typography gutterBottom variant='h5' component='div' >
 										{facility.name}
 									</Typography>
-									<Typography variant='body1' color={'#1F1C4C'}>
+									<Typography variant='body1'>
 										{facility.address}
 									</Typography>
 									<Typography variant='body1' color='text.primary' mb={2}>
