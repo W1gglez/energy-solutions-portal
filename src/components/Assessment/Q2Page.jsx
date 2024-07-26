@@ -133,6 +133,7 @@ export default function Q2() {
               location={1}
               type={17}
               category={1}
+              setIsEntryHeater={setIsEntryHeater}
             />
             {entryHeater && (
               <Grid

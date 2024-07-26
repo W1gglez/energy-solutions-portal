@@ -1,14 +1,15 @@
 // store assessment responses from the server
 const responseReducer = (
   state = {
-    // Rush_of_air: 'true',
-    // entry_heater: { isEntryHeater: 'false', isRunning: false },
-    // hot_water: 5,
-    // inReview: false,
-    // lights: { isLED: 'true', motionSensor: 'true' },
-    // restroom_leaks: 'false',
-    // thermostat: { isProgrammable: 'true', isProgrammed: 'true' },
-    // water_heater: { tempSetting: 140, age: 8 },
+    Rush_of_air: 'true',
+    entry_heater: { isEntryHeater: 'true', isRunning: 'false' },
+    facilityId: 4,
+    hot_water: '8',
+    inReview: true,
+    lights: { isLED: 'true', motionSensor: 'true' },
+    restroom_leaks: 'false',
+    thermostat: { isProgrammable: 'true', isProgrammed: 'false' },
+    water_heater: { tempSetting: '140', age: '10' },
   },
   action
 ) => {
