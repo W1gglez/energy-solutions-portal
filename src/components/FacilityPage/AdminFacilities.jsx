@@ -50,6 +50,8 @@ function AdminFacilities() {
         display='flex'
         alignItems='center'
         p={5}
+        sx={{ borderBottom: '1px solid #1F1C4C', color: '#1F1C4C' }}
+
       >
         <h2 className='centered'>All Facility Information</h2>
       </Box>
@@ -69,12 +71,13 @@ function AdminFacilities() {
               isFlipped={editRowId === facility.id}
               flipDirection='horizontal'
             >
-              <Card style={{ border: 'solid green' }}>
-                <CardContent>
+              <Card sx={{ border: 'solid 3px #1F1C4C', width: '250px' }}>
+                <CardContent sx={{ px: 4 }}>
                   <Typography
                     gutterBottom
                     variant='h5'
                     component='div'
+                    color={'#1F1C4C'}
                   >
                     {facility.name}
                   </Typography>
@@ -121,7 +124,7 @@ function AdminFacilities() {
                     {facility.sit_down ? 'Yes' : 'No'}
                   </Typography>
                 </CardContent>
-                <CardActions>
+                <CardActions sx={{ justifyContent: 'space-around' }}>
                   <Tooltip title='Edit Facility Information'>
                     <Button
                       size='lg'
