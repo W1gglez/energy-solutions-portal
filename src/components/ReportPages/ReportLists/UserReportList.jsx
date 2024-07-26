@@ -16,7 +16,7 @@ export default function UserReportList() {
     <Box sx={{ flex: 1 }}>
       <Box
         className='report-header'
-        height={40}
+        maxHeight={40}
         display='flex'
         alignItems='center'
         p={5}

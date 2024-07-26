@@ -61,7 +61,9 @@ export default function ReportEquipmentCard({ e }) {
           if (user.admin === true) {
             setOpen(true);
           }
+          
         }}
+        sx={{ cursor: 'pointer' }}
       >
         <Grid
           container
