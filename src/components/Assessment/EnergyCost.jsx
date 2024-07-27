@@ -49,7 +49,7 @@ function EnergyCost() {
       </Grid>
       <Grid
         xs={12}
-        sx={{ display: 'flex', justifyContent: 'flex-end', mr: 6 }}
+        sx={{ display: 'flex', justifyContent: 'flex-end', mx: 6 }}
       >
         {energyCost.electric ? (
           <Button
@@ -60,6 +60,8 @@ function EnergyCost() {
               '&:hover': {
                 backgroundColor: '#00341a',
               },
+              fontSize: 16,
+              py: 1,
             }}
           >
             Next
@@ -73,6 +75,8 @@ function EnergyCost() {
               '&:hover': {
                 backgroundColor: '#00341a',
               },
+              fontSize: 16,
+              py: 1,
             }}
             disabled
           >

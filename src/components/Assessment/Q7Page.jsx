@@ -72,16 +72,13 @@ export default function Q7() {
         sx={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}
       >
         <Grid xs={4}>
-          <Typography
-            level='h4'
-            sx={{ textAlign: 'center' }}
-          >
+          <Typography sx={{ fontSize: 24, textAlign: 'center' }}>
             Is the facility using LED lightbulbs?
           </Typography>
         </Grid>
         <Grid
           xs={3}
-          sx={{ pl: 0 }}
+          sx={{ pl: 0, alignContent: 'center' }}
         >
           <RadioGroup
             value={isLED}
@@ -117,10 +114,7 @@ export default function Q7() {
           sx={{ justifyContent: 'center', alignItems: 'center' }}
         >
           <Grid xs={4}>
-            <Typography
-              level='h4'
-              sx={{ textAlign: 'center' }}
-            >
+            <Typography sx={{ fontSize: 24, textAlign: 'center' }}>
               Are motion sensors being used?
             </Typography>
           </Grid>
@@ -187,13 +181,17 @@ export default function Q7() {
           xs={8}
           sx={{ textAlign: 'center', py: 4 }}
         >
-          <Button onClick={() => setOpen(true)}
+          <Button
+            onClick={() => setOpen(true)}
             sx={{
               backgroundColor: '#008242',
               '&:hover': {
                 backgroundColor: '#00341a',
               },
-            }}>Add Light Details</Button>
+            }}
+          >
+            Add Light Details
+          </Button>
         </Grid>
       </Grid>
       <Grid
@@ -212,7 +210,10 @@ export default function Q7() {
             '&:hover': {
               backgroundColor: '#00341a',
             },
-          }}        >
+            fontSize: 16,
+            py: 1,
+          }}
+        >
           Previous
         </Button>
         <Button
@@ -223,7 +224,10 @@ export default function Q7() {
             '&:hover': {
               backgroundColor: '#00341a',
             },
-          }}        >
+            fontSize: 16,
+            py: 1,
+          }}
+        >
           Next
         </Button>
       </Grid>

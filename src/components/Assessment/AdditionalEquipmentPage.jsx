@@ -56,6 +56,15 @@ export default function AdditionalEquipment() {
       </Grid>
       <Grid
         container
+        xs={12}
+        sx={{ justifyContent: 'center', position: 'absolute', top: 166 }}
+      >
+        <Typography color={'neutral'}>
+          ~ Add any additional equipment used by the facility ~
+        </Typography>
+      </Grid>
+      <Grid
+        container
         spacing={1}
         sx={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}
       >
@@ -85,13 +94,17 @@ export default function AdditionalEquipment() {
           xs={8}
           sx={{ textAlign: 'center', py: 4 }}
         >
-          <Button onClick={() => setOpen(true)}
+          <Button
+            onClick={() => setOpen(true)}
             sx={{
               backgroundColor: '#008242',
               '&:hover': {
                 backgroundColor: '#00341a',
               },
-            }}>Add Equipment</Button>
+            }}
+          >
+            Add Equipment
+          </Button>
         </Grid>
       </Grid>
       <Grid
@@ -106,7 +119,10 @@ export default function AdditionalEquipment() {
             '&:hover': {
               backgroundColor: '#00341a',
             },
-          }}        >
+            fontSize: 16,
+            py: 1,
+          }}
+        >
           Previous
         </Button>
         <Button
@@ -117,7 +133,10 @@ export default function AdditionalEquipment() {
             '&:hover': {
               backgroundColor: '#00341a',
             },
-          }}        >
+            fontSize: 16,
+            py: 1,
+          }}
+        >
           Review
         </Button>
       </Grid>

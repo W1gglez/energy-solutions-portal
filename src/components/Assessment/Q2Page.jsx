@@ -81,17 +81,14 @@ export default function Q2() {
         spacing={8}
         sx={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}
       >
-        <Grid xs={3}>
-          <Typography
-            sx={{ textAlign: 'center' }}
-            level='h4'
-          >
+        <Grid xs={4}>
+          <Typography sx={{ fontSize: 24, textAlign: 'center' }}>
             Is there an electric heater?
           </Typography>
         </Grid>
         <Grid
           xs={3}
-          sx={{ pl: 0 }}
+          sx={{ pl: 0, alignContent: 'center' }}
         >
           <RadioGroup
             defaultValue={false}
@@ -100,6 +97,7 @@ export default function Q2() {
             sx={{
               gap: 18,
               justifyContent: 'center',
+              '&>span': { fontSize: 24 },
             }}
             onChange={(e) => {
               e.target.value === 'true'
@@ -109,17 +107,11 @@ export default function Q2() {
             }}
           >
             <Radio
-              sx={{
-                fontSize: '24px',
-              }}
               label='Yes'
               value={true}
             />
 
             <Radio
-              sx={{
-                fontSize: '24px',
-              }}
               label='No'
               value={false}
             />
@@ -147,17 +139,14 @@ export default function Q2() {
                 />
               </Grid>
             )}
-            <Grid xs={3}>
-              <Typography
-                sx={{ textAlign: 'center' }}
-                level='h4'
-              >
+            <Grid xs={4}>
+              <Typography sx={{ fontSize: 24, textAlign: 'center' }}>
                 Is the heater running?
               </Typography>
             </Grid>
             <Grid
               xs={3}
-              sx={{ pl: 0 }}
+              sx={{ pl: 0, alignContent: 'center' }}
             >
               <RadioGroup
                 defaultValue={false}
@@ -201,6 +190,8 @@ export default function Q2() {
             '&:hover': {
               backgroundColor: '#00341a',
             },
+            fontSize: 16,
+            py: 1,
           }}
         >
           Previous
@@ -213,6 +204,8 @@ export default function Q2() {
             '&:hover': {
               backgroundColor: '#00341a',
             },
+            fontSize: 16,
+            py: 1,
           }}
         >
           Next

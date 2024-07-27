@@ -13,9 +13,18 @@ export default function ExitAssessmentButton() {
     dispatch({ type: 'CLEAR_ENERGY_COST' });
   };
 
-  return <Button 
-  onClick={handleExit}
-  sx={{ backgroundColor: '#008242', '&:hover': { backgroundColor: '#00341a' } }}
-  >
-    Exit Assessment</Button>;
+  return (
+    <Button
+      onClick={handleExit}
+      sx={{
+        backgroundColor: '#008242',
+        '&:hover': { backgroundColor: '#00341a' },
+        fontSize: 16,
+        px: 2.5,
+        py: 1,
+      }}
+    >
+      Exit Assessment
+    </Button>
+  );
 }

@@ -82,7 +82,7 @@ export default function Q4() {
         <Grid container>
           <Grid xs={4}>
             <Typography
-              sx={{ textAlign: 'right' }}
+              sx={{ fontSize: 24, textAlign: 'right' }}
               level='h4'
             >
               Temperature setting:
@@ -102,10 +102,7 @@ export default function Q4() {
             />
           </Grid>
           <Grid xs={3}>
-            <Typography
-              sx={{ textAlign: 'right' }}
-              level='h4'
-            >
+            <Typography sx={{ fontSize: 24, textAlign: 'right' }}>
               Water Heater Age:
             </Typography>
           </Grid>
@@ -149,14 +146,15 @@ export default function Q4() {
             xs={12}
             sx={{ justifyContent: 'center' }}
           >
-            <Button onClick={() => setOpen(true)}
+            <Button
+              onClick={() => setOpen(true)}
               sx={{
                 backgroundColor: '#008242',
                 '&:hover': {
                   backgroundColor: '#00341a',
                 },
               }}
-              >
+            >
               Add Water Heater Details
             </Button>
           </Grid>
@@ -174,6 +172,8 @@ export default function Q4() {
             '&:hover': {
               backgroundColor: '#00341a',
             },
+            fontSize: 16,
+            py: 1,
           }}
         >
           Previous
@@ -187,8 +187,10 @@ export default function Q4() {
               '&:hover': {
                 backgroundColor: '#00341a',
               },
+              fontSize: 16,
+              py: 1,
             }}
-                      >
+          >
             Next
           </Button>
         ) : (
@@ -200,6 +202,8 @@ export default function Q4() {
               '&:hover': {
                 backgroundColor: '#00341a',
               },
+              fontSize: 16,
+              py: 1,
             }}
             disabled
           >

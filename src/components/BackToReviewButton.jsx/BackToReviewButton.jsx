@@ -17,13 +17,20 @@ export default function BackToReviewButton({ payload }) {
 
   return (
     responses.inReview === true && (
-      <Button onClick={updateResponse}
-      sx={{
-        backgroundColor: '#008242',
-        '&:hover': {
-          backgroundColor: '#00341a',
-        },
-      }}>Back to Review</Button>
+      <Button
+        onClick={updateResponse}
+        sx={{
+          fontSize: 16,
+          px: 2.5,
+          py: 1,
+          backgroundColor: '#008242',
+          '&:hover': {
+            backgroundColor: '#00341a',
+          },
+        }}
+      >
+        Back to Review
+      </Button>
     )
   );
 }

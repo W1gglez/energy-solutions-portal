@@ -65,17 +65,14 @@ export default function Q5() {
         spacing={12}
         sx={{ flex: 1, alignContent: 'center', justifyContent: 'center' }}
       >
-        <Grid xs={4.25}>
-          <Typography
-            level='h4'
-            sx={{ textAlign: 'center' }}
-          >
+        <Grid xs={5}>
+          <Typography sx={{ fontSize: 24, textAlign: 'center' }}>
             Are the thermostats programmable?
           </Typography>
         </Grid>
         <Grid
           xs={3}
-          sx={{ pl: 0 }}
+          sx={{ pl: 0, alignContent: 'center' }}
         >
           <RadioGroup
             value={isProgrammable}
@@ -83,6 +80,7 @@ export default function Q5() {
             sx={{
               gap: 18,
               justifyContent: 'center',
+              '&>span': { fontSize: 24 },
             }}
             onChange={(e) => {
               e.target.value === true
@@ -92,17 +90,11 @@ export default function Q5() {
             }}
           >
             <Radio
-              sx={{
-                fontSize: '24px',
-              }}
               label='Yes'
               value={true}
             />
 
             <Radio
-              sx={{
-                fontSize: '24px',
-              }}
               label='No'
               value={false}
             />
@@ -114,17 +106,14 @@ export default function Q5() {
             xs={12}
             sx={{ justifyContent: 'center', alignItems: 'center' }}
           >
-            <Grid xs={4}>
-              <Typography
-                level='h4'
-                sx={{ textAlign: 'center' }}
-              >
+            <Grid xs={5}>
+              <Typography sx={{ fontSize: 24, textAlign: 'center' }}>
                 If programmable, are they setup?
               </Typography>
             </Grid>
             <Grid
               xs={3}
-              sx={{ pl: 0 }}
+              sx={{ pl: 0, alignContent: 'center' }}
             >
               <RadioGroup
                 value={isProgrammed}
@@ -132,23 +121,18 @@ export default function Q5() {
                 sx={{
                   gap: 18,
                   justifyContent: 'center',
+                  '&>span': { fontSize: 24 },
                 }}
                 onChange={(e) => {
                   setIsProgrammed(e.target.value);
                 }}
               >
                 <Radio
-                  sx={{
-                    fontSize: '24px',
-                  }}
                   label='Yes'
                   value={true}
                 />
 
                 <Radio
-                  sx={{
-                    fontSize: '24px',
-                  }}
                   label='No'
                   value={false}
                 />
@@ -169,7 +153,10 @@ export default function Q5() {
             '&:hover': {
               backgroundColor: '#00341a',
             },
-          }}        >
+            fontSize: 16,
+            py: 1,
+          }}
+        >
           Previous
         </Button>
         <Button
@@ -180,7 +167,10 @@ export default function Q5() {
             '&:hover': {
               backgroundColor: '#00341a',
             },
-          }}        >
+            fontSize: 16,
+            py: 1,
+          }}
+        >
           Next
         </Button>
       </Grid>
