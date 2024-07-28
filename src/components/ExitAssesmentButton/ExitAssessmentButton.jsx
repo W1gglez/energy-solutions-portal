@@ -15,7 +15,7 @@ export default function ExitAssessmentButton() {
 
   return <Button 
   onClick={handleExit}
-  sx={{ backgroundColor: '#008242', '&:hover': { backgroundColor: '#00341a' } }}
+  sx={{ backgroundColor: 'red', '&:hover': { backgroundColor: '#00341a' } }}
   >
     Exit Assessment</Button>;
 }

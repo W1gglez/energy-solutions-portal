@@ -547,7 +547,7 @@ export default function EquipmentForm(props) {
             </Button>
             <Button
               sx={{
-                backgroundColor: '#008242',
+                backgroundColor: 'red',
                 width: '25%',
                 '&:hover': {
                   backgroundColor: '#00341a',
