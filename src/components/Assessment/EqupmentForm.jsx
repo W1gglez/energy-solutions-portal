@@ -15,7 +15,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function EquipmentForm(props) {
-  const { type, location, category, unit, e, i, open, setOpen } = props;
+  const {
+    type,
+    location,
+    category,
+    unit,
+    e,
+    i,
+    open,
+    setOpen,
+    setIsEntryHeater,
+  } = props;
 
   const dispatch = useDispatch();
   const url = useLocation();
@@ -178,27 +188,48 @@ export default function EquipmentForm(props) {
             });
       }
     }
-    handleClose();
+    setEquipment({
+      description: e?.description || undefined,
+      typeId: e?.typeId || type || 0,
+      brand: e?.brand || undefined,
+      modelNumber: e?.modelNumber || undefined,
+      serialNumber: e?.serialNumber || undefined,
+      qty: e?.qty || 1,
+      locationId: e?.locationId || location || 0,
+      categoryId: e?.categoryId || category || 0,
+      amps: e?.amps || undefined,
+      volts: e?.volts || undefined,
+      watts: e?.watts || undefined,
+      kW: e?.kW || undefined,
+      btu: e?.btu || undefined,
+      hoursPerDay: e?.hoursPerDay || undefined,
+      notes: e?.notes || undefined,
+    });
+
+    setOpen(false);
   };
 
   const handleClose = () => {
     setEquipment({
-      description: e?.description || null,
+      description: e?.description || undefined,
       typeId: e?.typeId || type || 0,
-      brand: e?.brand || null,
-      modelNumber: e?.modelNumber || null,
-      serialNumber: e?.serialNumber || null,
+      brand: e?.brand || undefined,
+      modelNumber: e?.modelNumber || undefined,
+      serialNumber: e?.serialNumber || undefined,
       qty: e?.qty || 1,
       locationId: e?.locationId || location || 0,
       categoryId: e?.categoryId || category || 0,
-      amps: e?.amps || null,
-      volts: e?.volts || null,
-      watts: e?.watts || null,
-      kW: e?.kW || null,
-      btu: e?.btu || null,
-      hoursPerDay: e?.hoursPerDay || null,
-      notes: e?.notes || null,
+      amps: e?.amps || undefined,
+      volts: e?.volts || undefined,
+      watts: e?.watts || undefined,
+      kW: e?.kW || undefined,
+      btu: e?.btu || undefined,
+      hoursPerDay: e?.hoursPerDay || undefined,
+      notes: e?.notes || undefined,
     });
+    {
+      url.pathname.includes('/assessment/q2') && setIsEntryHeater(false);
+    }
     setOpen(false);
   };
 
@@ -542,16 +573,15 @@ export default function EquipmentForm(props) {
                 '&:hover': {
                   backgroundColor: '#00341a',
                 },
-              }}            >
+              }}
+            >
               Submit
             </Button>
             <Button
+              color='danger'
               sx={{
                 backgroundColor: 'red',
                 width: '25%',
-                '&:hover': {
-                  backgroundColor: '#00341a',
-                },
               }}
               onClick={handleClose}
             >

@@ -66,11 +66,8 @@ export default function Q1() {
         spacing={12}
         sx={{ flex: 1, alignContent: 'center', justifyContent: 'center' }}
       >
-        <Grid xs={12}>
-          <Typography
-            sx={{ textAlign: 'center' }}
-            level='h4'
-          >
+        <Grid xs={8}>
+          <Typography sx={{ fontSize: 28, textAlign: 'center' }}>
             Are the doors hard to open and is there an in-rush of air coming
             into the restaurant when opened?
           </Typography>
@@ -82,13 +79,11 @@ export default function Q1() {
             sx={{
               gap: 24,
               justifyContent: 'center',
+              '&>span': { fontSize: '28px' },
             }}
             onChange={handleChange}
           >
             <Radio
-              sx={{
-                fontSize: '24px',
-              }}
               label='Yes'
               value={true}
             />
@@ -96,9 +91,6 @@ export default function Q1() {
             <Radio
               label='No'
               value={false}
-              sx={{
-                fontSize: '24px',
-              }}
             />
           </RadioGroup>
         </Grid>
@@ -115,6 +107,9 @@ export default function Q1() {
             '&:hover': {
               backgroundColor: '#00341a',
             },
+            fontSize: 16,
+            px: 2.5,
+            py: 1,
           }}
         >
           Previous
@@ -127,6 +122,8 @@ export default function Q1() {
             '&:hover': {
               backgroundColor: '#00341a',
             },
+            fontSize: 16,
+            py: 1,
           }}
         >
           Next

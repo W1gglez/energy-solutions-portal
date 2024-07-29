@@ -1,6 +1,9 @@
 const energyCostReducer = (
   state = {
-    // electric: 0.075, natural_gas: 0.81, liquid_propane: 2.5
+    electric: 0.1,
+    natural_gas: 0.1,
+    liquid_propane: 0.056,
+    gas_propane: 0.056,
   },
   action
 ) => {

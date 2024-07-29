@@ -48,9 +48,18 @@ export default function Q6() {
       </Grid>
       <Grid
         xs={12}
-        sx={{ display: 'flex', justifyContent: 'flex-start', mx: 6 }}
+        sx={{ display: 'flex', alignItems: 'center', mx: 6 }}
       >
         <ExitAssessmentButton />
+      </Grid>
+      <Grid
+        container
+        xs={12}
+        sx={{ justifyContent: 'center', position: 'absolute', top: 166 }}
+      >
+        <Typography color={'neutral'}>
+          ~ Add any HVAC equipment used by the facility ~
+        </Typography>
       </Grid>
       <Grid
         container
@@ -86,14 +95,17 @@ export default function Q6() {
           xs={8}
           sx={{ textAlign: 'center', py: 4 }}
         >
-          <Button onClick={() => setOpen(true)}
+          <Button
+            onClick={() => setOpen(true)}
             sx={{
               backgroundColor: '#008242',
               '&:hover': {
                 backgroundColor: '#00341a',
               },
             }}
-            >Add HVAC System Details</Button>
+          >
+            Add HVAC System Details
+          </Button>
         </Grid>
       </Grid>
       <Grid
@@ -108,7 +120,10 @@ export default function Q6() {
             '&:hover': {
               backgroundColor: '#00341a',
             },
-          }}        >
+            fontSize: 16,
+            py: 1,
+          }}
+        >
           Previous
         </Button>
         <Button
@@ -119,7 +134,10 @@ export default function Q6() {
             '&:hover': {
               backgroundColor: '#00341a',
             },
-          }}        >
+            fontSize: 16,
+            py: 1,
+          }}
+        >
           Next
         </Button>
       </Grid>

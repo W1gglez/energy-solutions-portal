@@ -35,10 +35,10 @@ function EnergyCostForm() {
   const handleClose = () => {
     setOpen(false);
     setEnergyCost({
-      electric: null,
-      natural_gas: null,
-      liquid_propane: null,
-      gas_propane: null,
+      electric: undefined,
+      natural_gas: undefined,
+      liquid_propane: undefined,
+      gas_propane: undefined,
     });
   };
 

@@ -320,7 +320,10 @@ export default function AssessmentReview() {
             '&:hover': {
               backgroundColor: '#00341a',
             },
-          }}        >
+            fontSize: 16,
+            py: 1,
+          }}
+        >
           Previous
         </Button>
         {equipmentInv.length === 0 ? (
@@ -332,7 +335,10 @@ export default function AssessmentReview() {
               '&:hover': {
                 backgroundColor: '#00341a',
               },
-            }}            disabled
+              fontSize: 16,
+              py: 1,
+            }}
+            disabled
           >
             Submit
           </Button>
@@ -345,7 +351,10 @@ export default function AssessmentReview() {
               '&:hover': {
                 backgroundColor: '#00341a',
               },
-            }}          >
+              fontSize: 16,
+              py: 1,
+            }}
+          >
             Submit
           </Button>
         )}

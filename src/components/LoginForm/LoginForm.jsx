@@ -25,9 +25,6 @@ function LoginForm() {
     } else {
       dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }
-    user.admin === true
-      ? history.push('/admin-home-page')
-      : history.push('/home-page');
   }; // end login
 
   return (

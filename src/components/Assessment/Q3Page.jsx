@@ -77,12 +77,9 @@ export default function Q3() {
         sx={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}
       >
         <Grid xs={6.5}>
-          <Typography
-            level='h4'
-            sx={{ textAlign: 'center' }}
-          >
-            Open the hot water faucet - How long does it take for the water to
-            get hot?
+          <Typography sx={{ fontSize: 24, textAlign: 'center' }}>
+            Open the hot water faucet - <br /> How long does it take for the
+            water to get hot?
           </Typography>
         </Grid>
         <Grid
@@ -103,11 +100,8 @@ export default function Q3() {
           xs={12}
           sx={{ justifyContent: 'center', alignItems: 'center' }}
         >
-          <Grid xs={5.5}>
-            <Typography
-              level='h4'
-              sx={{ textAlign: 'center' }}
-            >
+          <Grid xs={6}>
+            <Typography sx={{ fontSize: 24, textAlign: 'center' }}>
               Any leaks found around toilets, urinals, or faucets?
             </Typography>
           </Grid>
@@ -157,6 +151,8 @@ export default function Q3() {
             '&:hover': {
               backgroundColor: '#00341a',
             },
+            fontSize: 16,
+            py: 1,
           }}
         >
           Previous
@@ -170,6 +166,8 @@ export default function Q3() {
               '&:hover': {
                 backgroundColor: '#00341a',
               },
+              fontSize: 16,
+              py: 1,
             }}
           >
             Next
@@ -183,6 +181,8 @@ export default function Q3() {
               '&:hover': {
                 backgroundColor: '#00341a',
               },
+              fontSize: 16,
+              py: 1,
             }}
             disabled
           >
