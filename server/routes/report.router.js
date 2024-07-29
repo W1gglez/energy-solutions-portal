@@ -295,7 +295,7 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
        UPDATE "reports"
    SET "approved" = true, "approvedBy" = $1, "approvedAt" = $2
    WHERE "id"=$3;`;
-    pool.query(queryText, [req.user.id, req.body.approvedAt, req.params.id]);
+    pool.query(queryText, [req.user.username, req.body.approvedAt, req.params.id]);
     res.sendStatus(200);
   } catch (error) {
     console.log('error marking report as approved', error);
