@@ -65,7 +65,7 @@ function AdminFacilities() {
             key={facility.id}
             m={2}
             overflow={'hidden'}
-            height={'400px'}
+            maxHeight={'800px'}
           >
             <ReactCardFlip
               isFlipped={editRowId === facility.id}
