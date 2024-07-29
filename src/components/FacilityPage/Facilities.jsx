@@ -58,7 +58,7 @@ function Facilities() {
 			</Box>
 			<Box display='flex' flexWrap='wrap' justifyContent='center'  >
 				{facilities.map((facility) => (
-					<Box key={facility.id} m={2} overflow={'hidden'} height={'400px'}>
+					<Box key={facility.id} m={2} overflow={'auto'} maxHeight={'800px'}>
 						<ReactCardFlip isFlipped={editRowId === facility.id} flipDirection='horizontal'>
 							<Card sx={{ border: 'solid 1px #1F1C4C', width: '250px' }}>
 								<CardContent sx={{ px: 4 }}>
@@ -106,7 +106,7 @@ function Facilities() {
 								</CardActions>
 							</Card>
 
-							<Card>
+							<Card height = '800px' overflow = 'scroll'>
 								<CardContent>
 									<Typography>Edit {facility.name}</Typography>
 									<TextField
@@ -191,15 +191,17 @@ function Facilities() {
 										InputLabelProps={{ shrink: true }}
 										margin='normal'
 									/>
-								</CardContent>
-								<CardActions>
+                  <CardActions>
 									<Button onClick={handleSaveClick}>
 										<i className='bi bi-floppy' style={{ fontSize: '4vh' }}></i>
 									</Button>
 									<Button color='success' onClick={handleCancelClick}>
 										<i className='bi bi-x-circle' style={{ fontSize: '4vh' }}></i>
 									</Button>
-								</CardActions>
+                  </CardActions>
+								</CardContent>
+								
+								
 							</Card>
 						</ReactCardFlip>
 					</Box>
